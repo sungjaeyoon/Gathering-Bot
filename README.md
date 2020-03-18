@@ -70,9 +70,11 @@ N. (취합 담당자) 취합된 엑셀을 확인
  - 요구사항 반영
 
 ### * 개발 환경
- - DB:MySQL, MongoDB(비정형 폼 전용, 추후 설정)
- - Back-end : Spring Boot, Hiberbate(JPA), JUnit
+ - DB:MySQL(v?), MongoDB(비정형 폼 전용, v 2.0 부터 설정)
+ - Language: Java8, TypeScript
+ - Back-end : Spring Boot(v?), Hiberbate(JPA), JUnit4, Gradle(v?)
  - Front-end : Vue.js, React.js 택1
+ - Tool: Intelij(back), VScode(front)
  - CI/CD : Jenkins, Docker, Kubernetis
 
 ### * 아키텍처 설계

@@ -93,8 +93,11 @@ N. (취합 담당자) 취합된 엑셀을 확인
 ---
 
 ### Copyright / End User License
-
+ created by sungjaeyoon  
+ 
 ### Contact Information
+
+ sungjae.yoon@kt.com  
 
 ### Known Issues
 

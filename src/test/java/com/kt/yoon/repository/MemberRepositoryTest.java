@@ -15,18 +15,4 @@ import static org.junit.jupiter.api.Assertions.*;
 @Rollback
 class MemberRepositoryTest {
 
-    @Autowired
-    private EntityManager entityManager;
-
-    @Test
-    @Transactional
-    public void memberTest(){
-        Member member1 = new Member();
-        member1.setMemberName("A");
-        Member member2 = new Member();
-        member2.setMemberName("B");
-
-        entityManager.persist(member1);
-        entityManager.persist(member2);
-    }
 }

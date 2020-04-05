@@ -19,5 +19,10 @@ public class MemberController {
         memberService.save(member1);
         return "index";
     }
+    
+    @GetMapping("/list")
+    public String memberList(){
+        return "list";
+    }
 
 }

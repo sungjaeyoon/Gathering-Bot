@@ -5,6 +5,13 @@ spring:
     username: root
     password: 1234
 
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    check-template: true
+
+
+
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     open-in-view: false

@@ -24,6 +24,7 @@ public class Member {
     private String hashCode;
 
     //== 생성 메소드==//
+    public Member(){}
     public Member(String name,String position, String email, String teamName, String hashCode) {
         this.memberName=name;
         this.position=position;

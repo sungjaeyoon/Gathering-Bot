@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,5 +18,9 @@ public class MemberService {
     @Transactional
     public void save(Member member){
         memberRepository.save(member);
+    }
+
+    public List<Member> findMembers(){
+        return memberRepository.findMembers();
     }
 }

@@ -23,6 +23,9 @@ public class MemberRepository {
         return entityManager.find(Member.class,id);
     }
 
+    public List<Member> findMembers(){
+        return entityManager.createQuery("select m from Member m",Member.class).getResultList();
+    }
 
 
 }

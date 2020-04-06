@@ -15,4 +15,5 @@ public class MainController {
         model.addAttribute("name","yoon");
         return "main";
     }
+
 }

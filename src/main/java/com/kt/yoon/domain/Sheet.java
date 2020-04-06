@@ -36,4 +36,10 @@ public class Sheet {
     @Enumerated(value = EnumType.STRING)
     private SheetType sheetType;
 
+    //== 생성 메소드==//
+    public Sheet(){}
+    public Sheet(String sheetTitle, List<Member> memberList){
+
+    }
+
 }

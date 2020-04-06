@@ -19,14 +19,10 @@ public class MemberController {
     public String addMember(){
         Member member1 = Member.createMember("윤성재","사원","sungjae.yoon@kt.com","인증플랫폼","");
         memberService.save(member1);
-        int list[] = new int[10];
-        return "index";
+        int[] list = new int[10];
+        return "main";
     }
-    
-    @GetMapping("/list")
-    public String memberList(){
-        return "list";
-    }
+
 
     @GetMapping("/list")
     public String memberList(){

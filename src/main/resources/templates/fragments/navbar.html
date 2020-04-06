@@ -26,7 +26,8 @@
         <div class="navbar-collapse collapse w-100 order-3 dual-collapse2 ">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="#" data-toggle="modal"
+                       data-target="#exampleModal">
                         <svg class="bi bi-plus-square" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"
@@ -39,9 +40,14 @@
                                   clip-rule="evenodd"/>
                         </svg>
                     </a>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div th:replace="fragments/add-modal::add-modal"></div>
+                    </div>
                 </li>
                 <li class="nav-item ml-2">
-                    <a class="nav-link" href="/search">
+                    <a class="nav-link" href="/result">
                         <svg class="bi bi-search" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd"

@@ -25,7 +25,7 @@ public class MemberSheet {
 
     private LocalDateTime requestDate;
 
-    private LocalDateTime modifyedDate;
+    private LocalDateTime modifiedDate;
 
     @Enumerated(value = EnumType.STRING)
     private RequestStatus sheetStatus;

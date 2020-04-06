@@ -3,15 +3,57 @@
 
 <head th:replace="fragments/header::header">
     <title>Gathering-bot</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 
 <body>
 <head th:replace="fragments/navbar::navbar">
 
-    <div class="container">
-        add table
+    <div class="mx-5 px-5">
+        <div class="row mx-5">
+            <!--left-->
+            <div class="col-7">
+                <div class="mt-5 mb-2 text-primary">
+                    <h3>1. 취합 제목(메일 제목)</h3>
+                </div>
+                <div class="col-9">
+                    <div class="input-group input-group-lg">
+                        <input type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-lg" placeholder="ex) 주간보고 회신 요청드립니다.">
+                    </div>
+                </div>
+
+
+                <div class="mt-4 mb-2 text-primary">
+                    <h3>2. 취합 내용(메일 내용)</h3>
+                </div>
+                <div class="col-9">
+                    <div class="input-group input-group-lg">
+                <textarea class="form-control" aria-label="With textarea"
+                          placeholder="ex) 안녕하세요. 인증플랫폼팀 OOO 입니다. OOO 취합 부탁 드립니다."></textarea>
+                    </div>
+                </div>
+
+                <div class="mt-4 mb-2 text-primary">
+                    <h3>3. 취합 테이블(취합 내용)</h3>
+                </div>
+
+            </div>
+            <!--left-->
+
+            <!--right-->
+            <div class="col-5">
+                <div class="mt-5 mb-3 ">
+                    <h2>메일 Preview</h2>
+                </div>
+                <div class="input-group input-group-lg">
+                <textarea class="form-control" aria-label="With textarea"
+                          placeholder="ex) 안녕하세요. 인증플랫폼팀 OOO 입니다. OOO 취합 부탁 드립니다."></textarea>
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <head th:replace="fragments/script::script">
 </body>

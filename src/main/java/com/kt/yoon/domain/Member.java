@@ -21,7 +21,7 @@ public class Member {
 
     private String teamName;
 
-    private String hashCode;
+    private String hashCode; //password
 
     //== 생성 메소드==//
     public Member(){}

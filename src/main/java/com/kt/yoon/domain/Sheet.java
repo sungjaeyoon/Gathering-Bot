@@ -20,9 +20,24 @@ public class Sheet {
     private List<MemberSheet> memberSheetList = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
-    private SheetOXPom sheetOXPom;
+    @JoinColumn(name = "member_id")
+    private Member createMemberId;
 
     private String sheetTitle;
+
+    private String sheetContent;
+
+    private String tableContent;
+
+    private String response1;
+
+    private String response2;
+
+    private String response3;
+
+    private int colNum;
+
+    private int rowNum;
 
     private LocalDateTime createdDate;
 

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header::header">
+    <title>Gathering-bot</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<head th:replace="fragments/navbar::navbar">
+
+<div class="container">
+    <div class="row">
+        <div class="col m-5 p-5">
+            <div id="main-text">
+                Gathering-Bot
+            </div>
+            <div class="mt-5 pt-3 sub-text">
+                Automate Your team answer.
+                Gathering-Bot will save your time.
+                Add answer & show result!
+            </div>
+            <div class="mt-5 pt-3">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-primary btn-lg m-2" data-toggle="modal"
+                        data-target="#exampleModal">Create New Form
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">폼 형식을 선택하세요!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <!--modal body-->
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="card m-2" style="width: 18rem;">
+                                        <div class="m-2">
+                                            <img src="images/ok.png" class="card-img-top" alt="...">
+                                        </div>
+                                        <div class="card-body m-2">
+                                            <p class="card-text">단순하게 O / X 로 응답할 수 있는 형식입니다.</p>
+                                            <button type="button" class="btn btn-primary btn-lg m-2">O/X Form</button>
+                                        </div>
+                                    </div>
+                                    <div class="card m-2" style="width: 18rem;">
+                                        <div class="m-2">
+                                            <img src="images/spreadsheet.png" class="card-img-top" alt="...">
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-text">직접 엑셀 테이블을 만들고 여러 응답을 선택할 수 있는 형식입니다.</p>
+                                            <button type="button" class="btn btn-primary btn-lg m-2">Table Form</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Result-->
+                <button type="button" class="btn btn btn-outline-success btn-lg m-2">Show Result</button>
+            </div>
+        </div>
+        <div class="col m-5 p-5">
+            <img src="images/robot.png" class="img-fluid" alt="Responsive image">
+        </div>
+    </div>
+</div>
+
+    <head th:replace="fragments/script::script">
+
+</body>
+
+</html>

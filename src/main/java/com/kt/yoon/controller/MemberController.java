@@ -22,6 +22,11 @@ public class MemberController {
         int list[] = new int[10];
         return "index";
     }
+    
+    @GetMapping("/list")
+    public String memberList(){
+        return "list";
+    }
 
     @GetMapping("/list")
     public String memberList(){

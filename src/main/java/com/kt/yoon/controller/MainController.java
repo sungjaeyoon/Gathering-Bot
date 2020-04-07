@@ -13,7 +13,7 @@ public class MainController {
     public String mainPage(Model model){
         log.info("home controller");
         model.addAttribute("name","yoon");
-        return "main";
+        return "index";
     }
 
 }

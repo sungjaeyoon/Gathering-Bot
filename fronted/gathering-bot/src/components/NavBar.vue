@@ -1,0 +1,93 @@
+<template>
+  <div>
+    <!--navbar-->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <!--home icon-->
+            <a class="navbar-brand" href="/">
+              <svg class="bi bi-house" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M2 13.5V7h1v6.5a.5.5 0 00.5.5h9a.5.5 0 00.5-.5V7h1v6.5a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 012 13.5zm11-11V6l-2-2V2.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5z"
+                      clip-rule="evenodd"/>
+                <path fill-rule="evenodd"
+                      d="M7.293 1.5a1 1 0 011.414 0l6.647 6.646a.5.5 0 01-.708.708L8 2.207 1.354 8.854a.5.5 0 11-.708-.708L7.293 1.5z"
+                      clip-rule="evenodd"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!--title-->
+
+      <!--right-->
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2 ">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-toggle="modal"
+               data-target="#exampleModal">
+              <svg class="bi bi-plus-square" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z"
+                      clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z"
+                      clip-rule="evenodd"/>
+                <path fill-rule="evenodd"
+                      d="M14 1H2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V2a1 1 0 00-1-1zM2 0a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V2a2 2 0 00-2-2H2z"
+                      clip-rule="evenodd"/>
+              </svg>
+            </a>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+              <AddModal/>
+            </div>
+          </li>
+          <li class="nav-item ml-2">
+            <a class="nav-link" href="/result">
+              <svg class="bi bi-search" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z"
+                      clip-rule="evenodd"/>
+                <path fill-rule="evenodd"
+                      d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"
+                      clip-rule="evenodd"/>
+              </svg>
+            </a>
+          </li>
+          <li class="nav-item ml-2">
+            <a class="nav-link" href="/user">
+              <svg class="bi bi-people-circle" width="2em" height="2em" viewBox="0 0 16 16"
+                   fill="currentColor"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 008 15a6.987 6.987 0 005.468-2.63z"/>
+                <path fill-rule="evenodd" d="M8 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+                <path fill-rule="evenodd" d="M8 1a7 7 0 100 14A7 7 0 008 1zM0 8a8 8 0 1116 0A8 8 0 010 8z"
+                      clip-rule="evenodd"/>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</template>
+
+<script>
+import AddModal from './AddModal'
+export default {
+  name: 'NavBar',
+  components: {
+    'AddModal': AddModal
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

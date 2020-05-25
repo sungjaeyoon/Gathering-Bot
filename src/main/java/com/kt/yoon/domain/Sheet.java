@@ -12,32 +12,25 @@ import java.util.List;
 @Getter
 public class Sheet {
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "sheet_id")
     private Long id;
 
-    @OneToMany(mappedBy = "sheetId")
+    @OneToMany(mappedBy = "sheet")
     private List<MemberSheet> memberSheetList = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member createMemberId;
+    private Member createdMember;
 
-    private String sheetTitle;
+    private String title;
 
-    private String sheetContent;
+    private String content;
 
-    private String tableContent;
-
-    private String response1;
-
-    private String response2;
-
-    private String response3;
+    private String question;
 
     private int colNum;
-
-    private int rowNum;
 
     private LocalDateTime createdDate;
 
@@ -52,9 +45,24 @@ public class Sheet {
     private SheetType sheetType;
 
     //== 생성 메소드==//
-    public Sheet(){}
-    public Sheet(String sheetTitle, List<Member> memberList){
+    public Sheet() {
+    }
+
+    public Sheet(Member createdMember, String title, String sheetContent, String tableContent, int colNum, LocalDateTime finishedDate, LocalDateTime repeatDate, List<Member> memberList) {
+        this.createdMember = createdMember;
+        this.title = title;
+        this.content = sheetContent;
+        this.question = tableContent;
+        this.colNum = colNum;
+        this.finishedDate = finishedDate;
+        this.repeatDate = repeatDate;
+
+        for (Member m : memberList) {
+            memberSheetList.add(new MemberSheet(m, this));
+        }
+        createdDate = LocalDateTime.now();
 
     }
+
 
 }

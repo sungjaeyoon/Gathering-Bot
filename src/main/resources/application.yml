@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/userDB?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: q1w2e3r4!
+    password: 1234
   thymeleaf:
     prefix: classpath:/static/
     suffix: .html
@@ -17,7 +17,7 @@ spring:
     show-sql: true
     hibernate:
       format_sql: true
-      ddl-auto: update
+      ddl-auto: create-drop
 
 logging:
   level:

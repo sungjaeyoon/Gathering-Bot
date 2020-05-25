@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import AddModal from './AddModal'
+import AddModal from './AddTableModal'
 export default {
   name: 'MainPage',
   components: {
-    'AddModal': AddModal
+    AddModal
   }
 }
 </script>

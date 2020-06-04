@@ -51,7 +51,6 @@ public class Sheet {
     public Sheet() {
     }
 
-
     public Sheet(Member createdMember, String title, String content, String question, int colNum, LocalDateTime finishedDate, LocalDateTime repeatDate, List<Member> memberList) {
         this.createdMember = createdMember;
         this.title = title;

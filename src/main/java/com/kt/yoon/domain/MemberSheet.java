@@ -33,14 +33,17 @@ public class MemberSheet {
     private RequestStatus requestStatus;
 
     //==생성 메소드==//
-
     public MemberSheet() {
     }
 
-    public MemberSheet(Member memberId, Sheet sheet) {
-        this.member = memberId;
-        this.sheet = sheet;
-        this.requestStatus = RequestStatus.NO;
+    public MemberSheet(Member member, Sheet sheet){
+        this.member=member;
+        this.sheet=sheet;
+        this.requestStatus=RequestStatus.NO;
+    }
+
+    public static MemberSheet createMemberSheet(Member member, Sheet sheet){
+        return new MemberSheet(member,sheet);
     }
 
     /*

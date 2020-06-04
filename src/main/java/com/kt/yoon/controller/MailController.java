@@ -1,6 +1,5 @@
 package com.kt.yoon.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,7 +9,6 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 @Controller
-@Slf4j
 public class MailController {
 
     final String username = "gathering-bot@outlook.kr";
@@ -55,7 +53,7 @@ public class MailController {
                 Transport.send(message);
             }
 
-            log.info("msg send success");
+            System.out.println("success");
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);

@@ -15,12 +15,42 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
+
+    /**
+     * 멤버 가입 -> validate
+     * */
     @Transactional
-    public void save(Member member){
+    public Long save(Member member) {
+        validateDuplicateMember(member);
         memberRepository.save(member);
+        return member.getId();
     }
 
-    public List<Member> findMembers(){
+    /**
+     * 전체 멤버 조회
+     * */
+    public List<Member> findMembers() {
         return memberRepository.findMembers();
+    }
+
+    /**
+     * 이메일로 검색
+     * */
+    public Member findMemberByEmail(String email) {
+        List<Member> findMembers = memberRepository.findByEmail(email);
+        if (findMembers.isEmpty()) {
+            throw new IllegalStateException("존재하지 않는 이메일입니다.");
+        }
+        return memberRepository.findByEmail(email).get(0);
+    }
+
+    /**
+     * 가입시 중복 유저 확인
+     * */
+    private void validateDuplicateMember(Member member) {
+        List<Member> findMembers = memberRepository.findByEmail(member.getEmail());
+        if (!findMembers.isEmpty()) {
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.kt.yoon.domain;
 
+import com.kt.yoon.domain.form.MemberForm;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,19 +27,21 @@ public class Member {
 
 
     //== 생성 메소드==//
+
+
     public Member() {
     }
 
-    public Member(String name, String position, String email, String teamName, String password) {
-        this.memberName = name;
-        this.position = position;
+    public Member(String memberName, String email, String password, String position, String teamName) {
+        this.memberName = memberName;
         this.email = email;
+        this.password = password;
+        this.position = position;
         this.teamName = teamName;
-        this.password=password;
     }
 
-    public static Member createMember(String name, String position, String email, String teamName, String password) {
-        return new Member(name, position, email, teamName, password);
+    public static Member createMember(MemberForm memberForm) {
+        return new Member(memberForm.getName(), memberForm.getEmail(), memberForm.getPassword(), memberForm.getPosition(), memberForm.getTeamName());
     }
 
 }

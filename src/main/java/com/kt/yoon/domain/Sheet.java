@@ -1,6 +1,9 @@
 package com.kt.yoon.domain;
 
 
+import com.kt.yoon.domain.form.SheetForm;
+import com.kt.yoon.domain.type.SheetStatus;
+import com.kt.yoon.domain.type.SheetType;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -48,11 +51,12 @@ public class Sheet {
     public Sheet() {
     }
 
-    public Sheet(Member createdMember, String title, String sheetContent, String tableContent, int colNum, LocalDateTime finishedDate, LocalDateTime repeatDate, List<Member> memberList) {
+
+    public Sheet(Member createdMember, String title, String content, String question, int colNum, LocalDateTime finishedDate, LocalDateTime repeatDate, List<Member> memberList) {
         this.createdMember = createdMember;
         this.title = title;
-        this.content = sheetContent;
-        this.question = tableContent;
+        this.content = content;
+        this.question = question;
         this.colNum = colNum;
         this.finishedDate = finishedDate;
         this.repeatDate = repeatDate;
@@ -62,7 +66,12 @@ public class Sheet {
         }
         createdDate = LocalDateTime.now();
 
+        sheetStatus = SheetStatus.PROCEEDING;
+        sheetType = SheetType.TABLE;
     }
 
+    public static Sheet createSheet(Member createdMember, SheetForm sheetForm, List<Member> memberList) {
+        return new Sheet(createdMember, sheetForm.getTitle(), sheetForm.getContent(), sheetForm.getQuestion(), Integer.parseInt(sheetForm.getColNum()), LocalDateTime.now(), null, memberList);
+    }
 
 }

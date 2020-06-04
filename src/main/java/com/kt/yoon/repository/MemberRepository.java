@@ -13,18 +13,25 @@ import java.util.List;
 @Transactional
 public class MemberRepository {
 
-   private final EntityManager entityManager;
+    private final EntityManager entityManager;
 
-    public void save(Member member){
+    public void save(Member member) {
         entityManager.persist(member);
     }
 
-    public Member findOne(Long id){
-        return entityManager.find(Member.class,id);
+    public Member findById(Long id) {
+        return entityManager.find(Member.class, id);
     }
 
-    public List<Member> findMembers(){
-        return entityManager.createQuery("select m from Member m",Member.class).getResultList();
+    public List<Member> findByEmail(String email) {
+        return entityManager.createQuery("select m from  Member m where m.email=:email", Member.class)
+                .setParameter("email", email)
+                .getResultList();
+    }
+
+
+    public List<Member> findMembers() {
+        return entityManager.createQuery("select m from Member m", Member.class).getResultList();
     }
 
 

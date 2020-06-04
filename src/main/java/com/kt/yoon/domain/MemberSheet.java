@@ -1,5 +1,6 @@
 package com.kt.yoon.domain;
 
+import com.kt.yoon.domain.type.RequestStatus;
 import lombok.Getter;
 
 import javax.persistence.*;

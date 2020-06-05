@@ -38,7 +38,7 @@ public class MailService {
         * */
         try {
 
-            String[] sendUserEmails ={"dbstjdwo1000@naver.com","sungjae.yoon@kt.com"};
+            String[] sendUserEmails ={"dbstjdwo1000@naver.com","forhigh@kt.com"};
             String mailTitle="[취합]-주간 보고 회신 부탁드립니다.";
             String htmlText = "<H1>Hello</H1> " +
                     "<form action=\"/lol\" method=\"post\">\n" +

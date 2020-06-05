@@ -14,12 +14,14 @@ public class MailController {
 
     @RequestMapping("/send")
     @ResponseBody
-    public String sendMail(){
+    public String sendMailTest(){
         mailService.sendMail();
         return "send";
     }
 
     //todo 한명에게 메일 보내기 ; sheetId,userMail
+
+
 
     //todo 전체에게 메일 보내기 ; sheetId
 

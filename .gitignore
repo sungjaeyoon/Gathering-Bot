@@ -32,3 +32,6 @@ out/
 .vscode/
 
 fronted/**
+
+front/gathering-bot/node_modules/**
+

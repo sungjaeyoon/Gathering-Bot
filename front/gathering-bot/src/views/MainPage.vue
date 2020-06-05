@@ -22,10 +22,10 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-6">
-						a
+						<div class="card"></div>
 					</div>
 					<div class="col-6">
-						a
+						<div class="card"></div>
 					</div>
 				</div>
 			</div>
@@ -57,5 +57,11 @@ img {
 	background-color: #7d2ae8;
 	width: 100%;
 	height: 260px;
+}
+
+.card {
+	margin: 5%;
+	height: 240px;
+	background-color: white;
 }
 </style>

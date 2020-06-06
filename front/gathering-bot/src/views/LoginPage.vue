@@ -1,13 +1,16 @@
 <template>
 	<div class="container">
+		<div class="row" style="margin: auto;text-align: center">
+			<div class="col"></div>
+			<div class="col center">
+				<h1 class="page-header" style="text-align: center">로그인</h1>
+			</div>
+			<div class="col"></div>
+		</div>
 		<div class="row" style="height: 600px">
 			<div class="col"></div>
 			<div class="col center">
-				<div class="login-form">
-					<form action="/login">
-						d
-					</form>
-				</div>
+				<LoginForm></LoginForm>
 			</div>
 			<div class="col"></div>
 		</div>
@@ -15,8 +18,12 @@
 </template>
 
 <script>
+import LoginForm from '@/components/LoginForm.vue';
 export default {
 	name: 'LoginPage',
+	components: {
+		LoginForm,
+	},
 };
 </script>
 

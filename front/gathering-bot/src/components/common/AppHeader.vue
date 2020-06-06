@@ -2,16 +2,16 @@
 	<div class="container">
 		<div class="row no-gutters">
 			<div class="col-sm-6 col-md-8">
-				<span class="dot">
-					<router-link to="/" style="color: white; text-decoration: none">G</router-link>
-				</span>
+				<router-link to="/" style="color: white; text-decoration: none">
+					<img src="@/assets/logo.png" style="width: 15%" alt="" />
+				</router-link>
 			</div>
 			<div class="col-6 col-md-4 left-bar">
 				<span class="login">
-					<router-link to="/login" style="color: gray; text-decoration: none">Login</router-link>
+					<router-link to="/login" style="color: gray; text-decoration: none">로그인</router-link>
 				</span>
 				<span class="signUp">
-					<router-link to="/signup" style="color: black; text-decoration: none">Sign Up</router-link>
+					<router-link to="/signup" style="color: black; text-decoration: none">회원가입</router-link>
 				</span>
 			</div>
 		</div>
@@ -29,18 +29,6 @@ export default {
 <style scoped>
 .row {
 	margin-top: 3%;
-}
-.dot {
-	height: 90px;
-	width: 90px;
-	background-color: #00c4cc;
-	color: white;
-	border-radius: 50%;
-	display: inline-block;
-	font-size: 60px;
-	font-weight: bold;
-	text-align: center;
-	cursor: pointer;
 }
 
 .left-bar {

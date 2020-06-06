@@ -8,19 +8,19 @@ export default new VueRouter({
 	routes: [
 		{
 			path: '/',
-			component: () => import('../views/MainPage.vue'),
+			component: () => import('@/views/MainPage.vue'),
 		},
 		{
 			path: '/login',
-			component: () => import('../views/LoginPage.vue'),
+			component: () => import('@/views/LoginPage.vue'),
 		},
 		{
 			path: '/signup',
-			component: () => import('../views/SignUpPage.vue'),
+			component: () => import('@/views/SignUpPage.vue'),
 		},
 		{
 			path: '*',
-			component: () => import('../views/NotFoundPage.vue'),
+			component: () => import('@/views/NotFoundPage.vue'),
 		},
 	],
 });

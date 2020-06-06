@@ -67,7 +67,7 @@ export default {};
 
 <style>
 .jumbotron {
-	background-color: white;
+	background: #f7f6f9;
 }
 .display-4 {
 	text-align: center;

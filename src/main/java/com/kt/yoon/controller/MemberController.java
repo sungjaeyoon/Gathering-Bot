@@ -24,6 +24,7 @@ import java.util.Map;
 @Api(tags = {"1.User"})
 @Controller
 @RequiredArgsConstructor
+@CrossOrigin
 public class MemberController {
 
     private final MemberService memberService;

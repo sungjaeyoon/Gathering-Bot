@@ -14,7 +14,7 @@
           <div class="container">
             <div class="card ml-2" style="width: 18rem;">
               <div class="m-2">
-                <img src="../assets/ok.png" class="card-img-top" alt="...">
+                <img src="../../../../front/gathering-bot/src/assets/ok.png" class="card-img-top" alt="...">
               </div>
               <div class="card-body m-2">
                 <p class="card-text">단순하게 O / X 로 응답할 수 있는 형식입니다.</p>
@@ -25,7 +25,7 @@
             </div>
             <div class="card mr-2" style="width: 18rem;">
               <div class="m-2">
-                <img src="../assets/spreadsheet.png" class="card-img-top" alt="...">
+                <img src="../../../../front/gathering-bot/src/assets/spreadsheet.png" class="card-img-top" alt="...">
               </div>
               <div class="card-body">
                 <p class="card-text">직접 엑셀 테이블을 만들고 많은 응답을 처리 할 수 있는 형식입니다.</p>

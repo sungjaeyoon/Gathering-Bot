@@ -7,9 +7,11 @@
 						<h1 class="display-4">Gathering-Bot</h1>
 						<hr class="my-4" />
 						<div class="sub-text">
-							<p>Automate Your team answer.</p>
-							<p>Gathering-Bot will save your time.</p>
-							<p>Add answer & Show result!</p>
+							<p>Automate responses with bot!</p>
+							<p>Send Email with request</p>
+							<p>gather response Automate</p>
+							<p>It will save your time.</p>
+							<p>Add Sheet & Show result!</p>
 						</div>
 					</div>
 				</div>
@@ -22,10 +24,36 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-6">
-						<div class="card"></div>
+						<div class="card text-center">
+							<div class="row" style="height: 100%">
+								<div class="col-6">
+									<h1 style="font-weight: bold" class="mt-5">O/X</h1>
+									<h4 style="font-weight: bold; width: 150%" class="mt-5">Simple O/X response Sheet</h4>
+								</div>
+								<div class="col-6">
+									<img src="../assets/ok.png" alt="" class="m-3" />
+								</div>
+							</div>
+							<span class="try-button">
+								<router-link to="/" style="color: white; text-decoration: none">Try it!</router-link>
+							</span>
+						</div>
 					</div>
 					<div class="col-6">
-						<div class="card"></div>
+						<div class="card text-center">
+							<div class="row" style="height: 100%">
+								<div class="col-6">
+									<h1 style="font-weight: bold" class="mt-5">Table</h1>
+									<h4 style="font-weight: bold; width: 120%" class="mt-5">Table response Sheet</h4>
+								</div>
+								<div class="col-6">
+									<img src="../assets/spreadsheet.png" alt="" class="m-3" />
+								</div>
+							</div>
+							<span class="try-button">
+								<router-link to="/" style="color: white; text-decoration: none">Try it!</router-link>
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -51,17 +79,33 @@ export default {};
 	font-size: 30px;
 }
 img {
-	width: 75%;
+	width: 90%;
 }
 .main-bottom {
 	background-color: #7d2ae8;
 	width: 100%;
-	height: 260px;
+	height: 400px;
 }
 
 .card {
 	margin: 5%;
-	height: 240px;
+	height: 90%;
 	background-color: white;
+}
+
+.try-button {
+	display: table-cell;
+	vertical-align: middle;
+	background-color: #00c4cc;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 2%;
+	text-align: center;
+	width: 33%;
+	height: 15%;
+	font-size: 25px;
+	font-weight: bold;
+	border-radius: 0.5em;
+	cursor: pointer;
 }
 </style>

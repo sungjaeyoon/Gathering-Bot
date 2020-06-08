@@ -79,8 +79,6 @@ N. (취합 담당자) 취합된 엑셀을 확인
 ### * 아키텍처 설계
 
 ### * 데이터베이스 설계
-![erd](https://user-images.githubusercontent.com/61338764/77032397-9cf6c000-69e7-11ea-9b8e-8cde6262b9e7.png)
-
 
 ### * 릴리즈 내용
  - v 1.0 : O/X 응답

@@ -1,5 +1,5 @@
 <template>
-	<div class="container loginForm mx-auto mt-5" style="width: 400px">
+	<div class="container loginForm mx-auto mt-5" style="width: 500px">
 		<form @submit.prevent="login" class="form">
 			<div class="form-group">
 				<label for="email">Email</label>

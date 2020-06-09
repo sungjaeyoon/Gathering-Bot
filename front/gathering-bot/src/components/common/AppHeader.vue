@@ -13,6 +13,9 @@
 				<span class="signUp">
 					<router-link to="/signup" style="color: black; text-decoration: none">회원가입</router-link>
 				</span>
+				<span class="signUp">
+					<router-link to="/sheet/new" style="color: black; text-decoration: none">test</router-link>
+				</span>
 			</div>
 		</div>
 	</div>

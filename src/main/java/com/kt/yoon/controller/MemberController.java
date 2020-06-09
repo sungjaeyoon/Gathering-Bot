@@ -35,12 +35,13 @@ public class MemberController {
     @ApiOperation(value = "회원 등록", notes = "회원을 추가한다.")
     @PostMapping("/signup")
     @ResponseBody
-    public void addMember(@Valid @RequestBody MemberForm memberForm, BindingResult bindingResult) throws BindException {
+    public String addMember(@Valid @RequestBody MemberForm memberForm, BindingResult bindingResult) throws BindException {
         if (bindingResult.hasErrors()) {
             throw new BindException(bindingResult);
         }
         memberForm.setPassword(passwordEncoder.encode(memberForm.getPassword()));
         memberService.save(Member.createMember(memberForm));
+        return "success";
     }
 
     @ApiOperation(value = "로그인", notes = "로그인 API")
@@ -72,8 +73,22 @@ public class MemberController {
             map.put("teamName", member.getTeamName());
             memberListMap.add(map);
         }
-
         return memberListMap;
     }
+
+
+    @ApiOperation(value = "email 중복 체크", notes = "이메일을 중복체크한다.")
+    @GetMapping(value = "/check/{email}")
+    @ResponseBody
+    public boolean checkDuplicateEmail(@PathVariable String email) {
+        System.out.println(email);
+        try{
+            memberService.findMemberByEmail(email);
+            return false;
+        }catch (IllegalStateException e){
+            return true;
+        }
+    }
+
 
 }

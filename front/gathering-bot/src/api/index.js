@@ -16,4 +16,8 @@ function checkDuplicateEmail(email) {
 	return instance.get('/check/' + email);
 }
 
-export { registerUser, loginUser, checkDuplicateEmail };
+function getUserList() {
+	return instance.get('/users');
+}
+
+export { registerUser, loginUser, checkDuplicateEmail, getUserList };

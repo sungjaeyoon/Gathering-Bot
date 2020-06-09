@@ -63,10 +63,9 @@ public class MemberController {
         List<Member> memberList = memberService.findMembers();
 
         List<HashMap<String, Object>> memberListMap = new ArrayList<>();
-        int index = 1;
         for (Member member : memberList) {
             HashMap<String, Object> map = new HashMap<>();
-            map.put("index", index++);
+            map.put("id", member.getId());
             map.put("name", member.getMemberName());
             map.put("email", member.getEmail());
             map.put("position", member.getPosition());

@@ -1,7 +1,9 @@
 <template>
 	<div class="row mt-5">
+		<!--시트 작성-->
 		<div class="left-content" v-bind:class="[{ 'col-8': !previewFlag }, { 'col-12': previewFlag }]">
 			<h1 class="mail-preview-text mb-4">새로운 시트</h1>
+			<!--오른쪽 버튼-->
 			<span v-if="previewFlag">
 				<button v-on:click="changePreview" class="float-right my-3 btn btn-lg btn-warning">Open Preview</button>
 			</span>
@@ -11,6 +13,8 @@
 			<span>
 				<button v-on:click="saveSheet" class="float-right my-3 mx-3 btn btn-lg save-button">저장하기</button>
 			</span>
+			<!--오른쪽 버튼-->
+			<!--폼 내용-->
 			<div class="form mx-5">
 				<div class="input-group input-group-lg">
 					<div class="input-group-prepend">
@@ -30,13 +34,65 @@
 				</div>
 				<div class="input-group mt-3">
 					<div class="input-group-prepend">
-						<button class="btn btn-outline-secondary" type="button" id="button-addon1">수신자 지정</button>
+						<button class="btn btn-outline-secondary" type="button" v-on:click="getUsers" id="button-addon1" data-toggle="modal" data-target="#personListModal">수신자 지정</button>
 					</div>
-					<input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+					<input type="text" disabled class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" v-bind:value="userNameList()" />
 				</div>
 			</div>
-			<!--테이블-->
+			<!--폼 내용-->
 
+			<!--Modal-->
+			<div class="modal fade" id="personListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">수신자 지정</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true"></span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th scope="col">Check</th>
+										<th scope="col">이름</th>
+										<th scope="col">직책</th>
+										<th scope="col">이메일</th>
+										<th scope="col">팀 이름</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="(user, index) in userList" :key="index">
+										<td>
+											<input type="checkbox" v-bind:value="user" v-model="selectedPersonList" />
+										</td>
+										<td>
+											<label>{{ user.name }}</label>
+										</td>
+										<td>
+											<label>{{ user.position }}</label>
+										</td>
+										<td>
+											<label>{{ user.email }}</label>
+										</td>
+										<td>
+											<label>{{ user.teamName }}</label>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--Modal-->
+
+			<!--테이블-->
 			<div style="overflow:auto; overflow-y:hidden" class="mt-5">
 				<table class="table mt-2 ">
 					<thead class="thead-dark">
@@ -50,6 +106,7 @@
 									<span v-else class="non-edit-text">
 										{{ tableHeads[index].content }}
 									</span>
+									<!--수정, 삭제 버튼-->
 									<div class="btn-group form-btn-group" role="group">
 										<button class="btn btn-info float-right my-2" v-on:click="editText(index)">E</button>
 										<button class="btn btn-danger float-right my-2" v-on:click="removeColumn(index)">-</button>
@@ -69,15 +126,29 @@
 				</table>
 				<button class="btn btn-success mt-1 float-right" v-on:click="addColumn">항목 추가</button>
 			</div>
+			<!--테이블-->
 		</div>
+		<!--시트 작성-->
+
+		<!--메일 미리보기-->
 		<div class="col-4 right-content" v-bind:class="{ hide: previewFlag }">
 			<h1 class="mail-preview-text mb-4">메일 미리보기</h1>
-			<div class="row">
+			<!--메일 상단-->
+			<div class="row mb-2">
 				<div class="col-3 ">
 					<input type="text" class="form-control" disabled value="받는 사람" style="text-align: center" />
 				</div>
 				<div class="col-9">
-					<p type="text" class="form-control" disabled>{{ personList }}</p>
+					<input
+						type="text"
+						style="background-color: white"
+						disabled
+						class="form-control"
+						placeholder=""
+						aria-label="Example text with button addon"
+						aria-describedby="button-addon1"
+						v-bind:value="userNameList()"
+					/>
 				</div>
 			</div>
 			<div class="row">
@@ -88,6 +159,8 @@
 					<p type="text" class="form-control" disabled>[Gathering-bot] {{ sheetTitle }}</p>
 				</div>
 			</div>
+			<!--메일 상단-->
+			<!--메일 하단-->
 			<div class="row">
 				<div type="text" class="form-control mail-preview-content" disabled style="white-space: pre;">
 					<div class="finished-date-text">Gathering-bot에서 발송한 메일입니다.</div>
@@ -95,6 +168,7 @@
 					<div class="finished-date-text"><br />- 완료 기한 : {{ finishedDate.split('T').join(' : ') }}</div>
 					<div class="row mt-5">
 						<div style="overflow:auto; overflow-y:hidden">
+							<!--테이블-->
 							<table class="table table-bordered">
 								<thead>
 									<tr>
@@ -113,16 +187,20 @@
 									</tr>
 								</tbody>
 							</table>
+							<!--테이블-->
 						</div>
 					</div>
 					<button class="btn btn-outline-secondary float-right mt-4">제출</button>
 				</div>
 			</div>
+			<!--메일 하단-->
 		</div>
 	</div>
 </template>
 
 <script>
+import { getUserList } from '@/api/index';
+
 export default {
 	name: 'InsertSheetPage',
 	data() {
@@ -130,7 +208,8 @@ export default {
 			sheetTitle: '',
 			finishedDate: '',
 			sheetContent: '',
-			personList: '',
+			userList: [], // 전체 유저 목록
+			selectedPersonList: [], // 수신자로 지정된 목록
 			previewFlag: false,
 			tableHeads: [
 				{ content: '분당에 방문한 적이 있나요?', edit: false },
@@ -156,6 +235,23 @@ export default {
 		changePreview() {
 			this.previewFlag = !this.previewFlag;
 		},
+		// 전체 유저 가져오기
+		async getUsers() {
+			const response = await getUserList();
+			if (response.status == 200) {
+				console.log('ddd');
+				this.userList = response.data;
+			}
+		},
+		// 유저 이름(팀이름) 으로 반환
+		userNameList() {
+			const list = [];
+			for (var i = 0; i < this.selectedPersonList.length; i++) {
+				list.push(this.selectedPersonList[i].name + '(' + this.selectedPersonList[i].teamName + ') ');
+			}
+			return list;
+		},
+		//서버에 전송
 		saveSheet() {
 			console.log('save!');
 		},

@@ -7,11 +7,11 @@
 						<h1 class="display-4">Gathering-Bot</h1>
 						<hr class="my-4" />
 						<div class="sub-text">
-							<p>Automate responses with bot!</p>
+							<p></p>
 							<p>Send Email with request</p>
 							<p>gather response Automate</p>
 							<p>It will save your time.</p>
-							<p>Add Sheet & Show result!</p>
+							<p>Add Sheet & Show result</p>
 						</div>
 					</div>
 				</div>

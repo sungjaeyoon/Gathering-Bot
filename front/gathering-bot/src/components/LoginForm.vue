@@ -52,6 +52,9 @@ export default {
 			console.log(response);
 			if (response.status == 500) {
 				alert('로그인 실패');
+			} else if (response.status == 200) {
+				this.$store.commit('setUserdata', response.data);
+				this.$router.push('/');
 			}
 		},
 		checkEmail() {

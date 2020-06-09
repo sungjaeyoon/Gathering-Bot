@@ -47,13 +47,21 @@ public class MemberController {
     @ApiOperation(value = "로그인", notes = "로그인 API")
     @PostMapping("/login")
     @ResponseBody
-    public String login(@RequestBody Map<String, String> user) {
+    public HashMap<String, Object> login(@RequestBody Map<String, String> user) {
         Member member = userRepository.findByEmail(user.get("email"))
                 .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
         if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
-        return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
+
+        HashMap<String, Object> data= new HashMap<>();
+        data.put("id",member.getId());
+        data.put("email",member.getEmail());
+        data.put("username",member.getMemberName());
+        data.put("teamName",member.getTeamName());
+        data.put("position",member.getPosition());
+        data.put("token",jwtTokenProvider.createToken(member.getUsername(), member.getRoles()));
+        return data;
     }
 
     @ApiOperation(value = "회원 목록", notes = "모든 회원을 리스트를 반환 한다.")

@@ -1,7 +1,16 @@
 <template>
 	<div class="row mt-5">
-		<div class="col-8 left-content">
-			<h1 class="mail-preview-text mb-4" style="color: gray">새로운 시트</h1>
+		<div class="left-content" v-bind:class="[{ 'col-8': !previewFlag }, { 'col-12': previewFlag }]">
+			<h1 class="mail-preview-text mb-4">새로운 시트</h1>
+			<span v-if="previewFlag">
+				<button v-on:click="changePreview" class="float-right my-3 btn btn-lg btn-warning">Open Preview</button>
+			</span>
+			<span v-else>
+				<button v-on:click="changePreview" class="float-right my-3 btn btn-lg btn-warning">Close Preview</button>
+			</span>
+			<span>
+				<button v-on:click="saveSheet" class="float-right my-3 mx-3 btn btn-lg save-button">저장하기</button>
+			</span>
 			<div class="form mx-5">
 				<div class="input-group input-group-lg">
 					<div class="input-group-prepend">
@@ -32,18 +41,18 @@
 				<table class="table mt-2 ">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">성함</th>
-							<th v-for="(tableHead, index) in tableHeads" v-bind:key="index" style="border-left: thick solid lightgray">
+							<th scope="col"></th>
+							<th v-for="(tableHead, index) in tableHeads" v-bind:key="index" style="border-left: thick solid lightgray;max-width: 500px;white-space: normal">
 								<div scope="col">
 									<span v-if="tableHead.edit">
 										<input type="text" class="edit-text" v-model="tableHeads[index].content" />
 									</span>
-									<span v-else>
-										<input type="text" :value="tableHead.content" disabled class="non-edit-text" />
+									<span v-else class="non-edit-text">
+										{{ tableHeads[index].content }}
 									</span>
-									<div class="btn-group" role="group">
-										<button style="border: #2c3e50;height: 40px;" class="btn btn-info float-right my-2" v-on:click="editText(index)">E</button>
-										<button style="border: #2c3e50;height: 40px;" class="btn btn-danger float-right my-2" v-on:click="removeColumn(index)">-</button>
+									<div class="btn-group form-btn-group" role="group">
+										<button class="btn btn-info float-right my-2" v-on:click="editText(index)">E</button>
+										<button class="btn btn-danger float-right my-2" v-on:click="removeColumn(index)">-</button>
 									</div>
 								</div>
 							</th>
@@ -53,7 +62,7 @@
 						<tr>
 							<th scope="col">이름</th>
 							<th v-for="tableHead of tableHeads" v-bind:key="tableHead.key" style="border-left: thick solid lightgray">
-								<div scope="col">#</div>
+								<div scope="col">·</div>
 							</th>
 						</tr>
 					</tbody>
@@ -61,10 +70,10 @@
 				<button class="btn btn-success mt-1 float-right" v-on:click="addColumn">항목 추가</button>
 			</div>
 		</div>
-		<div class="col-4 right-content">
-			<h1 class="mail-preview-text mb-4" style="color: gray">메일 미리보기</h1>
+		<div class="col-4 right-content" v-bind:class="{ hide: previewFlag }">
+			<h1 class="mail-preview-text mb-4">메일 미리보기</h1>
 			<div class="row">
-				<div class="col-3">
+				<div class="col-3 ">
 					<input type="text" class="form-control" disabled value="받는 사람" style="text-align: center" />
 				</div>
 				<div class="col-9">
@@ -90,7 +99,7 @@
 								<thead>
 									<tr>
 										<th scope="col"></th>
-										<th v-for="tableHead of tableHeads" v-bind:key="tableHead.key">
+										<th v-for="tableHead of tableHeads" v-bind:key="tableHead.key" style="max-width: 500px;white-space: normal">
 											<div scope="col">{{ tableHead.content }}</div>
 										</th>
 									</tr>
@@ -122,8 +131,9 @@ export default {
 			finishedDate: '',
 			sheetContent: '',
 			personList: '',
+			previewFlag: false,
 			tableHeads: [
-				{ content: '몇살인가요?', edit: false },
+				{ content: '분당에 방문한 적이 있나요?', edit: false },
 				{ content: '주말에 어디가시나요?', edit: false },
 				{ content: '배고프나요?', edit: false },
 			],
@@ -143,6 +153,12 @@ export default {
 		removeColumn(index) {
 			this.tableHeads.splice(index, 1);
 		},
+		changePreview() {
+			this.previewFlag = !this.previewFlag;
+		},
+		saveSheet() {
+			console.log('save!');
+		},
 	},
 };
 </script>
@@ -152,11 +168,21 @@ export default {
 	padding-left: 2%;
 	padding-right: 2%;
 }
+
+.save-button {
+	background-color: #00c4cc;
+	color: white;
+}
 .left-content {
 	border-right: thick solid lightgray;
 }
+
+.mail-preview-text {
+	color: black;
+}
+
 .mail-preview-content {
-	height: 500px;
+	height: 400px;
 }
 .finished-date-text {
 	font-weight: bold;
@@ -177,5 +203,8 @@ export default {
 	text-align: center;
 	background-color: white;
 	color: black;
+}
+.hide {
+	display: none;
 }
 </style>

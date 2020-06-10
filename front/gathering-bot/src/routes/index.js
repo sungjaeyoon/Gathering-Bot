@@ -19,8 +19,16 @@ export default new VueRouter({
 			component: () => import('@/views/SignUpPage.vue'),
 		},
 		{
+			path: '/sheets',
+			component: () => import('@/views/SheetList.vue'),
+		},
+		{
 			path: '/sheet/new',
 			component: () => import('@/views/InsertSheetPage.vue'),
+		},
+		{
+			path: '/sheet/:id',
+			component: () => import('@/views/SheetDetail.vue'),
 		},
 		{
 			path: '*',

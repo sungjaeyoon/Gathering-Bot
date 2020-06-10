@@ -8,7 +8,7 @@
 			</div>
 			<div class="form-group mb-3">
 				<label for="password">Password</label>
-				<input id="password" class="form-control" type="password" v-model="password" />
+				<input id="password" class="form-control" type="text" v-model="password" />
 			</div>
 			<button type="submit" class="btn">
 				로그인

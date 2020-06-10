@@ -21,6 +21,10 @@ public class MemberService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    public Member findById(Long id) {
+        return memberRepository.findById(id);
+    }
+
     public Member login(Map<String, String> user) throws IllegalArgumentException{
 
         Member member = userRepository.findByEmail(user.get("email"))

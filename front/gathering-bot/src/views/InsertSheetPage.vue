@@ -199,7 +199,7 @@
 </template>
 
 <script>
-import { getUserList } from '@/api/index';
+import { getUserList, insertSheet } from '@/api/index';
 
 export default {
 	name: 'InsertSheetPage',
@@ -239,21 +239,66 @@ export default {
 		async getUsers() {
 			const response = await getUserList();
 			if (response.status == 200) {
-				console.log('ddd');
 				this.userList = response.data;
 			}
 		},
 		// 유저 이름(팀이름) 으로 반환
 		userNameList() {
 			const list = [];
-			for (var i = 0; i < this.selectedPersonList.length; i++) {
+			for (let i = 0; i < this.selectedPersonList.length; i++) {
 				list.push(this.selectedPersonList[i].name + '(' + this.selectedPersonList[i].teamName + ') ');
 			}
 			return list;
 		},
+		validateSheet() {
+			if (this.sheetTitle == '') {
+				alert('제목은 필수입니다.');
+				return false;
+			}
+			if (this.finishedDate == '') {
+				alert('완료기한은 필수입니다.');
+				return false;
+			}
+			if (this.sheetContent == '') {
+				alert('내용은 필수입니다.');
+				return false;
+			}
+			if (this.selectedPersonList.length == 0) {
+				alert('수신자는 필수입니다.');
+				return false;
+			}
+			if (this.tableHeads.length == 0) {
+				alert('최소 하나의 응답항목을 작성해주세요.');
+				return false;
+			}
+			return true;
+		},
 		//서버에 전송
-		saveSheet() {
-			console.log('save!');
+		async saveSheet() {
+			if (!this.validateSheet()) {
+				return;
+			}
+
+			const list = [];
+			for (let i = 0; i < this.tableHeads.length; i++) {
+				list.push(this.tableHeads[i].content);
+			}
+
+			const question = list.join('&&&&');
+			const colNum = this.tableHeads.length;
+			const data = {
+				createdMemberId: this.$store.state.id,
+				title: this.sheetTitle,
+				content: this.sheetContent,
+				question: question,
+				colNum: colNum,
+				finishedDate: this.finishedDate,
+				memberList: this.selectedPersonList,
+			};
+
+			const response = await insertSheet(data);
+			console.log('succcess');
+			this.$router.push('/sheets');
 		},
 	},
 };

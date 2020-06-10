@@ -11,8 +11,8 @@ import java.util.List;
 @Setter
 public class SheetForm {
 
-    @NotEmpty(message = "이메일은 필수 입니다.")
-    private String createdMemberEmail;
+    @NotEmpty(message = "로그인은 필수 입니다.")
+    private String createdMemberId;
 
     @NotEmpty(message = "제목은 필수 입니다.")
     private String title;
@@ -23,10 +23,13 @@ public class SheetForm {
     @NotEmpty(message = "응답 항목은 필수 입니다.")
     private String question;
 
-    @NotEmpty(message = "응답 개수는 필수 입니다.")
+    @NotEmpty(message = "응답 개수 오류")
     private String colNum;
 
+    @NotEmpty(message = "완료 기한은 필수입니다.")
+    private String finishedDate;
+
     @NotEmpty(message = "멤버는 필수 입니다.")
-    private List<String> requestEmailList;
+    private List<Member> memberList;
 
 }

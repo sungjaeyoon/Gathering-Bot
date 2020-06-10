@@ -8,7 +8,6 @@ import com.kt.yoon.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
@@ -55,7 +54,7 @@ public class MemberController {
             data.put("state", "success");
             data.put("id", member.getId());
             data.put("email", member.getEmail());
-            data.put("username", member.getMemberName());
+            data.put("username", member.getName());
             data.put("teamName", member.getTeamName());
             data.put("position", member.getPosition());
             data.put("token", jwtTokenProvider.createToken(member.getUsername(), member.getRoles()));
@@ -76,7 +75,7 @@ public class MemberController {
         for (Member member : memberList) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("id", member.getId());
-            map.put("name", member.getMemberName());
+            map.put("name", member.getName());
             map.put("email", member.getEmail());
             map.put("position", member.getPosition());
             map.put("teamName", member.getTeamName());

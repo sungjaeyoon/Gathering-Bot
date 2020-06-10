@@ -4,20 +4,26 @@ const instance = axios.create({
 	baseURL: 'http://localhost:8080',
 });
 
-function registerUser(userData) {
+export function registerUser(userData) {
 	return instance.post('signup', userData);
 }
 
-function loginUser(userData) {
+export function loginUser(userData) {
 	return instance.post('login', userData);
 }
 
-function checkDuplicateEmail(email) {
+export function checkDuplicateEmail(email) {
 	return instance.get('/check/' + email);
 }
 
-function getUserList() {
+export function getUserList() {
 	return instance.get('/users');
 }
 
-export { registerUser, loginUser, checkDuplicateEmail, getUserList };
+export function insertSheet(data) {
+	return instance.post('/sheet/new', data);
+}
+
+export function getSheet(userId) {
+	return instance.get('/sheets/users/' + userId);
+}

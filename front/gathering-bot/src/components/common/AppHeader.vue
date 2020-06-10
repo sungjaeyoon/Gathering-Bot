@@ -22,7 +22,7 @@
 						<router-link to="/sheet/new" class="header-button-text">시트 추가</router-link>
 					</span>
 					<span class="header-button float-right">
-						<router-link to="/sheet/new" class="header-button-text">시트 목록</router-link>
+						<router-link to="/sheets" class="header-button-text">시트 목록</router-link>
 					</span>
 					<span class="header-button float-right">
 						<a href="javascript:;" v-on:click="logoutUser" class="header-button-text">로그아웃</a>

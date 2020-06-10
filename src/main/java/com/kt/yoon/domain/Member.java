@@ -3,7 +3,7 @@ package com.kt.yoon.domain;
 import com.kt.yoon.domain.form.MemberForm;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Getter
+@ToString
 public class Member implements UserDetails {
 
     @Id
@@ -24,7 +25,7 @@ public class Member implements UserDetails {
     private Long id;
 
     @Column(nullable = false, length = 30)
-    private String memberName;
+    private String name;
 
     @Column(nullable = false, unique = true, length = 100)
     private String email;
@@ -78,8 +79,8 @@ public class Member implements UserDetails {
     public Member() {
     }
 
-    public Member(String memberName, String email, String password, String position, String teamName) {
-        this.memberName = memberName;
+    public Member(String name, String email, String password, String position, String teamName) {
+        this.name = name;
         this.email = email;
         this.password = password;
         this.position = position;

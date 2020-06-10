@@ -107,10 +107,23 @@
 										{{ tableHeads[index].content }}
 									</span>
 									<!--수정, 삭제 버튼-->
-									<div class="btn-group form-btn-group" role="group">
+									<div class="ml-3 btn-group form-btn-group" role="group">
 										<button class="btn btn-info float-right my-2" v-on:click="editText(index)">E</button>
 										<button class="btn btn-danger float-right my-2" v-on:click="removeColumn(index)">-</button>
 									</div>
+								</div>
+							</th>
+						</tr>
+						<tr>
+							<th scope="col">예시</th>
+							<th v-for="(tableHead, index) in tableHeads" v-bind:key="index" style="border-left: thick solid lightgray;max-width: 500px;white-space: normal">
+								<div scope="col">
+									<span v-if="tableHead.edit">
+										<input type="text" class="edit-text" v-model="tableHeads[index].example" />
+									</span>
+									<span v-else class="non-edit-text">
+										{{ tableHeads[index].example }}
+									</span>
 								</div>
 							</th>
 						</tr>
@@ -212,15 +225,15 @@ export default {
 			selectedPersonList: [], // 수신자로 지정된 목록
 			previewFlag: false,
 			tableHeads: [
-				{ content: '분당에 방문한 적이 있나요?', edit: false },
-				{ content: '주말에 어디가시나요?', edit: false },
-				{ content: '배고프나요?', edit: false },
+				{ content: '분당에 방문한 적이 있나요?', edit: false, example: '네/아니오' },
+				{ content: '주말에 어디가시나요?', edit: false, example: '네/아니오' },
+				{ content: '배고프나요?', edit: false, example: '네/아니오' },
 			],
 		};
 	},
 	methods: {
 		addColumn() {
-			this.tableHeads.push({ content: '새로운 항목', edit: false });
+			this.tableHeads.push({ content: '새로운 항목', edit: false, example: '새로운 예시' });
 		},
 		editText(index) {
 			if (this.tableHeads[index].edit) {
@@ -279,12 +292,16 @@ export default {
 				return;
 			}
 
-			const list = [];
+			const listCotent = [];
+			const listExample = [];
 			for (let i = 0; i < this.tableHeads.length; i++) {
-				list.push(this.tableHeads[i].content);
+				listCotent.push(this.tableHeads[i].content);
+				listExample.push(this.tableHeads[i].example);
 			}
 
-			const question = list.join('&&&&');
+			const question = listCotent.join('&&&&');
+			const example = listExample.join('&&&&');
+
 			const colNum = this.tableHeads.length;
 			const data = {
 				createdMemberId: this.$store.state.id,
@@ -294,6 +311,7 @@ export default {
 				colNum: colNum,
 				finishedDate: this.finishedDate,
 				memberList: this.selectedPersonList,
+				example: example,
 			};
 
 			const response = await insertSheet(data);

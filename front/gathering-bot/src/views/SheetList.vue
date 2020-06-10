@@ -72,7 +72,7 @@ export default {
 			console.log(response.data);
 		},
 		showList(id) {
-			this.$router.push('/sheet/' + id);
+			this.$router.push('/sheets/' + id);
 		},
 	},
 };

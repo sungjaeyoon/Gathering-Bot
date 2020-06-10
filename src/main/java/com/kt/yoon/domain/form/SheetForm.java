@@ -23,6 +23,9 @@ public class SheetForm {
     @NotEmpty(message = "응답 항목은 필수 입니다.")
     private String question;
 
+    @NotEmpty(message = "예시는 필수 입니다.")
+    private String example;
+
     @NotEmpty(message = "응답 개수 오류")
     private String colNum;
 

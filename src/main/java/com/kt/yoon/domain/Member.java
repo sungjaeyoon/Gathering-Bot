@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Entity
 @Getter
-@ToString
 public class Member implements UserDetails {
 
     @Id

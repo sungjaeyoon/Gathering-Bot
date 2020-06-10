@@ -2,6 +2,7 @@ package com.kt.yoon.domain;
 
 import com.kt.yoon.domain.type.RequestStatus;
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ public class MemberSheet {
     @Column(name = "member_sheet_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 

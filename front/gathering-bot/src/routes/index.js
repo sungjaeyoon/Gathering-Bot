@@ -23,11 +23,11 @@ export default new VueRouter({
 			component: () => import('@/views/SheetList.vue'),
 		},
 		{
-			path: '/sheet/new',
+			path: '/sheets/new',
 			component: () => import('@/views/InsertSheetPage.vue'),
 		},
 		{
-			path: '/sheet/:id',
+			path: '/sheets/:id',
 			component: () => import('@/views/SheetDetail.vue'),
 		},
 		{

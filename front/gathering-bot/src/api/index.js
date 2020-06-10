@@ -21,7 +21,7 @@ export function getUserList() {
 }
 
 export function insertSheet(data) {
-	return instance.post('/sheet/new', data);
+	return instance.post('/sheets/new', data);
 }
 
 export function getSheet(userId) {

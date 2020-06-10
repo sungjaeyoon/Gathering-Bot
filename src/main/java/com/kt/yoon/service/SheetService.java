@@ -3,6 +3,7 @@ package com.kt.yoon.service;
 import com.kt.yoon.domain.Member;
 import com.kt.yoon.domain.MemberSheet;
 import com.kt.yoon.domain.Sheet;
+import com.kt.yoon.domain.dto.MemberSheetResponse;
 import com.kt.yoon.repository.MemberRepository;
 import com.kt.yoon.repository.MemberSheetRepository;
 import com.kt.yoon.repository.SheetRepository;
@@ -36,7 +37,10 @@ public class SheetService {
         return sheetRepository.getSheetByMember(member);
     }
 
-    public void getSheetDetail(Long sheetId){
+    public List<MemberSheet> getSheetDetail(Long sheetId){
+        List<MemberSheet> sheetDetail = memberSheetRepository.getSheetDetail(sheetId);
 
+
+        return sheetDetail;
     }
 }

@@ -1,6 +1,7 @@
 package com.kt.yoon.controller;
 
 import com.kt.yoon.domain.Member;
+import com.kt.yoon.domain.MemberSheet;
 import com.kt.yoon.domain.Sheet;
 import com.kt.yoon.domain.form.SheetForm;
 import com.kt.yoon.service.MemberService;
@@ -28,7 +29,7 @@ public class SheetController {
     private final MemberService memberService;
 
     @ApiOperation(value = "Sheet 추가", notes = "Sheet를 추가한다.")
-    @PostMapping("/sheet/new")
+    @PostMapping("/sheets/new")
     @ResponseBody
     public void addSheet(@Valid @RequestBody SheetForm sheetForm, BindingResult bindingResult) throws BindException {
         if (bindingResult.hasErrors()) {
@@ -53,13 +54,13 @@ public class SheetController {
         List<HashMap<String, Object>> sheetListMap = new ArrayList<>();
         for (Sheet sheet : sheetList) {
             HashMap<String, Object> map = new HashMap<>();
-            map.put("id",sheet.getId());
-            map.put("title",sheet.getTitle());
-            map.put("content",sheet.getContent());
-            map.put("question",sheet.getQuestion());
-            map.put("createdDate",sheet.getCreatedDate());
-            map.put("finishedDate",sheet.getFinishedDate());
-            map.put("sheetStatus",sheet.getSheetStatus());
+            map.put("id", sheet.getId());
+            map.put("title", sheet.getTitle());
+            map.put("content", sheet.getContent());
+            map.put("question", sheet.getQuestion());
+            map.put("createdDate", sheet.getCreatedDate());
+            map.put("finishedDate", sheet.getFinishedDate());
+            map.put("sheetStatus", sheet.getSheetStatus());
             sheetListMap.add(map);
         }
         return sheetListMap;
@@ -68,9 +69,27 @@ public class SheetController {
     @ApiOperation(value = "sheet id 값으로 조", notes = "id값으로 조")
     @GetMapping("/sheets/{sheetId}")
     @ResponseBody
-    public List<HashMap<String, Object>> getSheetDetail(@PathVariable String sheetId){
+    public List<HashMap<String, Object>> getSheetDetail(@PathVariable String sheetId) {
         //todo 요청한 유저가 해당 권한이 있는지
-//        sheetService.getSheetById();
-        return null;
+
+        List<HashMap<String, Object>> sheetDetail = new ArrayList<>();
+        List<MemberSheet> sheetDetailList = sheetService.getSheetDetail(Long.parseLong(sheetId));
+
+        for (MemberSheet memberSheet : sheetDetailList) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("id", memberSheet.getId());
+            map.put("modifiedDate", memberSheet.getModifiedDate());
+            map.put("requestStatus", memberSheet.getRequestStatus());
+            map.put("response", memberSheet.getResponse());
+            map.put("responseDate", memberSheet.getResponseDate());
+            map.put("email", memberSheet.getMember().getEmail());
+            map.put("name", memberSheet.getMember().getName());
+            map.put("position", memberSheet.getMember().getPosition());
+            map.put("teamName", memberSheet.getMember().getTeamName());
+            sheetDetail.add(map);
+        }
+
+        return sheetDetail;
+
     }
 }

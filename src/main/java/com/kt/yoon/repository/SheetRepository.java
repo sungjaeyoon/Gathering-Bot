@@ -1,7 +1,9 @@
 package com.kt.yoon.repository;
 
 import com.kt.yoon.domain.Member;
+import com.kt.yoon.domain.MemberSheet;
 import com.kt.yoon.domain.Sheet;
+import com.kt.yoon.domain.dto.MemberSheetResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -21,29 +23,9 @@ public class SheetRepository {
     }
 
     public List<Sheet> getSheetByMember(Member member){
-        return entityManager.createQuery("select s from Sheet s where s.createdMember=:member",Sheet.class)
+        return entityManager.createQuery("select s from Sheet s where s.createdMember=:member order by s.createdDate DESC ",Sheet.class)
                 .setParameter("member",member)
                 .getResultList();
     }
-
-//    public
-
-//    # select * from sheet where sheet_id=3;
-//    select
-//    ms.member_sheet_id,
-//    ms.modified_date,
-//    ms.request_status,
-//    ms.response,
-//    ms.response_date,
-//    m.member_id,
-//    ms.sheet_id,
-//    m.email,
-//    m.name,
-//    m.position,
-//    m.team_name
-//            from
-//    member_sheet as ms left join member as m
-//    on ms.member_id = m.member_id
-//    where sheet_id=3;
 
 }

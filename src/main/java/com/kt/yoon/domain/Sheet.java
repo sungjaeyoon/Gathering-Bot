@@ -5,6 +5,7 @@ import com.kt.yoon.domain.form.SheetForm;
 import com.kt.yoon.domain.type.SheetStatus;
 import com.kt.yoon.domain.type.SheetType;
 import lombok.Getter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -34,6 +35,8 @@ public class Sheet {
 
     private String question;
 
+    private String example;
+
     private int colNum;
 
     private LocalDateTime createdDate;
@@ -52,12 +55,13 @@ public class Sheet {
     public Sheet() {
     }
 
-    public Sheet(Member createdMember, String title, String content, String question, int colNum, String finishedDateString, LocalDateTime repeatDate, List<Member> memberList) {
+    public Sheet(Member createdMember, String title, String content, String question, int colNum, String finishedDateString, String example, LocalDateTime repeatDate, List<Member> memberList) {
         this.createdMember = createdMember;
         this.title = title;
         this.content = content;
         this.question = question;
         this.colNum = colNum;
+        this.example= example;
 
         LocalDateTime finishedDate = LocalDateTime.parse(finishedDateString);
 
@@ -74,7 +78,7 @@ public class Sheet {
     }
 
     public static Sheet createSheet(Member createdMember, SheetForm sheetForm, List<Member> memberList) {
-        return new Sheet(createdMember, sheetForm.getTitle(), sheetForm.getContent(), sheetForm.getQuestion(), Integer.parseInt(sheetForm.getColNum()), sheetForm.getFinishedDate(), null, memberList);
+        return new Sheet(createdMember, sheetForm.getTitle(), sheetForm.getContent(), sheetForm.getQuestion(), Integer.parseInt(sheetForm.getColNum()), sheetForm.getFinishedDate(),sheetForm.getExample(), null, memberList);
     }
 
 }

@@ -48,19 +48,21 @@ public class MemberController {
     @PostMapping("/login")
     @ResponseBody
     public HashMap<String, Object> login(@RequestBody Map<String, String> user) {
-        Member member = userRepository.findByEmail(user.get("email"))
-                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
-        if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
-            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
-        }
+        HashMap<String, Object> data = new HashMap<>();
 
-        HashMap<String, Object> data= new HashMap<>();
-        data.put("id",member.getId());
-        data.put("email",member.getEmail());
-        data.put("username",member.getMemberName());
-        data.put("teamName",member.getTeamName());
-        data.put("position",member.getPosition());
-        data.put("token",jwtTokenProvider.createToken(member.getUsername(), member.getRoles()));
+        try {
+            Member member = memberService.login(user);
+            data.put("state", "success");
+            data.put("id", member.getId());
+            data.put("email", member.getEmail());
+            data.put("username", member.getMemberName());
+            data.put("teamName", member.getTeamName());
+            data.put("position", member.getPosition());
+            data.put("token", jwtTokenProvider.createToken(member.getUsername(), member.getRoles()));
+        }catch (IllegalArgumentException e){
+            data.put("state", "fail");
+            data.put("message",e.getMessage());
+        }
         return data;
     }
 
@@ -89,10 +91,10 @@ public class MemberController {
     @ResponseBody
     public boolean checkDuplicateEmail(@PathVariable String email) {
         System.out.println(email);
-        try{
+        try {
             memberService.findMemberByEmail(email);
             return false;
-        }catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             return true;
         }
     }

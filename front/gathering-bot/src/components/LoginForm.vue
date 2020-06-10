@@ -8,12 +8,13 @@
 			</div>
 			<div class="form-group mb-3">
 				<label for="password">Password</label>
-				<input id="password" class="form-control" type="text" v-model="password" />
+				<input id="password" class="form-control" type="password" v-model="password" />
 			</div>
 			<button type="submit" class="btn">
 				로그인
 			</button>
 		</form>
+		<div v-if="message" style="width: 400px" class="mx-auto badge badge-danger">{{ message }}</div>
 	</div>
 </template>
 
@@ -28,6 +29,7 @@ export default {
 			email: '',
 			password: '',
 			availableEmail: true,
+			message: '',
 		};
 	},
 	methods: {
@@ -49,10 +51,10 @@ export default {
 				password: this.password,
 			};
 			const response = await loginUser(userData);
-			console.log(response);
-			if (response.status == 500) {
-				alert('로그인 실패');
-			} else if (response.status == 200) {
+
+			if (response.data.state == 'fail') {
+				this.message = response.data.message;
+			} else if (response.data.state == 'success') {
 				this.$store.commit('setUserdata', response.data);
 				this.$router.push('/');
 			}

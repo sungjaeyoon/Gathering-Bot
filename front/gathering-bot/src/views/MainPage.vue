@@ -1,37 +1,15 @@
 <template>
 	<div>
 		<div class="container">
-			<div class="row">
-				<div class="col-6 jumbotron jumbotron-fluid">
-					<div class="container">
-						<h1 class="display-4">Gathering-Bot</h1>
-						<hr class="my-4" />
-						<div class="sub-text">
-							<p></p>
-							<p>Send Email with request</p>
-							<p>gather response Automate</p>
-							<p>It will save your time.</p>
-							<p>Add Sheet & Show result</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-6">
-					<img src="../assets/robot.png" alt="" />
-				</div>
-			</div>
-		</div>
-		<div class="container">
 			<div class="card mb-3">
 				<div class="row no-gutters">
-					<div class="col-md-4">
-						<img src="../assets/robot.png" class="card-img" alt="..." />
-					</div>
 					<div class="col-md-8">
 						<div class="card-body">
-							<h5 class="card-title">Card title</h5>
-							<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-							<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+							<h1 class="card-title" style="font-size: 50px">Gathering-bot</h1>
 						</div>
+					</div>
+					<div class="col-md-4">
+						<img src="../assets/robot.png" class="card-img" alt="..." />
 					</div>
 				</div>
 			</div>

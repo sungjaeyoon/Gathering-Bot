@@ -39,8 +39,10 @@ public class SheetService {
 
     public List<MemberSheet> getSheetDetail(Long sheetId){
         List<MemberSheet> sheetDetail = memberSheetRepository.getSheetDetail(sheetId);
-
-
         return sheetDetail;
+    }
+
+    public Sheet getSheetById(Long sheetId){
+       return memberSheetRepository.getSheet(sheetId);
     }
 }

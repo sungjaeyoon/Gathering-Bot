@@ -27,3 +27,7 @@ export function insertSheet(data) {
 export function getSheet(userId) {
 	return instance.get('/sheets/users/' + userId);
 }
+
+export function getDetail(sheetId) {
+	return instance.get('/sheets/' + sheetId);
+}

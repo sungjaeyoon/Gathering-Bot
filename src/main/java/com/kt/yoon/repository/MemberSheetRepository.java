@@ -1,6 +1,7 @@
 package com.kt.yoon.repository;
 
 import com.kt.yoon.domain.MemberSheet;
+import com.kt.yoon.domain.Sheet;
 import com.kt.yoon.domain.dto.MemberSheetResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -25,5 +26,11 @@ public class MemberSheetRepository {
         return entityManager.createQuery("select ms from MemberSheet ms where ms.sheet.id=:sheetId ",MemberSheet.class)
                 .setParameter("sheetId",sheetId)
                 .getResultList();
+    }
+
+    public Sheet getSheet(Long sheetId) {
+        return entityManager.createQuery("select s from Sheet s where s.id=:sheetId",Sheet.class)
+                .setParameter("sheetId",sheetId)
+                .getSingleResult();
     }
 }

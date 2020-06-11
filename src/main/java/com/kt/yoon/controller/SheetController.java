@@ -66,14 +66,29 @@ public class SheetController {
         return sheetListMap;
     }
 
-    @ApiOperation(value = "sheet id 값으로 조", notes = "id값으로 조")
+    @ApiOperation(value = "sheet id 값으로 조회", notes = "id값으로조회")
     @GetMapping("/sheets/{sheetId}")
     @ResponseBody
     public List<HashMap<String, Object>> getSheetDetail(@PathVariable String sheetId) {
         //todo 요청한 유저가 해당 권한이 있는지
 
+
+
         List<HashMap<String, Object>> sheetDetail = new ArrayList<>();
-        List<MemberSheet> sheetDetailList = sheetService.getSheetDetail(Long.parseLong(sheetId));
+
+        Sheet sheet = sheetService.getSheetById(Long.parseLong(sheetId));
+        List<MemberSheet> sheetDetailList = sheetService.getSheetDetail(sheet.getId());
+
+        HashMap<String, Object> sheetContent = new HashMap<>();
+
+        sheetContent.put("content",sheet.getContent());
+        sheetContent.put("title",sheet.getTitle());
+        sheetContent.put("question",sheet.getQuestion());
+        sheetContent.put("example",sheet.getExample());
+        sheetContent.put("colNum",sheet.getColNum());
+        sheetContent.put("createdDate",sheet.getCreatedDate());
+        sheetContent.put("status",sheet.getSheetStatus());
+        sheetDetail.add(sheetContent);
 
         for (MemberSheet memberSheet : sheetDetailList) {
             HashMap<String, Object> map = new HashMap<>();
@@ -91,5 +106,19 @@ public class SheetController {
 
         return sheetDetail;
 
+    }
+
+    @ApiOperation(value = "sheet 시작하기", notes = "sheet id 값으로 wait->proceeding")
+    @GetMapping("/sheets/start/{sheetId}")
+    @ResponseBody
+    public String startSheet(@PathVariable String sheetId){
+        return "";
+    }
+
+    @ApiOperation(value = "sheet 끝내기", notes = "sheet id 값으로 proceeding -> FISHISHED")
+    @GetMapping("/sheets/end/{sheetId}")
+    @ResponseBody
+    public String endSheet(@PathVariable String sheetId){
+        return "";
     }
 }

@@ -21,8 +21,8 @@
 				</div>
 			</div>
 			<div class="float-right mb-3">
+				<button v-if="sheetStatus != 'WAIT'" class="btn btn-primary mr-2">엑셀 내보내기</button>
 				<span v-if="sheetStatus == 'PROCEEDING'">
-					<button class="btn btn-primary mr-2">엑셀 내보내기</button>
 					<button class="btn btn-danger mr-2">미응답자 메일 발송</button>
 					<button class="btn btn-danger mr-2" @click="endSheet">시트 종료</button>
 				</span>

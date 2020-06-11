@@ -1,5 +1,7 @@
 body {
-  background: #F7F6F9;
+  background: no-repeat center fixed;
+	background-size: cover;
+	background-image: url('../assets/background.png');
 }
 .app {
 	position: relative;
@@ -14,3 +16,4 @@ h1 {
 	text-align: center;
 	font-weight: bold;
 }
+

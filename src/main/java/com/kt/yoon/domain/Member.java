@@ -1,5 +1,6 @@
 package com.kt.yoon.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kt.yoon.domain.form.MemberForm;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class Member implements UserDetails {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
+    @JsonIgnore
     @Column(nullable = false, length = 300)
     private String password;
 
@@ -40,6 +42,7 @@ public class Member implements UserDetails {
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
@@ -47,26 +50,31 @@ public class Member implements UserDetails {
                 .collect(Collectors.toList());
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return email;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;

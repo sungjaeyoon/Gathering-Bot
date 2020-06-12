@@ -109,14 +109,14 @@ export default {
 				teamName: this.teamName,
 			};
 			const response = await registerUser(userData);
-			if (response.status == 200) {
+			if (response.data.status == 200) {
 				alert('환영합니다.');
 				this.$router.push('/login');
 			} else {
-				alert(response.data);
+				alert(response.data.message);
 			}
 		},
-		//이메일 중복검사
+		//이메일 중복 검사
 		async checkDuplicate() {
 			this.availableEmail = true;
 			if (!validateEmail(this.email)) {

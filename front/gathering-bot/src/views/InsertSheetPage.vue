@@ -251,8 +251,10 @@ export default {
 		// 전체 유저 가져오기
 		async getUsers() {
 			const response = await getUserList();
-			if (response.status == 200) {
-				this.userList = response.data;
+			if (response.data.status == 200) {
+				this.userList = response.data.users;
+			} else {
+				alert(response.data.message);
 			}
 		},
 		// 유저 이름(팀이름) 으로 반환

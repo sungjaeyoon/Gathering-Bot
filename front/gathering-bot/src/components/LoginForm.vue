@@ -8,7 +8,7 @@
 			</div>
 			<div class="form-group mb-3">
 				<label for="password">Password</label>
-				<input id="password" class="form-control" type="text" v-model="password" />
+				<input id="password" class="form-control" type="password" v-model="password" />
 			</div>
 			<button type="submit" class="btn">
 				로그인
@@ -52,9 +52,10 @@ export default {
 			};
 			const response = await loginUser(userData);
 
-			if (response.data.state == 'fail') {
+			// console.log(response.data);
+			if (response.data.status != 200) {
 				this.message = response.data.message;
-			} else if (response.data.state == 'success') {
+			} else if (response.data.status == 200) {
 				this.$store.commit('setUserdata', response.data);
 				this.$router.push('/');
 			}

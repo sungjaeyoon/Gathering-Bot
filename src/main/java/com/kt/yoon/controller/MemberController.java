@@ -3,6 +3,7 @@ package com.kt.yoon.controller;
 import com.kt.yoon.config.JwtTokenProvider;
 import com.kt.yoon.domain.Member;
 import com.kt.yoon.domain.form.MemberForm;
+import com.kt.yoon.exception.CommonException;
 import com.kt.yoon.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,16 +37,7 @@ public class MemberController {
         JSONObject jsonObject = new JSONObject();
 
         try {
-            //Validate Error
-            if (bindingResult.hasErrors()) {
-                JSONArray jsonArray = new JSONArray();
-                for (FieldError fieldError : bindingResult.getFieldErrors()) {
-                    jsonArray.add(fieldError.getDefaultMessage());
-                }
-                jsonObject.put("status", 400);
-                jsonObject.put("message", jsonArray);
-                return jsonObject;
-            }
+            if (CommonException.bindResultException(bindingResult, jsonObject)) return jsonObject;
 
             //PasswordEncode & save
             memberForm.setPassword(passwordEncoder.encode(memberForm.getPassword()));

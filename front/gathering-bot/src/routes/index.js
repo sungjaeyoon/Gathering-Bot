@@ -8,31 +8,31 @@ export default new VueRouter({
 	routes: [
 		{
 			path: '/',
-			component: () => import('@/views/MainPage.vue'),
+			component: () => import('@/views/MainPage.vue')
 		},
 		{
 			path: '/login',
-			component: () => import('@/views/LoginPage.vue'),
+			component: () => import('@/views/LoginPage.vue')
 		},
 		{
 			path: '/signup',
-			component: () => import('@/views/SignUpPage.vue'),
+			component: () => import('@/views/SignUpPage.vue')
 		},
 		{
 			path: '/sheets',
-			component: () => import('@/views/SheetList.vue'),
+			component: () => import('@/views/SheetList.vue')
 		},
 		{
 			path: '/sheets/new',
-			component: () => import('@/views/InsertSheetPage.vue'),
+			component: () => import('@/views/InsertSheetPage.vue')
 		},
 		{
 			path: '/sheets/:id',
-			component: () => import('@/views/SheetDetail.vue'),
+			component: () => import('@/views/SheetDetail.vue')
 		},
 		{
 			path: '*',
-			component: () => import('@/views/NotFoundPage.vue'),
-		},
-	],
+			component: () => import('@/views/NotFoundPage.vue')
+		}
+	]
 });

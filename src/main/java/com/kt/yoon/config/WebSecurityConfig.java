@@ -36,13 +36,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/signup").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/check/**").permitAll()
-                .antMatchers("/sheet/**").permitAll()//test
-                .antMatchers("/sheets/**").permitAll()//test
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").authenticated()
+//                .antMatchers("/signup").permitAll()
+//                .antMatchers("/login").permitAll()
+//                .antMatchers("/check/**").permitAll()
+//                .antMatchers("/sheet/**").permitAll()//test
+//                .antMatchers("/sheets/**").permitAll()//test
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/user/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),

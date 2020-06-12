@@ -227,8 +227,8 @@ export default {
 			tableHeads: [
 				{ content: '분당에 방문한 적이 있나요?', edit: false, example: '네/아니오' },
 				{ content: '주말에 어디가시나요?', edit: false, example: '네/아니오' },
-				{ content: '배고프나요?', edit: false, example: '네/아니오' },
-			],
+				{ content: '배고프나요?', edit: false, example: '네/아니오' }
+			]
 		};
 	},
 	methods: {
@@ -294,14 +294,14 @@ export default {
 				return;
 			}
 
-			const listCotent = [];
+			const listContent = [];
 			const listExample = [];
 			for (let i = 0; i < this.tableHeads.length; i++) {
-				listCotent.push(this.tableHeads[i].content);
+				listContent.push(this.tableHeads[i].content);
 				listExample.push(this.tableHeads[i].example);
 			}
 
-			const question = listCotent.join('&&&&');
+			const question = listContent.join('&&&&');
 			const example = listExample.join('&&&&');
 
 			const colNum = this.tableHeads.length;
@@ -313,14 +313,19 @@ export default {
 				colNum: colNum,
 				finishedDate: this.finishedDate,
 				memberList: this.selectedPersonList,
-				example: example,
+				example: example
 			};
 
 			const response = await insertSheet(data);
-			console.log('succcess');
+
+			if (response.data.status != 200) {
+				alert(response.data.message);
+				return;
+			}
+			alert('생성 되었습니다.');
 			this.$router.push('/sheets');
-		},
-	},
+		}
+	}
 };
 </script>
 

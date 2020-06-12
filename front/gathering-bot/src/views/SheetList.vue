@@ -13,6 +13,17 @@
 			</div>
 		</template>
 		<template v-else>
+			<div class="dropdown show">
+				<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					시트 상태 : {{ sheetFilter }}
+				</a>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+					<a class="dropdown-item" @click="filterSheet('전체보기', '')">전체보기</a>
+					<a class="dropdown-item" @click="filterSheet('대기중', 'WAIT')">대기중</a>
+					<a class="dropdown-item" @click="filterSheet('진행중', 'PROCEEDING')">진행중</a>
+					<a class="dropdown-item" @click="filterSheet('종료', 'FINISHED')">종료</a>
+				</div>
+			</div>
 			<table class="table" style="text-align: center">
 				<thead>
 					<tr style="font-size: 25px;background-color: #7d2ae8;color: white">
@@ -62,6 +73,8 @@ export default {
 		return {
 			loading: true,
 			sheetList: [],
+			sheetFilter: '전체보기',
+			type: ''
 			// id: '',
 			// title: '',
 			// content: '',
@@ -72,19 +85,38 @@ export default {
 		};
 	},
 	mounted() {
-		this.getSheetList();
+		const filter = {
+			offset: 0,
+			limit: 10,
+			type: this.type
+		};
+		this.getSheetList(filter);
 	},
 	methods: {
 		//내 시트리스트 가져오기
-		async getSheetList() {
-			const response = await getSheet(this.$store.state.id);
-			this.sheetList = response.data;
+		async getSheetList(filter) {
+			const response = await getSheet(this.$store.state.id, filter);
+			if (response.data.status != 200) {
+				alert(response.data.message);
+				return;
+			}
+			this.sheetList = response.data.sheets;
 			this.loading = false;
 		},
 		showList(id) {
 			this.$router.push('/sheets/' + id);
 		},
-	},
+		async filterSheet(sheetFilter, type) {
+			this.sheetFilter = sheetFilter;
+			this.type = type;
+			const filter = {
+				offset: 0,
+				limit: 10,
+				type: this.type
+			};
+			this.getSheetList(filter);
+		}
+	}
 };
 </script>
 

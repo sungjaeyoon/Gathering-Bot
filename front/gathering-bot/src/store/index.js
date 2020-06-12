@@ -10,12 +10,12 @@ export default new Vuex.Store({
 		username: '',
 		teamName: '',
 		position: '',
-		token: '',
+		token: ''
 	},
 	getters: {
 		isLogin(state) {
 			return state.username != '';
-		},
+		}
 	},
 	mutations: {
 		setUserdata(state, data) {
@@ -33,6 +33,6 @@ export default new Vuex.Store({
 			state.teamName = '';
 			state.position = '';
 			state.token = '';
-		},
-	},
+		}
+	}
 });

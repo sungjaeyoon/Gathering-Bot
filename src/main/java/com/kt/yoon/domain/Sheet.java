@@ -31,10 +31,13 @@ public class Sheet {
 
     private String title;
 
+    @Column(length = 800)
     private String content;
 
+    @Column(length = 800)
     private String question;
 
+    @Column(length = 800)
     private String example;
 
     private int colNum;

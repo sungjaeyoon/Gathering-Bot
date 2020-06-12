@@ -63,7 +63,7 @@ export default {
 			//boolean
 			availableEmail: true,
 			availableEmailForm: true,
-			samePassword: true,
+			samePassword: true
 		};
 	},
 	methods: {
@@ -106,7 +106,7 @@ export default {
 				name: this.name,
 				password: this.password,
 				position: this.position,
-				teamName: this.teamName,
+				teamName: this.teamName
 			};
 			const response = await registerUser(userData);
 			if (response.data.status == 200) {
@@ -139,8 +139,8 @@ export default {
 			} else {
 				this.samePassword = true;
 			}
-		},
-	},
+		}
+	}
 };
 </script>
 

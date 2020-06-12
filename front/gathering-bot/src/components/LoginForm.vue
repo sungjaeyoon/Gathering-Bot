@@ -29,7 +29,7 @@ export default {
 			email: '',
 			password: '',
 			availableEmail: true,
-			message: '',
+			message: ''
 		};
 	},
 	methods: {
@@ -48,7 +48,7 @@ export default {
 			}
 			const userData = {
 				email: this.email,
-				password: this.password,
+				password: this.password
 			};
 			const response = await loginUser(userData);
 
@@ -66,8 +66,8 @@ export default {
 			} else {
 				this.availableEmail = false;
 			}
-		},
-	},
+		}
+	}
 };
 </script>
 

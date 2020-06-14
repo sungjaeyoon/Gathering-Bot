@@ -5,6 +5,7 @@ import com.kt.yoon.domain.MemberSheet;
 import com.kt.yoon.domain.Sheet;
 import com.kt.yoon.domain.form.SheetForm;
 import com.kt.yoon.exception.CommonException;
+import com.kt.yoon.exception.JsonErrorResponse;
 import com.kt.yoon.service.MemberService;
 import com.kt.yoon.service.SheetService;
 import io.swagger.annotations.Api;
@@ -48,8 +49,7 @@ public class SheetController {
             jsonObject.put("status", 200);
             jsonObject.put("message", "success");
         } catch (Exception e) {
-            jsonObject.put("status", 500);
-            jsonObject.put("message", "서버 에러");
+            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -78,9 +78,7 @@ public class SheetController {
             jsonObject.put("sheets", jsonArray);
             jsonObject.put("status", 200);
         } catch (Exception e) {
-            jsonObject.put("status", 500);
-            jsonObject.put("message", "server error");
-            e.printStackTrace();
+            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -123,9 +121,7 @@ public class SheetController {
             jsonObject.put("memberSheet", jsonArray);
             jsonObject.put("status", 200);
         } catch (Exception e) {
-            jsonObject.put("status", 500);
-            jsonObject.put("message", "server error");
-            e.printStackTrace();
+            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
 
@@ -140,8 +136,7 @@ public class SheetController {
             sheetService.startSheet(Long.parseLong(sheetId));
             jsonObject.put("status",200);
         }catch (Exception e){
-            jsonObject.put("status",500);
-            jsonObject.put("message","server error");
+            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -155,8 +150,7 @@ public class SheetController {
             sheetService.endSheet(Long.parseLong(sheetId));
             jsonObject.put("status",200);
         }catch (Exception e){
-            jsonObject.put("status",500);
-            jsonObject.put("message","server error");
+            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }

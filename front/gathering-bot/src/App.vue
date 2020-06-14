@@ -12,8 +12,8 @@ import AppVar from './components/common/AppHeader.vue';
 export default {
 	name: 'App',
 	components: {
-		AppVar,
-	},
+		AppVar
+	}
 };
 </script>
 

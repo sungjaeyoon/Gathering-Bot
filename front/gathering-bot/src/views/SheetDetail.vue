@@ -36,6 +36,7 @@
 				</div>
 			</div>
 		</span>
+		<!--loading-->
 		<div class="text-center">
 			<span v-if="loading" class="spinner-border text-center" role="status" style="width: 200px;height: 200px">
 				<span class="sr-only">Loading...</span>
@@ -66,15 +67,17 @@
 					<button class="btn btn-success mr-2" data-toggle="modal" data-target="#startModal">시트 시작</button>
 				</span>
 			</div>
-			<span v-if="sheetStatus == 'WAIT'">
-				<h4 class="mb-5">(대기중)</h4>
-			</span>
-			<span v-if="sheetStatus == 'PROCEEDING'">
-				<h4 class="mb-5">(진행중)</h4>
-			</span>
-			<span v-if="sheetStatus == 'FINISHED'">
-				<h4 class="mb-5">(종료)</h4>
-			</span>
+			<div>
+				<span v-if="sheetStatus == 'WAIT'">
+					<h4 class="mb-5">(대기중)</h4>
+				</span>
+				<span v-if="sheetStatus == 'PROCEEDING'">
+					<h4 class="mb-5">(진행중)</h4>
+				</span>
+				<span v-if="sheetStatus == 'FINISHED'">
+					<h4 class="mb-5">(종료)</h4>
+				</span>
+			</div>
 			<div style="overflow:auto; overflow-y:hidden">
 				<table class="table table-striped" style="text-align: center">
 					<thead>
@@ -198,7 +201,7 @@ export default {
 		},
 		async startSheet() {
 			this.loading = true;
-			// const response = await startSheet(this.$route.params.id);
+			const response = await startSheet(this.$route.params.id);
 			this.loading = false;
 			await this.loadDetail();
 		},

@@ -41,14 +41,14 @@ export default {
 	computed: {
 		isUserLogin() {
 			return this.$store.getters.isLogin;
-		},
+		}
 	},
 	methods: {
 		logoutUser() {
 			this.$store.commit('clearUsername');
 			this.$router.push('/login');
-		},
-	},
+		}
+	}
 };
 </script>
 

@@ -4,6 +4,7 @@ import com.kt.yoon.config.JwtTokenProvider;
 import com.kt.yoon.domain.Member;
 import com.kt.yoon.domain.form.MemberForm;
 import com.kt.yoon.exception.CommonException;
+import com.kt.yoon.exception.JsonErrorResponse;
 import com.kt.yoon.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,7 +14,6 @@ import org.json.simple.JSONObject;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,6 +37,7 @@ public class MemberController {
         JSONObject jsonObject = new JSONObject();
 
         try {
+            //binding error
             if (CommonException.bindResultException(bindingResult, jsonObject)) return jsonObject;
 
             //PasswordEncode & save
@@ -46,12 +47,10 @@ public class MemberController {
             jsonObject.put("message", "success");
         } catch (IllegalStateException e) {
             //duplicate error
-            jsonObject.put("status", 400);
-            jsonObject.put("message", "이미 가입된 회원입니다.");
+            return new JsonErrorResponse(400,"이미 가입된 회원입니다.").getJsonObject();
         } catch (Exception e) {
             // server error
-            jsonObject.put("status", 500);
-            jsonObject.put("message", "서버 에러");
+            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -72,12 +71,10 @@ public class MemberController {
             jsonObject.put("token", jwtTokenProvider.createToken(member.getUsername(), member.getRoles()));
         } catch (IllegalArgumentException e) {
             // failed login
-            jsonObject.put("status", 400);
-            jsonObject.put("message", e.getMessage());
+            return new JsonErrorResponse(400,e.getMessage()).getJsonObject();
         } catch (Exception e) {
             // server error
-            jsonObject.put("status", 500);
-            jsonObject.put("message", "서버 에러");
+            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -102,8 +99,8 @@ public class MemberController {
             jsonObject.put("users", jsonArray);
             jsonObject.put("status", 200);
         }catch (Exception e){
-            jsonObject.put("status", 500);
-            jsonObject.put("message","server error");
+            // server error
+            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }

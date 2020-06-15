@@ -31,6 +31,10 @@ export default new VueRouter({
 			component: () => import('@/views/SheetDetail.vue')
 		},
 		{
+			path: '/response',
+			component: () => import('@/components/ResponseForm.vue')
+		},
+		{
 			path: '*',
 			component: () => import('@/views/NotFoundPage.vue')
 		}

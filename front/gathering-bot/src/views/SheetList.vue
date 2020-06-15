@@ -35,11 +35,11 @@
 				</thead>
 				<tbody>
 					<tr v-for="(sheet, index) in sheetList" :key="index" v-on:click="showList(sheet.id)" class="table-line">
-						<td scope="row" class="table-text" style="color: cornflowerblue;font-size: 25px">
+						<td scope="row" class="table-text" style="color: cornflowerblue;font-size: 25px;text-align: left">
 							{{ sheet.title }}
 						</td>
 						<td class="table-text">{{ sheet.content }}</td>
-						<td>{{ sheet.createdDate.split('T').join('-') }}</td>
+						<td>{{ sheet.createdDate.split('T').join(' / ') }}</td>
 						<td>
 							<div v-if="sheet.sheetStatus == 'WAIT'">
 								<span class="spinner-grow spinner-grow-sm text-secondary mr-3 pt-2" role="status">

@@ -90,7 +90,7 @@
 							<th v-for="(question, index) in sheetQuestions" :key="index" scope="col">{{ question }}</th>
 							<th scope="col" v-if="sheetStatus != 'WAIT'">응답날짜</th>
 							<th scope="col" v-if="sheetStatus != 'WAIT'">수정날짜</th>
-							<th scope="col" v-if="sheetStatus == 'PROCEEDING'">응답 수정</th>
+							<!--							<th scope="col" v-if="sheetStatus == 'PROCEEDING'">응답 수정</th>-->
 							<th scope="col" v-if="sheetStatus == 'PROCEEDING'">메일 전송</th>
 						</tr>
 					</thead>
@@ -114,7 +114,7 @@
 							<td v-for="(text, index2) in line.response" :key="index2">{{ text }}</td>
 							<td v-if="sheetStatus != 'WAIT'">{{ line.responseDate != null ? line.responseDate.split('T').join('  ') : '' }}</td>
 							<td v-if="sheetStatus != 'WAIT'">{{ line.modifiedDate != null ? line.modifiedDate.split('T').join('  ') : '' }}</td>
-							<td v-if="sheetStatus == 'PROCEEDING'"><Button class="btn btn-info">Edit</Button></td>
+							<!--							<td v-if="sheetStatus == 'PROCEEDING'"><Button class="btn btn-info">Edit</Button></td>-->
 							<td v-if="sheetStatus == 'PROCEEDING'">
 								<Button v-if="line.requestStatus == 'YES'" class="btn btn-warning">수정 요청</Button>
 								<Button v-if="line.requestStatus == 'NO'" class="btn btn-warning">재전송</Button>
@@ -129,7 +129,7 @@
 							<td v-for="(example, index3) in sheetExamples" :key="index3">{{ example }}</td>
 							<td v-if="sheetStatus != 'WAIT'">-</td>
 							<td v-if="sheetStatus != 'WAIT'">-</td>
-							<td v-if="sheetStatus == 'PROCEEDING'">-</td>
+							<!--							<td v-if="sheetStatus == 'PROCEEDING'">-</td>-->
 							<td v-if="sheetStatus == 'PROCEEDING'">-</td>
 						</tr>
 					</tbody>

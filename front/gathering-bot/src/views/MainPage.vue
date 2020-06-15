@@ -1,107 +1,68 @@
 <template>
-	<div>??</div>
+	<div>
+		<img src="@/assets/robot.png" class="rounded mx-auto d-block" alt="..." style="height: 350px" />
+		<h1>Gathering-bot</h1>
+		<h4>Gathering-bot은 취합,설문,조사 등의 업무에</h4>
+		<h4>최적화 되어있습니다.</h4>
+		<div class="row mt-5 mx-5 mb-5">
+			<div class="col-3">
+				<div class="card mx-auto" style="width: 15rem;">
+					<img src="@/assets/add.png" class="card-img-top center" alt="..." style="width: 6rem" />
+					<div class="card-body">
+						<p>조사할 항목을 추가하고 <br />수신자를 지정하세요.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card mx-auto" style="width: 15rem;">
+					<img src="@/assets/email.png" class="card-img-top center" alt="..." style="width: 6rem" />
+					<div class="card-body">
+						<p>자동으로 메일이 발신되며<br />메일에서 응답할 수 있습니다.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card mx-auto" style="width: 15rem;">
+					<img src="@/assets/card-robot.png" class="card-img-top center" alt="..." style="width: 6rem" />
+					<div class="card-body">
+						<p>Gathering-bot이<br />응답 결과를 취합합니다.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card mx-auto" style="width: 15rem;">
+					<img src="@/assets/microsoft-excel.png" class="card-img-top center" alt="..." style="width: 6rem" />
+					<div class="card-body">
+						<p>결과를 확인하고<br />엑셀로 다운받으세요.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
 export default {};
 </script>
 
-<style></style>
-
-<!--<div>-->
-<!--	<div class="container">-->
-<!--		<div class="card mb-3">-->
-<!--			<div class="row no-gutters">-->
-<!--				<div class="col-md-8">-->
-<!--					<div class="card-body">-->
-<!--						<h1 class="card-title" style="font-size: 50px">Gathering-bot</h1>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="col-md-4">-->
-<!--					<img src="../assets/robot.png" class="card-img" alt="..." />-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--	<div class="main-bottom">-->
-<!--		<div class="container">-->
-<!--			<div class="row">-->
-<!--				<div class="col-6">-->
-<!--					<div class="card text-center">-->
-<!--						<div class="row" style="height: 100%">-->
-<!--							<div class="col-6">-->
-<!--								<h1 style="font-weight: bold" class="mt-5">O/X</h1>-->
-<!--								<h4 style="font-weight: bold; width: 150%" class="mt-5">Simple O/X response Sheet</h4>-->
-<!--							</div>-->
-<!--							<div class="col-6">-->
-<!--								<img src="../assets/ok.png" alt="" class="m-3" />-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<span class="try-button">-->
-<!--								<router-link to="/" style="color: white; text-decoration: none">Try it!</router-link>-->
-<!--							</span>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--				<div class="col-6">-->
-<!--					<div class="card text-center">-->
-<!--						<div class="row" style="height: 100%">-->
-<!--							<div class="col-6">-->
-<!--								<h1 style="font-weight: bold" class="mt-5">Table</h1>-->
-<!--								<h4 style="font-weight: bold; width: 120%" class="mt-5">Table response Sheet</h4>-->
-<!--							</div>-->
-<!--							<div class="col-6">-->
-<!--								<img src="../assets/spreadsheet.png" alt="" class="m-3" />-->
-<!--							</div>-->
-<!--						</div>-->
-<!--						<span class="try-button">-->
-<!--								<router-link to="/" style="color: white; text-decoration: none">Try it!</router-link>-->
-<!--							</span>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</div>-->
-<!--</div>-->
-
-<!--.jumbotron {-->
-<!--background: #f7f6f9;-->
-<!--}-->
-<!--.display-4 {-->
-<!--text-align: center;-->
-<!--font-weight: bold;-->
-<!--}-->
-<!--.sub-text {-->
-<!--margin-top: 4%;-->
-<!--margin-left: 2%;-->
-<!--font-size: 30px;-->
-<!--}-->
-<!--img {-->
-<!--width: 90%;-->
-<!--}-->
-<!--.main-bottom {-->
-<!--background-color: #7d2ae8;-->
-<!--width: 100%;-->
-<!--height: 400px;-->
-<!--}-->
-
-<!--.card {-->
-<!--margin: 5%;-->
-<!--height: 90%;-->
-<!--background-color: white;-->
-<!--}-->
-
-<!--.try-button {-->
-<!--display: table-cell;-->
-<!--vertical-align: middle;-->
-<!--background-color: #00c4cc;-->
-<!--margin-left: auto;-->
-<!--margin-right: auto;-->
-<!--margin-bottom: 2%;-->
-<!--text-align: center;-->
-<!--width: 33%;-->
-<!--height: 15%;-->
-<!--font-size: 25px;-->
-<!--font-weight: bold;-->
-<!--border-radius: 0.5em;-->
-<!--cursor: pointer;-->
-<!--}-->
+<style>
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+.card {
+	text-align: center;
+	border: none;
+}
+h1 {
+	margin-top: 3%;
+	margin-bottom: 3%;
+}
+h4 {
+	margin-top: 2%;
+	margin-bottom: 2%;
+	text-align: center;
+}
+</style>

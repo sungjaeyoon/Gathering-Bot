@@ -52,6 +52,21 @@
 							</button>
 						</div>
 						<div class="modal-body">
+							<!--search bar-->
+							<div class="md-form mt-0">
+								<input class="form-control" type="text" placeholder="Search" aria-label="Search" v-model="searchWord" on />
+							</div>
+							<div class="my-2">
+								<input
+									type="text"
+									disabled
+									class="form-control"
+									placeholder="수신자 목록"
+									aria-label="Example text with button addon"
+									aria-describedby="button-addon1"
+									v-bind:value="userNameList()"
+								/>
+							</div>
 							<table class="table table-striped">
 								<thead>
 									<tr>
@@ -62,8 +77,27 @@
 										<th scope="col">팀 이름</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody v-if="searchWord == ''">
 									<tr v-for="(user, index) in userList" :key="index">
+										<td>
+											<input type="checkbox" v-bind:value="user" v-model="selectedPersonList" />
+										</td>
+										<td>
+											<label>{{ user.name }}</label>
+										</td>
+										<td>
+											<label>{{ user.position }}</label>
+										</td>
+										<td>
+											<label>{{ user.email }}</label>
+										</td>
+										<td>
+											<label>{{ user.teamName }}</label>
+										</td>
+									</tr>
+								</tbody>
+								<tbody v-else>
+									<tr v-for="(user, index) in searchedPersonList" :key="index">
 										<td>
 											<input type="checkbox" v-bind:value="user" v-model="selectedPersonList" />
 										</td>
@@ -193,6 +227,12 @@
 								</thead>
 								<tbody>
 									<tr>
+										<th scope="col">예시</th>
+										<th v-for="(tableHead, index) in tableHeads" v-bind:key="index">
+											{{ tableHeads[index].example }}
+										</th>
+									</tr>
+									<tr>
 										<th scope="col">이름</th>
 										<th v-for="tableHead of tableHeads" v-bind:key="tableHead.key">
 											<div scope="col"><input type="text" placeholder="입력해주세요" disabled /></div>
@@ -223,6 +263,8 @@ export default {
 			sheetContent: '',
 			userList: [], // 전체 유저 목록
 			selectedPersonList: [], // 수신자로 지정된 목록
+			searchWord: '',
+			searchedPersonList: [], // 검색할 사람 목록
 			previewFlag: false,
 			tableHeads: [
 				{ content: '분당에 방문한 적이 있나요?', edit: false, example: '네/아니오' },
@@ -230,6 +272,13 @@ export default {
 				{ content: '배고프나요?', edit: false, example: '네/아니오' }
 			]
 		};
+	},
+	watch: {
+		searchWord: function() {
+			this.searchedPersonList = this.userList.filter(
+				obj => obj.name.indexOf(this.searchWord) != -1 || obj.teamName.indexOf(this.searchWord) != -1 || obj.email.indexOf(this.searchWord) != -1 || obj.position.indexOf(this.searchWord) != -1
+			);
+		}
 	},
 	methods: {
 		addColumn() {

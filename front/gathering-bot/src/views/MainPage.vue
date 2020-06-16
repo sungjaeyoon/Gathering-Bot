@@ -1,9 +1,8 @@
 <template>
 	<div>
-		<img src="@/assets/robot.png" class="rounded mx-auto d-block" alt="..." style="height: 350px" />
+		<img src="@/assets/robot.png" class="rounded mx-auto d-block" alt="..." style="height: 200px" />
 		<h1>Gathering-bot</h1>
-		<h4>Gathering-bot은 취합,설문,조사 등의 업무에</h4>
-		<h4>최적화 되어있습니다.</h4>
+		<h4>취합, 설문, 조사 등의 업무에 최적화 되어있습니다.</h4>
 		<div class="row mt-5 mx-5 mb-5">
 			<div class="col-3">
 				<div class="card mx-auto shadow-lg p-3 mb-5 bg-white rounded" style="width: 15rem;">

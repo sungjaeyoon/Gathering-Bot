@@ -56,12 +56,12 @@ public class MailService {
             message.setFrom(new InternetAddress(username));
             message.setSubject(mailTitle);
             for (Member member: memberList) {
-                htmlText+=member.getId()+"\"> 답변하기</a>";
-                message.setContent(htmlText, "text/html;charset=\"UTF-8\"");
+                String personalHtmlText = htmlText;
+                personalHtmlText+=member.getId()+"\"> 답변하기</a>";
+                message.setContent(personalHtmlText, "text/html;charset=\"UTF-8\"");
                 message.setRecipients(Message.RecipientType.TO,
                         InternetAddress.parse("dbstjdwo1000@naver.com"));
                 Transport.send(message);
-                System.out.println(htmlText);
             }
             System.out.println("success");
         } catch (MessagingException e) {

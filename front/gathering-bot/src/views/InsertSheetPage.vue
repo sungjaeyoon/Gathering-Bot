@@ -203,7 +203,7 @@
 					<input type="text" class="form-control" disabled value="제  목" style="text-align: center" />
 				</div>
 				<div class="col-9">
-					<p type="text" class="form-control" disabled style="overflow:scroll">[Gathering-bot] {{ sheetTitle }}</p>
+					<p type="text" class="form-control" disabled style="">[Gathering-bot] {{ sheetTitle }}</p>
 				</div>
 			</div>
 			<!--메일 상단-->

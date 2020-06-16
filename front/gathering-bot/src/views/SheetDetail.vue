@@ -58,7 +58,10 @@
 				</div>
 			</div>
 			<div class="float-right mb-3">
-				<button v-if="sheetStatus != 'WAIT'" class="btn btn-outline-dark mr-2">엑셀 내보내기</button>
+				<download-excel v-if="sheetStatus != 'WAIT'" class="btn btn-outline-dark mr-2" :data="json_data" :fields="json_fields" worksheet="Worksheet" :name="this.sheetTitle + '.xls'">
+					엑셀 내보내기
+				</download-excel>
+
 				<span v-if="sheetStatus == 'PROCEEDING'">
 					<button class="btn btn-outline-danger mr-2">미응답자 메일 발송</button>
 					<button class="btn btn-danger mr-2" data-toggle="modal" data-target="#endModal">시트 종료</button>
@@ -141,9 +144,13 @@
 
 <script>
 import { getDetail, startSheet, endSheet, sendMailAll } from '@/api';
+import JsonExcel from 'vue-json-excel';
 
 export default {
 	name: 'SheetDetail',
+	components: {
+		downloadExcel: JsonExcel
+	},
 	data() {
 		return {
 			sheetTitle: '',
@@ -154,7 +161,21 @@ export default {
 			sheetCreatedDate: '',
 			sheetStatus: '',
 			loading: true,
-			responseData: []
+			responseData: [],
+			json_fields: {
+				이름: 'name',
+				직책: 'position',
+				팀이름: 'teamName'
+			},
+			json_data: [],
+			json_meta: [
+				[
+					{
+						key: 'charset',
+						value: 'utf-8'
+					}
+				]
+			]
 		};
 	},
 	mounted() {
@@ -177,7 +198,14 @@ export default {
 			this.sheetColNum = sheet.colNum;
 			this.sheetContent = sheet.content;
 			this.sheetQuestions = sheet.question.split('&&&&');
+			// todo 따로 빼야할 부분 이메일
+			for (let i = 0; i < this.sheetQuestions.length; i++) {
+				this.json_fields[this.sheetQuestions[i]] = 'q' + i;
+			}
+
 			this.sheetExamples = sheet.example.split('&&&&');
+
+			console.log(this.json_fields);
 			this.sheetCreatedDate = sheet.createdDate;
 			this.sheetStatus = sheet.status;
 
@@ -185,9 +213,19 @@ export default {
 			this.responseData = [];
 			for (let i = 0; i < memberSheet.length; i++) {
 				const response = memberSheet[i].response;
+				// todo 따로 빼야할 부분 이메일
+				const json_data = {
+					name: memberSheet[i].name,
+					position: memberSheet[i].position,
+					teamName: memberSheet[i].teamName
+				};
 				if (response != null) {
 					const list = memberSheet[i].response.split('&&&&');
 					memberSheet[i].response = list;
+					// todo 따로 빼야할 부분 이메일
+					for (let j = 0; j < list.length; j++) {
+						json_data['q' + j] = list[j];
+					}
 				} else {
 					const list = [];
 					for (let j = 0; j < this.sheetColNum; j++) {
@@ -196,6 +234,8 @@ export default {
 					memberSheet[i].response = list;
 				}
 				this.responseData.push(memberSheet[i]);
+				this.json_data.push(json_data);
+				console.log(memberSheet[i]);
 			}
 			this.loading = false;
 		},
@@ -215,6 +255,9 @@ export default {
 		sendEmailAll() {
 			sendMailAll(this.$route.params.id);
 			console.log('send');
+		},
+		addJsonData() {
+			console.log('??');
 		}
 	}
 };

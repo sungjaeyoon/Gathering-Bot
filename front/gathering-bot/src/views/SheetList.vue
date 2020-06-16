@@ -26,7 +26,7 @@
 			</div>
 			<table class="table" style="text-align: center">
 				<thead>
-					<tr style="font-size: 25px;background-color: #7d2ae8;color: white">
+					<tr style="font-size: 25px;background-color: #bbbbbb;color: white">
 						<th scope="col" style="width:300px">제목</th>
 						<th scope="col">내용</th>
 						<th scope="col">생성일</th>

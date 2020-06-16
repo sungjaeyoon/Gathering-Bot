@@ -26,12 +26,19 @@ export function insertSheet(data) {
 }
 
 export function getSheet(userId, filter) {
-	console.log(filter);
 	return instance.get('/sheets/users/' + userId, { params: filter });
+}
+
+export function getSheetResponse(sheetId, userId) {
+	return instance.get('/response/' + sheetId + '/' + userId);
 }
 
 export function getDetail(sheetId) {
 	return instance.get('/sheets/' + sheetId);
+}
+
+export function updateResponse(data) {
+	return instance.post('/response/result', data);
 }
 
 export function startSheet(sheetId) {

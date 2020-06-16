@@ -31,8 +31,12 @@ export default new VueRouter({
 			component: () => import('@/views/SheetDetail.vue')
 		},
 		{
-			path: '/response',
-			component: () => import('@/components/ResponseForm.vue')
+			path: '/response/:sheetId/:userId',
+			component: () => import('@/views/ResponsePage.vue')
+		},
+		{
+			path: '/success',
+			component: () => import('@/views/SuccessPage.vue')
 		},
 		{
 			path: '*',

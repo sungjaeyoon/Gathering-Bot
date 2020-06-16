@@ -2,13 +2,13 @@ package com.kt.yoon.repository;
 
 import com.kt.yoon.domain.MemberSheet;
 import com.kt.yoon.domain.Sheet;
-import com.kt.yoon.domain.dto.MemberSheetResponse;
+import com.kt.yoon.domain.type.RequestStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -32,5 +32,15 @@ public class MemberSheetRepository {
         return entityManager.createQuery("select s from Sheet s where s.id=:sheetId",Sheet.class)
                 .setParameter("sheetId",sheetId)
                 .getSingleResult();
+    }
+
+    public void updateMemberSheet(Long sheetId, Long userId, String response) throws Exception{
+        entityManager.createQuery("update MemberSheet ms set ms.response=:response, ms.responseDate=:responseDate,ms.requestStatus=:requestStatus where ms.member.id=:userId and ms.sheet.id=:sheetId")
+                .setParameter("response",response)
+                .setParameter("userId",userId)
+                .setParameter("sheetId",sheetId)
+                .setParameter("responseDate", LocalDateTime.now())
+                .setParameter("requestStatus", RequestStatus.YES)
+                .executeUpdate();
     }
 }

@@ -81,7 +81,7 @@
 			<div style="overflow:auto; overflow-y:hidden">
 				<table class="table table-striped" style="text-align: center">
 					<thead>
-						<tr style="background-color: #7d2ae8;color: white">
+						<tr style="background-color: #8566AA ;color: white">
 							<th scope="col">#</th>
 							<th scope="col">이름</th>
 							<th scope="col">직책</th>

@@ -1,20 +1,24 @@
 <template>
-	<div class="container loginForm mx-auto mt-5" style="width: 500px">
-		<form @submit.prevent="login" class="form">
-			<div class="form-group">
-				<label for="email">Email</label>
-				<input id="email" class="form-control" type="text" v-model="email" @blur="checkEmail" />
-				<span class="badge badge-danger mt-1" v-if="!availableEmail">이메일 형식이 잘못되었습니다.</span>
-			</div>
-			<div class="form-group mb-3">
-				<label for="password">Password</label>
-				<input id="password" class="form-control" type="password" v-model="password" />
-			</div>
-			<button type="submit" class="btn">
-				로그인
-			</button>
-		</form>
-		<div v-if="message" style="width: 400px" class="mx-auto badge badge-danger">{{ message }}</div>
+	<div>
+		<img src="@/assets/robot.png" class="rounded mx-auto d-block my-5" alt="..." style="height: 150px" />
+		<div class="container loginForm mx-auto mt-5 shadow-lg p-3 mb-5 bg-white rounded" style="width: 500px">
+			<h2 class="text-center">LOGIN</h2>
+			<form @submit.prevent="login" class="form">
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input id="email" class="form-control" type="text" v-model="email" @blur="checkEmail" />
+					<span class="badge badge-dark mt-1" v-if="!availableEmail">이메일 형식이 잘못되었습니다.</span>
+				</div>
+				<div class="form-group mb-3">
+					<label for="password">Password</label>
+					<input id="password" class="form-control" type="password" v-model="password" />
+				</div>
+				<button type="submit" class="btn btn-dark">
+					로그인
+				</button>
+			</form>
+			<div v-if="message" class="badge badge-dark">{{ message }}</div>
+		</div>
 	</div>
 </template>
 
@@ -73,17 +77,8 @@ export default {
 
 <style scoped>
 .loginForm {
-	padding: 3%;
-	background-color: #7d2ae8;
-	border-radius: 1em;
-	color: white;
-	font-size: 25px;
 	font-weight: bold;
-}
-
-.btn {
-	background-color: #00c4cc;
-	color: white;
+	padding: 3%;
 	font-size: 20px;
 }
 </style>

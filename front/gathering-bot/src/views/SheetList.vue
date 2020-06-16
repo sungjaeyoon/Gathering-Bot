@@ -13,53 +13,55 @@
 			</div>
 		</template>
 		<template v-else>
-			<div class="dropdown show">
-				<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					시트 상태 : {{ sheetFilter }}
-				</a>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					<a class="dropdown-item" @click="filterSheet('전체보기', '')">전체보기</a>
-					<a class="dropdown-item" @click="filterSheet('대기중', 'WAIT')">대기중</a>
-					<a class="dropdown-item" @click="filterSheet('진행중', 'PROCEEDING')">진행중</a>
-					<a class="dropdown-item" @click="filterSheet('종료', 'FINISHED')">종료</a>
+			<div class="shadow-lg p-3 mb-5 bg-white rounded">
+				<div class="dropdown show mb-2">
+					<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						시트 상태 : {{ sheetFilter }}
+					</a>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<a class="dropdown-item" @click="filterSheet('전체보기', '')">전체보기</a>
+						<a class="dropdown-item" @click="filterSheet('대기중', 'WAIT')">대기중</a>
+						<a class="dropdown-item" @click="filterSheet('진행중', 'PROCEEDING')">진행중</a>
+						<a class="dropdown-item" @click="filterSheet('종료', 'FINISHED')">종료</a>
+					</div>
 				</div>
+				<table class="table table-bordered" style="text-align: center">
+					<thead>
+						<tr style="font-size: 25px" class="table-active">
+							<th scope="col" style="width:300px">제 목</th>
+							<th scope="col">내 용</th>
+							<th scope="col">생성일</th>
+							<th scope="col">상 태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="(sheet, index) in sheetList" :key="index" v-on:click="showList(sheet.id)" class="table-line">
+							<td scope="row" class="table-text text-left" style="font-size: 25px">
+								{{ sheet.title }}
+							</td>
+							<td class="table-text text-left">{{ sheet.content }}</td>
+							<td>{{ sheet.createdDate.split('T').join(' / ') }}</td>
+							<td>
+								<div v-if="sheet.sheetStatus == 'WAIT'">
+									<span class="spinner-grow spinner-grow-sm text-secondary mr-3 pt-2" role="status">
+										<span class="sr-only">Loading...</span>
+									</span>
+									<span>대기중</span>
+								</div>
+								<div v-if="sheet.sheetStatus == 'PROCEEDING'">
+									<span class="spinner-border spinner-border-sm text-success mr-3 pt-2" role="status">
+										<span class="sr-only">Loading...</span>
+									</span>
+									<span>진행중</span>
+								</div>
+								<div v-if="sheet.sheetStatus == 'FINISHED'">
+									<span>종 료</span>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<table class="table" style="text-align: center">
-				<thead>
-					<tr style="font-size: 25px;background-color: #bbbbbb;color: white">
-						<th scope="col" style="width:300px">제목</th>
-						<th scope="col">내용</th>
-						<th scope="col">생성일</th>
-						<th scope="col">상태</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="(sheet, index) in sheetList" :key="index" v-on:click="showList(sheet.id)" class="table-line">
-						<td scope="row" class="table-text" style="color: cornflowerblue;font-size: 25px;text-align: left">
-							{{ sheet.title }}
-						</td>
-						<td class="table-text">{{ sheet.content }}</td>
-						<td>{{ sheet.createdDate.split('T').join(' / ') }}</td>
-						<td>
-							<div v-if="sheet.sheetStatus == 'WAIT'">
-								<span class="spinner-grow spinner-grow-sm text-secondary mr-3 pt-2" role="status">
-									<span class="sr-only">Loading...</span>
-								</span>
-								<span>대기중</span>
-							</div>
-							<div v-if="sheet.sheetStatus == 'PROCEEDING'">
-								<span class="spinner-border spinner-border-sm text-success mr-3 pt-2" role="status">
-									<span class="sr-only">Loading...</span>
-								</span>
-								<span>진행중</span>
-							</div>
-							<div v-if="sheet.sheetStatus == 'FINISHED'">
-								<span>종 료</span>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
 		</template>
 	</div>
 </template>

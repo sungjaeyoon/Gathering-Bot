@@ -3,29 +3,29 @@
 		<div class="row no-gutters">
 			<div class="col-5">
 				<router-link to="/" style="color: white; text-decoration: none">
-					<img src="@/assets/logo.png" style="width: 15%" alt="" />
+					<div class="dot shadow-lg">G</div>
 				</router-link>
 			</div>
 			<div class="col-6">
 				<!--not login-->
 				<template v-if="!isUserLogin">
-					<span class="header-button float-right">
-						<router-link to="/login" style="color: gray; text-decoration: none">로그인</router-link>
+					<span class="float-right mx-2">
+						<router-link to="/login" class="btn btn-dark">로그인</router-link>
 					</span>
-					<span class="header-button float-right">
-						<router-link to="/signup" class="header-button-text">회원가입</router-link>
+					<span class="float-right mx-2">
+						<router-link to="/signup" class="btn btn-dark">회원가입</router-link>
 					</span>
 				</template>
 				<!--logined-->
 				<template v-else>
-					<span class="header-button float-right">
-						<router-link to="/sheets/new" class="header-button-text">시트 추가</router-link>
+					<span class="float-right mx-2">
+						<router-link to="/sheets/new" class="btn btn-dark">시트 추가</router-link>
 					</span>
-					<span class="header-button float-right">
-						<router-link to="/sheets" class="header-button-text">시트 목록</router-link>
+					<span class="float-right mx-2">
+						<router-link to="/sheets" class="btn btn-dark">시트 목록</router-link>
 					</span>
-					<span class="header-button float-right">
-						<a href="javascript:;" v-on:click="logoutUser" class="header-button-text">로그아웃</a>
+					<span class="float-right mx-2">
+						<a href="javascript:;" v-on:click="logoutUser" class="btn btn-dark">로그아웃</a>
 					</span>
 				</template>
 			</div>
@@ -56,19 +56,15 @@ export default {
 .row {
 	margin-top: 3%;
 }
-
-.header-button {
-	font-size: 20px;
+.dot {
+	height: 80px;
+	width: 80px;
+	text-align: center;
+	font-size: 50px;
 	font-weight: bold;
-	margin-left: 3%;
-	padding: 2%;
-	border-radius: 0.5em;
-	border: 2px solid black;
-	cursor: pointer;
-}
-
-.header-button-text {
-	color: black;
-	text-decoration: none;
+	line-height: 80px;
+	background-color: #00c4cc;
+	border-radius: 50%;
+	display: inline-block;
 }
 </style>

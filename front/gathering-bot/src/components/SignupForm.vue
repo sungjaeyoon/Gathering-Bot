@@ -1,11 +1,11 @@
 <template>
 	<div class="container">
-		<form @submit.prevent="submitForm" class="mx-auto my-auto signup-form" style="width: 500px">
+		<form @submit.prevent="submitForm" class="mx-auto my-auto signup-form shadow-lg p-3 mb-5 bg-white rounded" style="width: 500px">
 			<div class="form-group mb-3">
 				<label for="email">Email</label>
 				<input type="text" class="form-control" id="email" v-model="email" placeholder="Enter email" @blur="checkDuplicate" />
-				<span class="badge badge-danger mt-1" v-if="!availableEmail">이미 사용중인 이메일입니다.</span>
-				<span class="badge badge-danger mt-1" v-if="!availableEmailForm">이메일 형식이 다릅니다.</span>
+				<span class="badge badge-dark mt-1" v-if="!availableEmail">이미 사용중인 이메일입니다.</span>
+				<span class="badge badge-dark mt-1" v-if="!availableEmailForm">이메일 형식이 다릅니다.</span>
 			</div>
 			<div class="form-group mb-3">
 				<label for="name">성함</label>
@@ -18,7 +18,7 @@
 			<div class="form-group mb-3">
 				<label for="passwordConfirm">비밀번호 확인</label>
 				<input type="password" class="form-control" id="passwordConfirm" v-model="passwordConfirm" placeholder="Enter password" @blur="checkPasswordConfirm" />
-				<span class="badge badge-danger mt-1" v-if="!samePassword">비밀번호가 다릅니다.</span>
+				<span class="badge badge-dark mt-1" v-if="!samePassword">비밀번호가 다릅니다.</span>
 			</div>
 			<div class="form-group mb-3">
 				<label for="position">직책</label>
@@ -41,7 +41,7 @@
 					<option value="서비스플랫폼">서비스플랫폼</option>
 				</select>
 			</div>
-			<button type="submit" class="btn">회원가입</button>
+			<button type="submit" class="btn btn-dark">회원가입</button>
 		</form>
 	</div>
 </template>
@@ -147,16 +147,7 @@ export default {
 <style scoped>
 .signup-form {
 	padding: 3%;
-	background-color: #7d2ae8;
-	border-radius: 1em;
-	color: white;
-	font-size: 25px;
-	font-weight: bold;
-}
-
-.btn {
-	background-color: #00c4cc;
-	color: white;
 	font-size: 20px;
+	font-weight: bold;
 }
 </style>

@@ -47,3 +47,7 @@ export function startSheet(sheetId) {
 export function endSheet(sheetId) {
 	return instance.get('/sheets/end/' + sheetId);
 }
+
+export function sendMailAll(sheetId) {
+	return instance.get('/send/' + sheetId);
+}

@@ -6,11 +6,11 @@
 		<div v-if="!pageNotFound && !loading">
 			<h1>Page Not Found</h1>
 		</div>
-		<div v-else style="overflow:auto; overflow-y:hidden">
+		<div v-else style="overflow:auto; overflow-y:hidden" class=" shadow p-3 mb-5 bg-white rounded">
 			<!--테이블-->
-			<table class="table table-bordered">
+			<table class="table table-bordered text-center">
 				<tbody>
-					<tr>
+					<tr class="table-active">
 						<th>이름</th>
 						<th>직책</th>
 						<th>팀</th>
@@ -37,7 +37,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<button class="btn btn-success float-right" @click="submitInput">제출</button>
+			<button class="btn btn-dark float-right" @click="submitInput">제출</button>
 			<!--테이블-->
 		</div>
 	</div>
@@ -90,7 +90,8 @@ export default {
 				response: this.inputQuestions.join('&&&&')
 			};
 			const response = await updateResponse(data);
-			alert('제출 완료');
+			alert('제출 완료 창이 닫힙니다.');
+			close();
 		}
 	}
 };

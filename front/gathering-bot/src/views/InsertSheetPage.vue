@@ -1,14 +1,14 @@
 <template>
 	<div class="row mt-5">
 		<!--시트 작성-->
-		<div class="left-content" v-bind:class="[{ 'col-8': !previewFlag }, { 'col-12': previewFlag }]">
+		<div class="left-content shadow p-3 mb-5 bg-white rounded" v-bind:class="[{ 'col-8': !previewFlag }, { 'col-12': previewFlag }]">
 			<h1 class="mail-preview-text mb-4">새로운 시트</h1>
 			<!--오른쪽 버튼-->
 			<span v-if="previewFlag">
-				<button v-on:click="changePreview" class="float-right my-3 btn btn-lg btn-warning">Open Preview</button>
+				<button v-on:click="changePreview" class="float-right my-3 btn btn-lg btn-outline-warning">Open Preview</button>
 			</span>
 			<span v-else>
-				<button v-on:click="changePreview" class="float-right my-3 btn btn-lg btn-warning">Close Preview</button>
+				<button v-on:click="changePreview" class="float-right my-3 btn btn-lg btn-outline-warning">Close Preview</button>
 			</span>
 			<span>
 				<button v-on:click="saveSheet" class="float-right my-3 mx-3 btn btn-lg save-button">저장하기</button>
@@ -171,14 +171,14 @@
 						</tr>
 					</tbody>
 				</table>
-				<button class="btn btn-success mt-1 float-right" v-on:click="addColumn">항목 추가</button>
+				<button class="btn btn-dark mt-1 float-right" v-on:click="addColumn">항목 추가</button>
 			</div>
 			<!--테이블-->
 		</div>
 		<!--시트 작성-->
 
 		<!--메일 미리보기-->
-		<div class="col-4 right-content" v-bind:class="{ hide: previewFlag }">
+		<div class="col-4 right-content shadow p-3 mb-5 bg-white rounded" v-bind:class="{ hide: previewFlag }">
 			<h1 class="mail-preview-text mb-4">메일 미리보기</h1>
 			<!--메일 상단-->
 			<div class="row mb-2">
@@ -203,13 +203,13 @@
 					<input type="text" class="form-control" disabled value="제  목" style="text-align: center" />
 				</div>
 				<div class="col-9">
-					<p type="text" class="form-control" disabled>[Gathering-bot] {{ sheetTitle }}</p>
+					<p type="text" class="form-control" disabled style="overflow:scroll">[Gathering-bot] {{ sheetTitle }}</p>
 				</div>
 			</div>
 			<!--메일 상단-->
 			<!--메일 하단-->
 			<div class="row">
-				<div type="text" class="form-control mail-preview-content" disabled style="white-space: pre;">
+				<div type="text" class="form-control mail-preview-content" disabled style="white-space: pre;overflow: scroll">
 					<div class="finished-date-text">Gathering-bot에서 발송한 메일입니다.</div>
 					<br />{{ sheetContent }}
 					<div class="finished-date-text"><br />- 완료 기한 : {{ finishedDate.split('T').join(' : ') }}</div>
@@ -243,7 +243,6 @@
 							<!--테이블-->
 						</div>
 					</div>
-					<button class="btn btn-outline-secondary float-right mt-4">제출</button>
 				</div>
 			</div>
 			<!--메일 하단-->
@@ -267,9 +266,9 @@ export default {
 			searchedPersonList: [], // 검색할 사람 목록
 			previewFlag: false,
 			tableHeads: [
-				{ content: '분당에 방문한 적이 있나요?', edit: false, example: '네/아니오' },
-				{ content: '주말에 어디가시나요?', edit: false, example: '네/아니오' },
-				{ content: '배고프나요?', edit: false, example: '네/아니오' }
+				{ content: '조사항목 1 입력', edit: false, example: '예시 입력' },
+				{ content: '조사항목 2 입력', edit: false, example: '예시 입력' },
+				{ content: '조사항목 3 입력', edit: false, example: '예시 입력' }
 			]
 		};
 	},

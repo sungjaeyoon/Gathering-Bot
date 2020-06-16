@@ -1,5 +1,5 @@
 <template>
-	<div class=" ml-5 mr-5">
+	<div class=" ml-5 mr-5 shadow-lg p-3 mb-5 bg-white rounded">
 		<span>
 			<h1>{{ sheetTitle }}</h1>
 		</span>
@@ -58,9 +58,9 @@
 				</div>
 			</div>
 			<div class="float-right mb-3">
-				<button v-if="sheetStatus != 'WAIT'" class="btn btn-primary mr-2">엑셀 내보내기</button>
+				<button v-if="sheetStatus != 'WAIT'" class="btn btn-outline-dark mr-2">엑셀 내보내기</button>
 				<span v-if="sheetStatus == 'PROCEEDING'">
-					<button class="btn btn-danger mr-2">미응답자 메일 발송</button>
+					<button class="btn btn-outline-danger mr-2">미응답자 메일 발송</button>
 					<button class="btn btn-danger mr-2" data-toggle="modal" data-target="#endModal">시트 종료</button>
 				</span>
 				<span v-if="sheetStatus == 'WAIT'">
@@ -79,9 +79,9 @@
 				</span>
 			</div>
 			<div style="overflow:auto; overflow-y:hidden">
-				<table class="table table-striped" style="text-align: center">
+				<table class="table table-bordered" style="text-align: center">
 					<thead>
-						<tr style="background-color: #8566AA ;color: white">
+						<tr class="table-active">
 							<th scope="col">#</th>
 							<th scope="col">이름</th>
 							<th scope="col">직책</th>
@@ -116,11 +116,11 @@
 							<td v-if="sheetStatus != 'WAIT'">{{ line.modifiedDate != null ? line.modifiedDate.split('T').join('  ') : '' }}</td>
 							<!--							<td v-if="sheetStatus == 'PROCEEDING'"><Button class="btn btn-info">Edit</Button></td>-->
 							<td v-if="sheetStatus == 'PROCEEDING'">
-								<Button v-if="line.requestStatus == 'YES'" class="btn btn-warning">수정 요청</Button>
-								<Button v-if="line.requestStatus == 'NO'" class="btn btn-warning">재전송</Button>
+								<Button v-if="line.requestStatus == 'YES'" class="btn btn-outline-warning">수정 요청</Button>
+								<Button v-if="line.requestStatus == 'NO'" class="btn btn-outline-warning">재전송</Button>
 							</td>
 						</tr>
-						<tr style="background-color: cornflowerblue;color: white">
+						<tr class="table-active">
 							<th>예시</th>
 							<td>-</td>
 							<td>-</td>
@@ -140,7 +140,7 @@
 </template>
 
 <script>
-import { getDetail, startSheet, endSheet } from '@/api';
+import { getDetail, startSheet, endSheet, sendMailAll } from '@/api';
 
 export default {
 	name: 'SheetDetail',
@@ -203,6 +203,7 @@ export default {
 			this.loading = true;
 			const response = await startSheet(this.$route.params.id);
 			this.loading = false;
+			this.sendEmailAll();
 			await this.loadDetail();
 		},
 		async endSheet() {
@@ -210,6 +211,10 @@ export default {
 			const response = await endSheet(this.$route.params.id);
 			this.loading = false;
 			await this.loadDetail();
+		},
+		sendEmailAll() {
+			sendMailAll(this.$route.params.id);
+			console.log('send');
 		}
 	}
 };

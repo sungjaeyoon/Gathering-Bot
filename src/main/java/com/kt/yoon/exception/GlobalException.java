@@ -1,13 +1,9 @@
 package com.kt.yoon.exception;
 
-import io.swagger.annotations.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.springframework.boot.context.properties.bind.validation.BindValidationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 
 import static com.kt.yoon.exception.ErrorCode.*;
 
@@ -58,6 +55,14 @@ public class GlobalException {
     @ExceptionHandler(EntityNotFoundException.class)
     public JsonErrorResponse entitiyNotFoundException() {
         log.warn("EXCEPTION: EntityNotFoundException");
+        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(RESOURCE_NOT_FOUND.getStatus(),RESOURCE_NOT_FOUND.getMessage());
+        return jsonErrorResponse;
+    }
+
+    //해당 자원이 존재하지 않음2 - RESOURCE_NOT_FOUND(400, "C004", "해당 자료가 없습니다."),
+    @ExceptionHandler(NoResultException.class)
+    public JsonErrorResponse noResultException() {
+        log.warn("EXCEPTION: no Result Exception");
         JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(RESOURCE_NOT_FOUND.getStatus(),RESOURCE_NOT_FOUND.getMessage());
         return jsonErrorResponse;
     }

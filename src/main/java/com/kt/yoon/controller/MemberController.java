@@ -2,11 +2,8 @@ package com.kt.yoon.controller;
 
 import com.kt.yoon.config.JwtTokenProvider;
 import com.kt.yoon.domain.Member;
+import com.kt.yoon.domain.form.LoginForm;
 import com.kt.yoon.domain.form.MemberForm;
-import com.kt.yoon.exception.GlobalException;
-import com.kt.yoon.exception.InvalidEmailException;
-import com.kt.yoon.exception.InvalidPasswordException;
-import com.kt.yoon.exception.JsonErrorResponse;
 import com.kt.yoon.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,14 +13,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 @Api(tags = {"1.User"})
 @Controller
@@ -54,10 +48,10 @@ public class MemberController {
     @ApiOperation(value = "로그인", notes = "로그인 API")
     @PostMapping("/login")
     @ResponseBody
-    public JSONObject login(@RequestBody Map<String, String> user) throws Exception {
+    public JSONObject login(@RequestBody @Valid LoginForm loginForm) throws Exception {
         JSONObject jsonObject = new JSONObject();
 
-        Member member = memberService.login(user);
+        Member member = memberService.login(loginForm);
         jsonObject.put("status", 200);
         jsonObject.put("id", member.getId());
         jsonObject.put("email", member.getEmail());

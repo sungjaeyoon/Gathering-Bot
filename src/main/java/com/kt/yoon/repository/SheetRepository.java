@@ -21,7 +21,7 @@ public class SheetRepository {
         entityManager.persist(sheet);
     }
 
-    public List<Sheet> getSheetByMember(Member member, int offset, int limit, SheetStatus sheetStatus) throws Exception{
+    public List<Sheet> getSheetByMember(Member member, int offset, int limit, SheetStatus sheetStatus) {
         if (sheetStatus == null) {
             String query = "select s from Sheet s where s.createdMember=:member order by s.createdDate DESC";
             return entityManager.createQuery(query, Sheet.class)
@@ -40,12 +40,12 @@ public class SheetRepository {
         }
     }
 
-    public void startSheet(Long sheetId) throws Exception{
+    public void startSheet(Long sheetId) {
         entityManager.createQuery("update Sheet s set s.sheetStatus='PROCEEDING' where s.id=:sheetId")
                 .setParameter("sheetId",sheetId)
                 .executeUpdate();
     }
-    public void endSheet(Long sheetId) throws Exception{
+    public void endSheet(Long sheetId) {
         entityManager.createQuery("update Sheet s set s.sheetStatus='FINISHED' where s.id=:sheetId")
                 .setParameter("sheetId",sheetId)
                 .executeUpdate();

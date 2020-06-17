@@ -32,7 +32,8 @@ public class SheetService {
 
     }
 
-    public List<Sheet> getSheetByUserId(Long userId, int offset, int limit, String type) throws Exception {
+    public List<Sheet> getSheetByUserId(Long userId, int offset, int limit, String type) {
+
         SheetStatus sheetStatus = null;
         if (type.equals("WAIT")) {
             sheetStatus = SheetStatus.WAIT;
@@ -55,11 +56,11 @@ public class SheetService {
         return memberSheetRepository.getSheet(sheetId);
     }
 
-    public void startSheet(Long sheetId) throws Exception {
+    public void startSheet(Long sheetId) {
         sheetRepository.startSheet(sheetId);
     }
 
-    public void endSheet(Long sheetId) throws Exception {
+    public void endSheet(Long sheetId) {
         sheetRepository.endSheet(sheetId);
     }
 }

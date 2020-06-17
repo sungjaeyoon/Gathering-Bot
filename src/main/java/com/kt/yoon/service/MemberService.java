@@ -1,24 +1,20 @@
 package com.kt.yoon.service;
 
 import com.kt.yoon.domain.Member;
+import com.kt.yoon.domain.form.LoginForm;
 import com.kt.yoon.exception.InvalidEmailException;
 import com.kt.yoon.exception.InvalidPasswordException;
 import com.kt.yoon.repository.MemberRepository;
 import com.kt.yoon.repository.UserRepository;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -32,10 +28,10 @@ public class MemberService {
     /**
      * 로그인
      * */
-    public Member login(Map<String, String> user) throws Exception {
-        Member member = userRepository.findByEmail(user.get("email"))
+    public Member login(LoginForm loginForm) throws Exception {
+        Member member = userRepository.findByEmail(loginForm.getEmail())
                 .orElseThrow(() -> new InvalidEmailException("가입되지 않은 E-MAIL 입니다."));
-        if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
+        if (!passwordEncoder.matches(loginForm.getPassword(), member.getPassword())) {
             throw new InvalidPasswordException("잘못된 비밀번호입니다.");
         }
         return member;
@@ -73,7 +69,7 @@ public class MemberService {
     public Member findById(Long id) {
         Member member = memberRepository.findById(id);
         if(member==null){
-            throw new EntityNotFoundException("유저가 존재하지 않습니다.");
+            throw new EntityNotFoundException("존재하지 않는 유저 입니다.");
         }
         return member;
     }

@@ -4,10 +4,7 @@ import com.kt.yoon.domain.Member;
 import com.kt.yoon.domain.Sheet;
 import com.kt.yoon.repository.SheetRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

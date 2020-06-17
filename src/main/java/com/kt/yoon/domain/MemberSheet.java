@@ -2,7 +2,6 @@ package com.kt.yoon.domain;
 
 import com.kt.yoon.domain.type.RequestStatus;
 import lombok.Getter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

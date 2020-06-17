@@ -73,12 +73,24 @@ export default {
 				alert('이메일 값은 필수입니다.');
 				return;
 			}
+			if (this.email.length >= 100) {
+				alert('이메일이 너무 깁니다.');
+				return;
+			}
 			if (this.name == '') {
 				alert('이름은 필수입니다.');
 				return;
 			}
+			if (this.name.length >= 30) {
+				alert('이름이 너무 깁니다.');
+				return;
+			}
 			if (this.password == '') {
 				alert('비밀번호는 필수입니다.');
+				return;
+			}
+			if (this.password.length >= 20) {
+				alert('패스워드가 너무 깁니다.');
 				return;
 			}
 			if (this.position == '') {

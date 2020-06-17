@@ -1,8 +1,10 @@
 <template>
 	<div class="container">
+		<!--로딩-->
 		<div v-if="loading">
 			<h1>loading...</h1>
 		</div>
+		<!--찾을수 없는 페이지-->
 		<div v-if="!pageNotFound && !loading">
 			<h1>Page Not Found</h1>
 		</div>
@@ -67,7 +69,6 @@ export default {
 	methods: {
 		async loadSheet() {
 			const response = await getSheetResponse(this.$route.params.sheetId, this.$route.params.userId);
-			console.log(response.data);
 			if (response.data.status == 200) {
 				const data = response.data;
 				this.name = data.name;
@@ -75,21 +76,24 @@ export default {
 				this.position = data.position;
 				this.teamName = data.teamName;
 				this.questions = data.question.split('&&&&');
+				for (let i = 0; i < this.questions.length; i++) {
+					this.inputQuestions.push('');
+				}
 				this.examples = data.example.split('&&&&');
 				this.pageNotFound = true;
-			} else if (response.data.status == 400) {
-				alert('bad Request!');
+			} else {
+				alert(response.data.message);
 			}
 			this.loading = false;
 		},
 		async submitInput() {
-			//memberId, SheetId, questions
 			const data = {
 				memberId: this.memberId,
 				sheetId: this.$route.params.sheetId,
 				response: this.inputQuestions.join('&&&&')
 			};
 			const response = await updateResponse(data);
+			//todo 서버에서 500 또는 401을 보내줄 경우 에러처리 구현
 			alert('제출 완료 창이 닫힙니다.');
 			close();
 		}

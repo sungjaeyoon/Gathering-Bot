@@ -42,25 +42,4 @@ public class MemberSheet {
         this.sheet=sheet;
         this.requestStatus=RequestStatus.NO;
     }
-
-    public static MemberSheet createMemberSheet(Member member, Sheet sheet){
-        return new MemberSheet(member,sheet);
-    }
-
-    /*
-     * 비지니스 로직
-     * */
-    //응답 내용 저장
-    public void saveResponseContent(String responseContent) {
-        this.response = responseContent;
-
-        if (requestStatus == RequestStatus.NO) {
-            //최초 응답.
-            requestStatus = RequestStatus.YES;
-            responseDate = LocalDateTime.now();
-        } else {
-            //수정 응답.
-            this.modifiedDate = LocalDateTime.now();
-        }
-    }
 }

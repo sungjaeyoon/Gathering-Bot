@@ -48,7 +48,7 @@ public class MailService {
             String mailTitle = "[Gathering-bot]" + sheet.getTitle();
             String htmlText = "<h2>Gathering-bot에서 발송한 메일입니다.</h2><br>" +
                     sheet.getContent().replaceAll("\n","<br>")+"\n"+
-                    "<br> <h3>- 완료 기한:"+sheet.getFinishedDate().toString()+"</h3>"+
+                    "<br> <h3>- 완료 기한: "+String.join(" / ",sheet.getFinishedDate().toString().split("T"))+"</h3>"+
                     "<br><br> 아래 링크를 눌러서 응답해주세요.<br>"+
                     "<a href=\"http://localhost:8081/response/"+sheet.getId()+"/";
 
@@ -57,7 +57,8 @@ public class MailService {
             message.setSubject(mailTitle);
             for (Member member: memberList) {
                 String personalHtmlText = htmlText;
-                personalHtmlText+=member.getId()+"\"> 답변하기</a>";
+                personalHtmlText+=member.getId()+"\"> 답변하기</a><br>";
+                personalHtmlText+=member.getName()+"님에게 발송된 메일입니다.";
                 message.setContent(personalHtmlText, "text/html;charset=\"UTF-8\"");
                 message.setRecipients(Message.RecipientType.TO,
                         InternetAddress.parse("dbstjdwo1000@naver.com"));

@@ -4,7 +4,9 @@ import com.kt.yoon.domain.Member;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -15,15 +17,19 @@ public class SheetForm {
     private String createdMemberId;
 
     @NotEmpty(message = "제목은 필수 입니다.")
+    @Size(max = 100, message = "제목은 100자를 넘을수 없습니다.")
     private String title;
 
     @NotEmpty(message = "내용은 필수 입니다.")
+    @Size(max = 2000, message = "내용은 2000자를 넘을수 없습니다.")
     private String content;
 
     @NotEmpty(message = "응답 항목은 필수 입니다.")
+    @Size(max = 2000, message = "응답항목은 2000자를 넘을수 없습니다.")
     private String question;
 
     @NotEmpty(message = "예시는 필수 입니다.")
+    @Size(max = 2000, message = "예시는 2000자를 넘을수 없습니다.")
     private String example;
 
     @NotEmpty(message = "응답 개수 오류")

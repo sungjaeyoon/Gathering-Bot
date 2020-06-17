@@ -27,7 +27,7 @@
 				</div>
 				<table class="table table-bordered" style="text-align: center">
 					<thead>
-						<tr style="font-size: 25px" class="table-active">
+						<tr style="font-size: 20px" class="table-active">
 							<th scope="col" style="width:300px">제 목</th>
 							<th scope="col">내 용</th>
 							<th scope="col">생성일</th>
@@ -36,9 +36,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="(sheet, index) in sheetList" :key="index" v-on:click="showList(sheet.id)" class="table-line">
-							<td scope="row" class="table-text text-left" style="font-size: 25px">
-								{{ sheet.title }}
-							</td>
+							<td scope="row" class="table-text text-left" style="font-size: 20px">ㆍ{{ sheet.title }}</td>
 							<td class="table-text text-left">{{ sheet.content }}</td>
 							<td>{{ sheet.createdDate.split('T').join(' / ') }}</td>
 							<td>
@@ -136,7 +134,6 @@ tr {
 	min-height: 25px;
 	height: 25px;
 	border-radius: 1em;
-	font-weight: bold;
 }
 
 .table-line {

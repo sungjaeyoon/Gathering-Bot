@@ -42,6 +42,10 @@ export default {
 				alert('이메일을 입력해주세요.');
 				return;
 			}
+			if (this.email.length >= 100) {
+				alert('이메일 길이가 너무 깁니다.');
+				return;
+			}
 			if (!this.availableEmail) {
 				alert('이메일 형식을 확인해주세요.');
 				return;
@@ -50,21 +54,30 @@ export default {
 				alert('패스워드를 입력해주세요.');
 				return;
 			}
+			if (this.password.length >= 20) {
+				alert('패스워드가 너무 깁니다.');
+				return;
+			}
 			const userData = {
 				email: this.email,
 				password: this.password
 			};
 			const response = await loginUser(userData);
 
-			// console.log(response.data);
-			if (response.data.status != 200) {
-				this.message = response.data.message;
-			} else if (response.data.status == 200) {
+			if (response.data.status == 200) {
 				this.$store.commit('setUserdata', response.data);
 				this.$router.push('/');
+			} else if (response.data.status == 400) {
+				this.message = response.data.message;
+			} else if (response.data.status == 404) {
+				alert(response.data.message);
 			}
 		},
 		checkEmail() {
+			if (this.email.length >= 100) {
+				alert('이메일 길이가 너무 깁니다.');
+				return;
+			}
 			if (validateEmail(this.email)) {
 				this.availableEmail = true;
 			} else {

@@ -29,15 +29,16 @@ public class Sheet {
     @JoinColumn(name = "member_id")
     private Member createdMember;
 
+    @Column(length = 100)
     private String title;
 
-    @Column(length = 800)
+    @Column(length = 2000)
     private String content;
 
-    @Column(length = 800)
+    @Column(length = 2000)
     private String question;
 
-    @Column(length = 800)
+    @Column(length = 2000)
     private String example;
 
     private int colNum;
@@ -49,8 +50,10 @@ public class Sheet {
     private LocalDateTime repeatDate;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(length = 10)
     private SheetStatus sheetStatus;
 
+    @Column(length = 10)
     @Enumerated(value = EnumType.STRING)
     private SheetType sheetType;
 
@@ -64,24 +67,23 @@ public class Sheet {
         this.content = content;
         this.question = question;
         this.colNum = colNum;
-        this.example= example;
+        this.example = example;
 
         LocalDateTime finishedDate = LocalDateTime.parse(finishedDateString);
-
         this.finishedDate = finishedDate;
         this.repeatDate = repeatDate;
 
         for (Member m : memberList) {
             memberSheetList.add(new MemberSheet(m, this));
         }
-        createdDate = LocalDateTime.now();
 
+        createdDate = LocalDateTime.now();
         sheetStatus = SheetStatus.WAIT;
         sheetType = SheetType.TABLE;
     }
 
     public static Sheet createSheet(Member createdMember, SheetForm sheetForm, List<Member> memberList) {
-        return new Sheet(createdMember, sheetForm.getTitle(), sheetForm.getContent(), sheetForm.getQuestion(), Integer.parseInt(sheetForm.getColNum()), sheetForm.getFinishedDate(),sheetForm.getExample(), null, memberList);
+        return new Sheet(createdMember, sheetForm.getTitle(), sheetForm.getContent(), sheetForm.getQuestion(), Integer.parseInt(sheetForm.getColNum()), sheetForm.getFinishedDate(), sheetForm.getExample(), null, memberList);
     }
 
 }

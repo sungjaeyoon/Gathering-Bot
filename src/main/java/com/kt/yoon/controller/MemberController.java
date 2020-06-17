@@ -9,8 +9,10 @@ import com.kt.yoon.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -24,6 +26,7 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 @CrossOrigin
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
@@ -34,6 +37,7 @@ public class MemberController {
     @PostMapping("/signup")
     @ResponseBody
     public JSONObject addMember(@Valid @RequestBody MemberForm memberForm, BindingResult bindingResult) {
+        log.info("회원가입 시작");
         JSONObject jsonObject = new JSONObject();
 
         try {
@@ -45,12 +49,15 @@ public class MemberController {
             memberService.save(Member.createMember(memberForm));
             jsonObject.put("status", 200);
             jsonObject.put("message", "success");
+            log.info("회원가입 완료");
         } catch (IllegalStateException e) {
             //duplicate error
+            log.warn("회원가입 실패");
             return new JsonErrorResponse(400,"이미 가입된 회원입니다.").getJsonObject();
         } catch (Exception e) {
             // server error
-            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
+            log.warn("회원가입 실패:"+ e.getMessage());
+            return new JsonErrorResponse(404,"에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -59,6 +66,7 @@ public class MemberController {
     @PostMapping("/login")
     @ResponseBody
     public JSONObject login(@RequestBody Map<String, String> user) {
+        log.info("로그인 시작: "+user.get("email"));
         JSONObject jsonObject = new JSONObject();
         try {
             Member member = memberService.login(user);
@@ -69,12 +77,15 @@ public class MemberController {
             jsonObject.put("teamName", member.getTeamName());
             jsonObject.put("position", member.getPosition());
             jsonObject.put("token", jwtTokenProvider.createToken(member.getUsername(), member.getRoles()));
+            log.info("로그인  성공");
         } catch (IllegalArgumentException e) {
             // failed login
+            log.info("로그인 실패");
             return new JsonErrorResponse(400,e.getMessage()).getJsonObject();
         } catch (Exception e) {
             // server error
-            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
+            log.info("로그인 실패");
+            return new JsonErrorResponse(404,"에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -83,6 +94,7 @@ public class MemberController {
     @GetMapping(value = "/users")
     @ResponseBody
     public JSONObject memberList() {
+        log.info("회원 목록 조회 시작");
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         try {
@@ -100,7 +112,7 @@ public class MemberController {
             jsonObject.put("status", 200);
         }catch (Exception e){
             // server error
-            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
+            return new JsonErrorResponse(404,"에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -109,10 +121,13 @@ public class MemberController {
     @GetMapping(value = "/check/{email}")
     @ResponseBody
     public boolean checkDuplicateEmail(@PathVariable String email) {
+        log.info("이메일 중복체크 시작:"+email);
         try {
             memberService.findMemberByEmail(email);
+            log.info("사용할 수 없는 이메일");
             return false;
         } catch (IllegalStateException e) {
+            log.info("사용할 수 있는 이메일");
             return true;
         }
     }

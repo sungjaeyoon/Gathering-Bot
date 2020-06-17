@@ -1,25 +1,20 @@
 package com.kt.yoon.controller;
 
 import com.kt.yoon.domain.Member;
-import com.kt.yoon.domain.MemberSheet;
 import com.kt.yoon.domain.Sheet;
 import com.kt.yoon.domain.form.ResponseForm;
-import com.kt.yoon.domain.type.SheetStatus;
-import com.kt.yoon.exception.CommonException;
+import com.kt.yoon.exception.GlobalException;
 import com.kt.yoon.exception.JsonErrorResponse;
 import com.kt.yoon.service.MemberService;
 import com.kt.yoon.service.MemberSheetService;
 import com.kt.yoon.service.SheetService;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
@@ -52,23 +47,21 @@ public class ResponseController {
             jsonObject.put("status", 200);
         } catch (Exception e) {
             e.printStackTrace();
-            return new JsonErrorResponse(500, "서버 에러").getJsonObject();
+//            return new JsonErrorResponse(500, "서버 에러").getJsonObject();
         }
         return jsonObject;
     }
 
     @PostMapping("/response/result")
     @ResponseBody
-    public JSONObject saveResponse(@RequestBody ResponseForm responseForm, BindingResult bindingResult) {
+    public JSONObject saveResponse(@RequestBody @Valid ResponseForm responseForm) {
         JSONObject jsonObject = new JSONObject();
         try {
-            //binding error
-            if (CommonException.bindResultException(bindingResult, jsonObject)) return jsonObject;
             memberSheetService.updateMemberSheet(Long.parseLong(responseForm.getSheetId()),Long.parseLong(responseForm.getMemberId()),responseForm.getResponse());
         } catch (Exception e) {
             // server error
             e.getStackTrace();
-            return new JsonErrorResponse(500, "서버 에러").getJsonObject();
+//            return new JsonErrorResponse(500, "서버 에러").getJsonObject();
         }
         return jsonObject;
     }

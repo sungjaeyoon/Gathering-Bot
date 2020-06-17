@@ -4,7 +4,7 @@ import com.kt.yoon.domain.Member;
 import com.kt.yoon.domain.MemberSheet;
 import com.kt.yoon.domain.Sheet;
 import com.kt.yoon.domain.form.SheetForm;
-import com.kt.yoon.exception.CommonException;
+import com.kt.yoon.exception.GlobalException;
 import com.kt.yoon.exception.JsonErrorResponse;
 import com.kt.yoon.service.MemberService;
 import com.kt.yoon.service.SheetService;
@@ -33,11 +33,9 @@ public class SheetController {
     @ApiOperation(value = "Sheet 추가", notes = "Sheet를 추가한다.")
     @PostMapping("/sheets/new")
     @ResponseBody
-    public JSONObject addSheet(@Valid @RequestBody SheetForm sheetForm, BindingResult bindingResult) {
+    public JSONObject addSheet(@Valid @RequestBody SheetForm sheetForm) {
         JSONObject jsonObject = new JSONObject();
         try {
-            if (CommonException.bindResultException(bindingResult, jsonObject)) return jsonObject;
-
             Member createdMember = memberService.findById(Long.parseLong(sheetForm.getCreatedMemberId()));
             List<Member> memberList = new ArrayList<>();
 
@@ -49,7 +47,7 @@ public class SheetController {
             jsonObject.put("status", 200);
             jsonObject.put("message", "success");
         } catch (Exception e) {
-            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
+//            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -78,7 +76,7 @@ public class SheetController {
             jsonObject.put("sheets", jsonArray);
             jsonObject.put("status", 200);
         } catch (Exception e) {
-            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
+//            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -121,7 +119,7 @@ public class SheetController {
             jsonObject.put("memberSheet", jsonArray);
             jsonObject.put("status", 200);
         } catch (Exception e) {
-            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
+//            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
 
@@ -136,7 +134,7 @@ public class SheetController {
             sheetService.startSheet(Long.parseLong(sheetId));
             jsonObject.put("status",200);
         }catch (Exception e){
-            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
+//            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }
@@ -150,7 +148,7 @@ public class SheetController {
             sheetService.endSheet(Long.parseLong(sheetId));
             jsonObject.put("status",200);
         }catch (Exception e){
-            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
+//            return new JsonErrorResponse(500,"서버 에러").getJsonObject();
         }
         return jsonObject;
     }

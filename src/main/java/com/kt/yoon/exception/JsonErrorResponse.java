@@ -2,14 +2,11 @@ package com.kt.yoon.exception;
 
 import org.json.simple.JSONObject;
 
-public class JsonErrorResponse{
+public class JsonErrorResponse extends JSONObject{
     private JSONObject jsonObject = new JSONObject();
     public JsonErrorResponse(int status, String message) {
-        this.jsonObject.put("status",status);
-        this.jsonObject.put("message",message);
-    }
-
-    public JSONObject getJsonObject() {
-        return jsonObject;
+        super();
+        this.put("status",status);
+        this.put("message",message);
     }
 }

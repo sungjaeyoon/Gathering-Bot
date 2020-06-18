@@ -1,4 +1,4 @@
-package com.kt.yoon.exception;
+package com.kt.yoon.domain.type;
 
 import lombok.Getter;
 

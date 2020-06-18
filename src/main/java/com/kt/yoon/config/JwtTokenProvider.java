@@ -15,6 +15,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -59,7 +60,8 @@ public class JwtTokenProvider {
 
     // Request의 Header에서 token 값을 가져옵니다. "X-AUTH-TOKEN" : "TOKEN값'
     public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("X-AUTH-TOKEN");
+        String authorization = request.getHeader("Authorization");
+        return authorization;
     }
 
     // 토큰의 유효성 + 만료일자 확인

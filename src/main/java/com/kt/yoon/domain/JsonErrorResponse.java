@@ -1,4 +1,4 @@
-package com.kt.yoon.exception;
+package com.kt.yoon.domain;
 
 import org.json.simple.JSONObject;
 

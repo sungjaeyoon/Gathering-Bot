@@ -9,6 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -31,20 +35,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic().disable()
+                .cors().and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-//                .antMatchers("/signup").permitAll()
-//                .antMatchers("/login").permitAll()
-//                .antMatchers("/check/**").permitAll()
-//                .antMatchers("/sheet/**").permitAll()//test
-//                .antMatchers("/sheets/**").permitAll()//test
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .antMatchers("/user/**").authenticated()
-                .anyRequest().permitAll();
-//                .and()
-//                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
-//                        UsernamePasswordAuthenticationFilter.class);
+                    .authorizeRequests()
+                    //모든 권한 허용
+                    .antMatchers("/signup").permitAll()
+                    .antMatchers("/login").permitAll()
+                    .antMatchers("/check/**").permitAll()
+                    .antMatchers("/response/**").permitAll()
+                    //로그인된 사용자만 허용
+                    .antMatchers("/sheets/**").authenticated()
+                    .antMatchers("/user/**").authenticated()
+                    .antMatchers("/send/**").authenticated()
+                    .antMatchers("/users").authenticated()
+                    //관리자만 허용
+                    .antMatchers("/admin/**").hasRole("ADMIN")
+                    .anyRequest().permitAll()
+                .and()
+                    .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+                            UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
     }
 }

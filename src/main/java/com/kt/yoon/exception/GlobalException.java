@@ -1,5 +1,6 @@
 package com.kt.yoon.exception;
 
+import com.kt.yoon.domain.JsonErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.springframework.dao.DuplicateKeyException;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
 
-import static com.kt.yoon.exception.ErrorCode.*;
+import java.nio.file.AccessDeniedException;
+
+import static com.kt.yoon.domain.type.ErrorCode.*;
 
 @Slf4j
 @ControllerAdvice
@@ -41,15 +44,14 @@ public class GlobalException {
 //        return jsonErrorResponse;
 //    }
 //
-//    //todo 해당 자료 권한 없음(수정) RESOURCE_ACCESS_DENIED(403, "C003", "권한이 없습니다."),
-//    @ExceptionHandler()
-//    public JSONObject resourceAccessDeniedError() {
-//        log.warn("EXCEPTION: HANDLE_ACCESS_DENIED Exception");
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("status", RESOURCE_ACCESS_DENIED.getStatus());
-//        jsonObject.put("message", RESOURCE_ACCESS_DENIED.getMessage());
-//        return jsonObject;
-//    }
+    ///security 에서 처리
+    //해당 자료 권한 없음 -  RESOURCE_ACCESS_DENIED(403, "C003", "권한이 없습니다."),
+    @ExceptionHandler(AccessDeniedException.class)
+    public JsonErrorResponse resourceAccessDeniedError() {
+        log.warn("EXCEPTION: HANDLE_ACCESS_DENIED Exception");
+        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(RESOURCE_ACCESS_DENIED.getStatus(),RESOURCE_ACCESS_DENIED.getMessage());
+        return jsonErrorResponse;
+    }
 
     //해당 자원이 존재하지 않음 - RESOURCE_NOT_FOUND(400, "C004", "해당 자료가 없습니다."),
     @ExceptionHandler(EntityNotFoundException.class)
@@ -103,6 +105,7 @@ public class GlobalException {
     @ExceptionHandler(Exception.class)
     public JsonErrorResponse allException(Exception e) {
         log.warn("EXCEPTION: 알수없는 Exception");
+        e.printStackTrace();
         JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(500,e.getMessage());
         return jsonErrorResponse;
     }

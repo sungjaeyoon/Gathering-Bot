@@ -36,6 +36,7 @@
 <script>
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import { deleteCookie } from '@/utils/cookie';
 export default {
 	name: 'AppVar',
 	computed: {
@@ -46,6 +47,12 @@ export default {
 	methods: {
 		logoutUser() {
 			this.$store.commit('clearUsername');
+			deleteCookie('id');
+			deleteCookie('username');
+			deleteCookie('teamname');
+			deleteCookie('token');
+			deleteCookie('position');
+			deleteCookie('email');
 			this.$router.push('/login');
 		}
 	}

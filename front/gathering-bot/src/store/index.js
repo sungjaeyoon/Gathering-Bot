@@ -1,16 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import { getEmailFromCookie, getIdFromCookie, getPositionFromCookie, getTeamNameFromCookie, getTokenFromCookie, getUserFromCookie } from '@/utils/cookie';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
 	state: {
-		id: '',
-		email: '',
-		username: '',
-		teamName: '',
-		position: '',
-		token: ''
+		id: getIdFromCookie() || '',
+		email: getEmailFromCookie() || '',
+		username: getUserFromCookie() || '',
+		teamName: getTeamNameFromCookie() || '',
+		position: getPositionFromCookie() || '',
+		token: getTokenFromCookie() || ''
 	},
 	getters: {
 		isLogin(state) {
@@ -20,7 +21,7 @@ export default new Vuex.Store({
 	mutations: {
 		setUserdata(state, data) {
 			state.id = data.id;
-			state.email = data.username;
+			state.email = data.email;
 			state.username = data.username;
 			state.teamName = data.teamName;
 			state.position = data.position;
@@ -34,5 +35,8 @@ export default new Vuex.Store({
 			state.position = '';
 			state.token = '';
 		}
+	},
+	actions: {
+		LOGIN({}) {}
 	}
 });

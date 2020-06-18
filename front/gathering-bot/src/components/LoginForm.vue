@@ -25,6 +25,7 @@
 <script>
 import { loginUser } from '@/api';
 import { validateEmail } from '@/common/validation';
+import { saveEmailToCookie, saveIdToCookie, savePositionToCookie, saveTeamNameToCookie, saveTokenToCookie, saveUserToCookie } from '@/utils/cookie';
 
 export default {
 	name: 'LoginForm',
@@ -66,6 +67,12 @@ export default {
 
 			if (response.data.status == 200) {
 				this.$store.commit('setUserdata', response.data);
+				saveEmailToCookie(response.data.email);
+				saveIdToCookie(response.data.id);
+				savePositionToCookie(response.data.position);
+				saveTeamNameToCookie(response.data.teamName);
+				saveTokenToCookie(response.data.token);
+				saveUserToCookie(response.data.username);
 				this.$router.push('/');
 			} else if (response.data.status == 400) {
 				this.message = response.data.message;

@@ -18,16 +18,18 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class MemberService {
 
     private final MemberRepository memberRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    /**
+    /***
      * 로그인
-     * */
+     * @param loginForm
+     * @return
+     * @throws Exception
+     */
     public Member login(LoginForm loginForm) throws Exception {
         Member member = userRepository.findByEmail(loginForm.getEmail())
                 .orElseThrow(() -> new InvalidEmailException("가입되지 않은 E-MAIL 입니다."));
@@ -37,18 +39,20 @@ public class MemberService {
         return member;
     }
 
-    /**
+    /***
      * 회원 가입
-     * */
+     * @param member
+     */
     @Transactional
     public void save(Member member) {
         validateDuplicateMember(member);
         memberRepository.save(member);
     }
 
-    /**
-     * 가입시 중복 유저 확인
-     * */
+    /***
+     * 중복 유저 조회
+     * @param member
+     */
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByEmail(member.getEmail());
         if (!findMembers.isEmpty()) {
@@ -56,27 +60,32 @@ public class MemberService {
         }
     }
 
-    /**
+    /***
      * 전체 멤버 조회
-     * */
+     * @return
+     */
     public List<Member> findMembers() {
         return memberRepository.findMembers();
     }
 
-    /**
-     * id 값으로 조회
-     * */
+    /***
+     * id값으로 조회
+     * @param id
+     * @return
+     */
     public Member findById(Long id) {
         Member member = memberRepository.findById(id);
-        if(member==null){
+        if (member == null) {
             throw new EntityNotFoundException("존재하지 않는 유저 입니다.");
         }
         return member;
     }
 
-    /**
+    /***
      * 이메일로 조회
-     * */
+     * @param email
+     * @return
+     */
     public Member findMemberByEmail(String email) {
         List<Member> findMembers = memberRepository.findByEmail(email);
         if (findMembers.isEmpty()) {

@@ -10,6 +10,12 @@ public class MemberSheetService {
 
     private final MemberSheetRepository memberSheetRepository;
 
+    /***
+     * 응답 결과 저장
+     * @param sheetId
+     * @param userId
+     * @param response
+     */
     public void updateMemberSheet(Long sheetId, Long userId, String response) {
         memberSheetRepository.updateMemberSheet(sheetId, userId, response);
     }

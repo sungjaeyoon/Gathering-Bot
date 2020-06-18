@@ -19,22 +19,31 @@ public class MemberSheetRepository {
 
     private final EntityManager entityManager;
 
+    /***
+     * 시트 내용 저장
+     * @param memberSheet
+     */
     public void save(MemberSheet memberSheet){
         entityManager.persist(memberSheet);
     }
 
+    /***
+     * 멤버 시트 내용 조회
+     * @param sheetId
+     * @return
+     */
     public List<MemberSheet> getSheetDetail(Long sheetId){
         return entityManager.createQuery("select ms from MemberSheet ms where ms.sheet.id=:sheetId ",MemberSheet.class)
                 .setParameter("sheetId",sheetId)
                 .getResultList();
     }
 
-    public Sheet getSheet(Long sheetId) throws NoResultException {
-        return entityManager.createQuery("select s from Sheet s where s.id=:sheetId",Sheet.class)
-                .setParameter("sheetId",sheetId)
-                .getSingleResult();
-    }
-
+    /***
+     * 응답 결과 저장
+     * @param sheetId
+     * @param userId
+     * @param response
+     */
     public void updateMemberSheet(Long sheetId, Long userId, String response) {
         entityManager.createQuery("update MemberSheet ms set ms.response=:response, ms.responseDate=:responseDate,ms.requestStatus=:requestStatus where ms.member.id=:userId and ms.sheet.id=:sheetId")
                 .setParameter("response",response)

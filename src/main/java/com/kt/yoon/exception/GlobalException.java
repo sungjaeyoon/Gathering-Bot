@@ -102,6 +102,14 @@ public class GlobalException {
     }
 
     //일단 알수 없는 에러는 여기서 관리함.
+    @ExceptionHandler(AlreadyExitSheet.class)
+    public JsonErrorResponse alreadyExitSheet(Exception e) {
+        log.warn("EXCEPTION: 종료된 시트");
+        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(ALREADY_EXIT_SHEET.getStatus(),ALREADY_EXIT_SHEET.getMessage());
+        return jsonErrorResponse;
+    }
+
+    //일단 알수 없는 에러는 여기서 관리함.
     @ExceptionHandler(Exception.class)
     public JsonErrorResponse allException(Exception e) {
         log.warn("EXCEPTION: 알수없는 Exception");

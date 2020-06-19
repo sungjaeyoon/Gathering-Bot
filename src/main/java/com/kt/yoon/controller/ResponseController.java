@@ -5,6 +5,8 @@ import com.kt.yoon.domain.Member;
 import com.kt.yoon.domain.MemberSheet;
 import com.kt.yoon.domain.Sheet;
 import com.kt.yoon.domain.form.ResponseForm;
+import com.kt.yoon.domain.type.SheetStatus;
+import com.kt.yoon.exception.AlreadyExitSheet;
 import com.kt.yoon.service.MemberService;
 import com.kt.yoon.service.MemberSheetService;
 import com.kt.yoon.service.SheetService;
@@ -29,8 +31,11 @@ public class ResponseController {
 
     @ApiOperation(value = "응답 화면 데이터 조회")
     @GetMapping("/response/{sheetId}/{userId}/{randomToken}")
-    public JsonResponse getSheetById(@PathVariable String sheetId, @PathVariable String userId, @PathVariable String randomToken) throws Exception{
+    public JsonResponse getSheetById(@PathVariable String sheetId, @PathVariable String userId, @PathVariable String randomToken) throws AlreadyExitSheet, AccessDeniedException{
         Sheet sheet = sheetService.getSheetById(Long.parseLong(sheetId));
+        if(sheet.getSheetStatus()!= SheetStatus.PROCEEDING){
+            throw new AlreadyExitSheet("이미 종료된 시트 입니다.");
+        }
         Member member = memberService.findById(Long.parseLong(userId));
         MemberSheet memberSheet = memberSheetService.findMemberSheet(Long.parseLong(userId), Long.parseLong(sheetId));
         if(!memberSheet.getRandomToken().equals(randomToken)){
@@ -42,7 +47,11 @@ public class ResponseController {
 
     @ApiOperation(value = "응답 화면 데이터 저장")
     @PostMapping("/response/result")
-    public JsonResponse saveResponse(@RequestBody @Valid ResponseForm responseForm) throws Exception{
+    public JsonResponse saveResponse(@RequestBody @Valid ResponseForm responseForm) throws AlreadyExitSheet, AccessDeniedException{
+        Sheet sheet = sheetService.getSheetById(Long.parseLong(responseForm.getSheetId()));
+        if(sheet.getSheetStatus()!= SheetStatus.PROCEEDING){
+            throw new AlreadyExitSheet("이미 종료된 시트 입니다.");
+        }
         MemberSheet memberSheet = memberSheetService.findMemberSheet(Long.parseLong(responseForm.getMemberId()), Long.parseLong(responseForm.getSheetId()));
         if(!memberSheet.getRandomToken().equals(responseForm.getRandomToken())){
             throw new AccessDeniedException("권한이 없습니다.");

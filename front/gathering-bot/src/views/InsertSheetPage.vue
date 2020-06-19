@@ -24,7 +24,13 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text ml-4" style="font-size: 20px">완료 기한</span>
 					</div>
-					<input type="datetime-local" class="form-control" aria-label="Sizing example input" v-model="finishedDate" />
+					<input
+						type="datetime-local"
+						class="form-control"
+						aria-label="Sizing example input"
+						v-model="finishedDate"
+						placeholder=" 2020-06-20T12:30:20  익스플로어 에서는 다음과 같이 형식을 입력해주세요. "
+					/>
 				</div>
 				<div class="input-group mt-3">
 					<div class="input-group-prepend">

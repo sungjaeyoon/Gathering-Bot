@@ -94,6 +94,9 @@ export default {
 				randomToken: this.$route.params.token
 			};
 			const response = await updateResponse(data);
+			if (response.data.status != 200) {
+				alert(response.data.message);
+			}
 			alert('제출 완료 창이 닫힙니다.');
 			close();
 		}

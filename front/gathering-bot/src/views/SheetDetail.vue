@@ -199,6 +199,12 @@ export default {
 			this.sheetContent = sheet.content;
 			this.sheetQuestions = sheet.question.split('&&&&');
 			// todo 따로 빼야할 부분 이메일
+			this.json_fields = {
+				이름: 'name',
+				직책: 'position',
+				팀이름: 'teamName'
+			};
+			this.json_data = [];
 			for (let i = 0; i < this.sheetQuestions.length; i++) {
 				this.json_fields[this.sheetQuestions[i]] = 'q' + i;
 			}

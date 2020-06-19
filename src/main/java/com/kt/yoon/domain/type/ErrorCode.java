@@ -11,6 +11,7 @@ public enum ErrorCode {
     RESOURCE_ACCESS_DENIED(403, "C003", "권한이 없습니다."),
     RESOURCE_NOT_FOUND(400, "C004", "해당 자료가 없습니다."),
     NOT_READABLE(405, "C005", "읽을 수 없습니다."),
+    ALREADY_EXIT_SHEET(405,"C006","이미 종료된 시트입니다."),
 
     // Member
     EMAIL_DUPLICATION(400, "M001", "중복된 이메일입니다."),

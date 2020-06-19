@@ -32,11 +32,13 @@ public class MailController {
     public void sendMailAll(@PathVariable String sheetId){
         Sheet sheet = sheetService.getSheetById(Long.parseLong(sheetId));
         List<Member> list = new ArrayList<>();
+        List<String> token = new ArrayList<>();
         List<MemberSheet> sheetList = sheetService.getSheetDetail(sheet.getId());
         for(MemberSheet memberSheet:sheetList){
             list.add(memberSheet.getMember());
+            token.add(memberSheet.getRandomToken());
         }
-        mailService.sendMail(list,sheet);
+        mailService.sendMail(list,sheet,token);
     }
 
     //todo 한명에게 메일 보내기 ; sheetId,userMail

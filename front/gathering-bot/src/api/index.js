@@ -34,8 +34,8 @@ export function getSheet(userId, filter) {
 	return instance.get('/sheets/users/' + userId, { params: filter });
 }
 
-export function getSheetResponse(sheetId, userId) {
-	return instance.get('/response/' + sheetId + '/' + userId);
+export function getSheetResponse(sheetId, userId, token) {
+	return instance.get('/response/' + sheetId + '/' + userId + '/' + token);
 }
 
 export function getDetail(sheetId) {

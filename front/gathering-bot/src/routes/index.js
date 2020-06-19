@@ -35,7 +35,7 @@ const router = new VueRouter({
 			meta: { auth: true }
 		},
 		{
-			path: '/response/:sheetId/:userId',
+			path: '/response/:sheetId/:userId/:token',
 			component: () => import('@/views/ResponsePage.vue')
 		},
 		{

@@ -205,7 +205,7 @@ export default {
 
 			this.sheetExamples = sheet.example.split('&&&&');
 
-			console.log(this.json_fields);
+			// console.log(this.json_fields);
 			this.sheetCreatedDate = sheet.createdDate;
 			this.sheetStatus = sheet.status;
 
@@ -235,7 +235,7 @@ export default {
 				}
 				this.responseData.push(memberSheet[i]);
 				this.json_data.push(json_data);
-				console.log(memberSheet[i]);
+				// console.log(memberSheet[i]);
 			}
 			this.loading = false;
 		},
@@ -254,7 +254,7 @@ export default {
 		},
 		sendEmailAll() {
 			sendMailAll(this.$route.params.id);
-			console.log('send');
+			// console.log('send');
 		},
 		addJsonData() {
 			console.log('??');

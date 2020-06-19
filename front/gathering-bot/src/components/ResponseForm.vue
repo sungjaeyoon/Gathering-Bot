@@ -68,7 +68,7 @@ export default {
 	},
 	methods: {
 		async loadSheet() {
-			const response = await getSheetResponse(this.$route.params.sheetId, this.$route.params.userId);
+			const response = await getSheetResponse(this.$route.params.sheetId, this.$route.params.userId, this.$route.params.token);
 			if (response.data.status == 200) {
 				const data = response.data;
 				this.name = data.name;
@@ -90,10 +90,10 @@ export default {
 			const data = {
 				memberId: this.memberId,
 				sheetId: this.$route.params.sheetId,
-				response: this.inputQuestions.join('&&&&')
+				response: this.inputQuestions.join('&&&&'),
+				randomToken: this.$route.params.token
 			};
 			const response = await updateResponse(data);
-			//todo 서버에서 500 또는 401을 보내줄 경우 에러처리 구현
 			alert('제출 완료 창이 닫힙니다.');
 			close();
 		}

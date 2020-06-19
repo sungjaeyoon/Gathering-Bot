@@ -21,7 +21,7 @@ public class MailService {
     final String username = "gathering-bot@outlook.kr";
     final String password = "PW_1234!";
 
-    public void sendMail(List<Member> memberList, Sheet sheet) {
+    public void sendMail(List<Member> memberList, Sheet sheet, List<String> tokens) {
         /*
          * mail send setting & Auth
          * */
@@ -52,15 +52,27 @@ public class MailService {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
             message.setSubject(mailTitle);
-            for (Member member: memberList) {
+            for (int i = 0; i < memberList.size(); i++) {
+                Member member = memberList.get(i);
+                String token = tokens.get(i);
                 String personalHtmlText = htmlText;
-                personalHtmlText+=member.getId()+"\"> 답변하기</a><br>";
+                personalHtmlText+=member.getId()+"/"+token+"\"> 답변하기</a><br>";
                 personalHtmlText+=member.getName()+"님에게 발송된 메일입니다.";
                 message.setContent(personalHtmlText, "text/html;charset=\"UTF-8\"");
                 message.setRecipients(Message.RecipientType.TO,
                         InternetAddress.parse("dbstjdwo1000@naver.com"));
                 Transport.send(message);
             }
+
+//            for (Member member: memberList) {
+//                String personalHtmlText = htmlText;
+//                personalHtmlText+=member.getId()+"\"> 답변하기</a><br>";
+//                personalHtmlText+=member.getName()+"님에게 발송된 메일입니다.";
+//                message.setContent(personalHtmlText, "text/html;charset=\"UTF-8\"");
+//                message.setRecipients(Message.RecipientType.TO,
+//                        InternetAddress.parse("dbstjdwo1000@naver.com"));
+//                Transport.send(message);
+//            }
             System.out.println("success");
         } catch (MessagingException e) {
             throw new RuntimeException(e);

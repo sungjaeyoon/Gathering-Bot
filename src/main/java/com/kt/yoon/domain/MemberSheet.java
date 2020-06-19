@@ -25,6 +25,9 @@ public class MemberSheet {
 
     private String response;
 
+    @Column(length = 30)
+    private String randomToken;
+
     private LocalDateTime responseDate;
 
     private LocalDateTime modifiedDate;
@@ -36,9 +39,10 @@ public class MemberSheet {
     public MemberSheet() {
     }
 
-    public MemberSheet(Member member, Sheet sheet){
+    public MemberSheet(Member member, Sheet sheet, String randomToken){
         this.member=member;
         this.sheet=sheet;
+        this.randomToken=randomToken;
         this.requestStatus=RequestStatus.NO;
     }
 }

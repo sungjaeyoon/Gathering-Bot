@@ -38,7 +38,7 @@ public class Member implements UserDetails {
     private String teamName;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
+//    @Builder.Default
     private List<String> roles = new ArrayList<>();
 
     @JsonIgnore

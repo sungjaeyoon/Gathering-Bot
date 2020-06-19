@@ -4,6 +4,18 @@ plugins {
     id 'java'
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.kt.yoon.YoonApplication'
+    }
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+
 group = 'com.kt'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'

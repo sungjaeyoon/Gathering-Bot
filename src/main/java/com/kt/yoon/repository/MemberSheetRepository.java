@@ -53,4 +53,11 @@ public class MemberSheetRepository {
                 .setParameter("requestStatus", RequestStatus.YES)
                 .executeUpdate();
     }
+
+    public MemberSheet findMemberSheet(Long userId, Long sheetId){
+        return entityManager.createQuery("select ms from MemberSheet ms where ms.sheet.id=:sheetId and ms.member.id=:userId",MemberSheet.class)
+                .setParameter("userId",userId)
+                .setParameter("sheetId",sheetId)
+                .getSingleResult();
+    }
 }

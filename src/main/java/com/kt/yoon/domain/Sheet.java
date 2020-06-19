@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Entity
 @Getter
@@ -72,7 +73,7 @@ public class Sheet {
         this.repeatDate = repeatDate;
 
         for (Member m : memberList) {
-            memberSheetList.add(new MemberSheet(m, this));
+            memberSheetList.add(new MemberSheet(m, this,generateRandomToken()));
         }
 
         createdDate = LocalDateTime.now();
@@ -82,6 +83,20 @@ public class Sheet {
 
     public static Sheet createSheet(Member createdMember, SheetForm sheetForm, List<Member> memberList) {
         return new Sheet(createdMember, sheetForm.getTitle(), sheetForm.getContent(), sheetForm.getQuestion(), Integer.parseInt(sheetForm.getColNum()), sheetForm.getFinishedDate(), sheetForm.getExample(), null, memberList);
+    }
+
+    public String generateRandomToken() {
+        int leftLimit = 97; // letter 'a'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 20;
+        Random random = new Random();
+
+        String generatedString = random.ints(leftLimit, rightLimit + 1)
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
+
+        return generatedString;
     }
 
 }

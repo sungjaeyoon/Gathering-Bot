@@ -1,5 +1,11 @@
 # Gathering-Bot (취합 자동화 봇 - 개인 프로젝트)
 
+## Get Started
+
+### 1. add db schema (문서 하단)
+### 2. run YoonApplication (api)
+### 3. run front folder to npm (front)
+
 
 # 프로젝트 개요 및 목적
 
@@ -83,7 +89,80 @@ N. (취합 담당자) 취합된 엑셀을 확인
  - v 1.0 : 목표 기능 전체 구현
  - v 2.x : 요구사항 반영
  
- ### 구현 기능
+ ### DB schema
+ 
+ ```mysql
+ create schema userdb collate utf8mb4_0900_ai_ci;
+
+create table hibernate_sequence
+(
+	next_val bigint null
+);
+
+create table member
+(
+	member_id bigint not null
+		primary key,
+	email varchar(100) not null,
+	name varchar(30) not null,
+	password varchar(300) not null,
+	position varchar(255) null,
+	team_name varchar(255) null,
+	constraint UK_mbmcqelty0fbrvxp1q58dn57t
+		unique (email)
+);
+
+create table member_roles
+(
+	member_member_id bigint not null,
+	roles varchar(255) null,
+	constraint FKruptm2dtwl95mfks4bnhv828k
+		foreign key (member_member_id) references member (member_id)
+);
+
+create table sheet
+(
+	sheet_id bigint not null
+		primary key,
+	col_num int not null,
+	content varchar(255) null,
+	created_date datetime null,
+	finished_date datetime null,
+	question varchar(255) null,
+	repeat_date datetime null,
+	sheet_status varchar(255) null,
+	sheet_type varchar(255) null,
+	title varchar(255) null,
+	member_id bigint null,
+	constraint FK2fkeu8l62eg0vjprc3gsx8c59
+		foreign key (member_id) references member (member_id)
+);
+
+create table member_sheet
+(
+	member_sheet_id bigint not null
+		primary key,
+	modified_date datetime null,
+	request_status varchar(255) null,
+	response varchar(255) null,
+	response_date datetime null,
+	member_id bigint null,
+	sheet_id bigint null,
+	constraint FKbqgwxg53w8qatqqhvajiu1ltv
+		foreign key (sheet_id) references sheet (sheet_id),
+	constraint FKfchbvtg79lm50bl3f7uf7lws3
+		foreign key (member_id) references member (member_id)
+);
+
+create table sheetoxpom
+(
+	sheet_ox_id bigint not null
+		primary key,
+	content varchar(255) null
+);
+
+
+ ```
 
 ---
 

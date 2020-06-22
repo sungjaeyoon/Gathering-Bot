@@ -29,6 +29,7 @@ N. (취합 담당자) 취합된 엑셀을 확인
   (6 ~ N-1 과정은 충분히 자동화 할 수 있음)
   
 ---
+![image](https://user-images.githubusercontent.com/61338764/85302978-da865000-b4e4-11ea-9b08-47dccacb6347.png)
 
 ### * 목적
  - 취합담당자의 시간을 절약하자.
@@ -63,29 +64,24 @@ N. (취합 담당자) 취합된 엑셀을 확인
  - 데이터베이스 설계
  - 백엔드 개발
  - 프론트 개발
- - 테스트(자동화)
- - 릴리즈
  - 배포(자동화)
  - 요구사항 반영
 
 ### * 개발 환경
- - DB:MySQL(v 8.x), MongoDB(비정형 폼 전용,추후 버전결정)
- - Language: Java8, TypeScript
- - Back-end : Spring Boot(v2.25), Hiberbate(JPA), JUnit4, Gradle(v?)
+
+![image](https://user-images.githubusercontent.com/61338764/85302929-c3476280-b4e4-11ea-9403-0f4e10bac303.png)
+
+
+ - DB:MySQL
+ - Language: Java8
+ - Back-end : Spring Boot(v2.25), Hiberbate(JPA),  Gradle
  - Front-end : Vue.js
- - Tool: Intelij(back), VScode(front)
+ - Tool: Intelij
  - CI/CD : Jenkins, Docker, Kubernetis
 
-### * 아키텍처 설계
-
-### * 데이터베이스 설계
-
 ### * 릴리즈 내용
- - v 1.0 : O/X 응답
- - v 1.x : 추가 유지보수
- - v 2.0 : 비정형 폼 응답
+ - v 1.0 : 목표 기능 전체 구현
  - v 2.x : 요구사항 반영
- - v 3.0 : 목표 기능 전체 구현
  
  ### 구현 기능
 

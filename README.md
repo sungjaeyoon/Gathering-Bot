@@ -83,7 +83,7 @@ N. (취합 담당자) 취합된 엑셀을 확인
  - Back-end : Spring Boot(v2.25), Hiberbate(JPA),  Gradle
  - Front-end : Vue.js
  - Tool: Intelij
- - CI/CD : Jenkins, Docker, Kubernetis
+ - CI/CD : Jenkins, Docker
 
 ### * 릴리즈 내용
  - v 1.0 : 목표 기능 전체 구현

@@ -1,4 +1,5 @@
 # Gathering-Bot (취합 자동화 봇 - 개인 프로젝트)
+현재 3버전 개발중
 
 ## Get Started
 

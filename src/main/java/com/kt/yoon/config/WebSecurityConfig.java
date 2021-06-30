@@ -39,23 +39,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                    .authorizeRequests()
-                    //모든 권한 허용
-                    .antMatchers("/signup").permitAll()
-                    .antMatchers("/login").permitAll()
-                    .antMatchers("/check/**").permitAll()
-                    .antMatchers("/response/**").permitAll()
-                    //로그인된 사용자만 허용
-                    .antMatchers("/sheets/**").authenticated()
-                    .antMatchers("/user/**").authenticated()
-                    .antMatchers("/send/**").authenticated()
-                    .antMatchers("/users").authenticated()
-                    //관리자만 허용
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    .anyRequest().permitAll()
+                .authorizeRequests()
+                //모든 권한 허용
+//                    .antMatchers("/signup").permitAll()
+//                    .antMatchers("/login").permitAll()
+//                    .antMatchers("/check/**").permitAll()
+//                    .antMatchers("/response/**").permitAll()
+//                    .antMatchers("/responses/**").permitAll()
+//                    //로그인된 사용자만 허용
+//                    .antMatchers("/sheets/**").authenticated()
+//                    .antMatchers("/user/**").authenticated()
+//                    .antMatchers("/send/**").authenticated()
+//                    .antMatchers("/users").authenticated()
+//                    .antMatchers("/teams").authenticated()
+//                    //관리자만 허용
+//                    .antMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().permitAll()
                 .and()
-                    .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
-                            UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+                        UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

@@ -2,14 +2,12 @@ package com.kt.yoon.domain;
 
 
 import com.kt.yoon.domain.form.SheetForm;
+import com.kt.yoon.domain.type.ShareType;
 import com.kt.yoon.domain.type.SheetStatus;
-import com.kt.yoon.domain.type.SheetType;
 import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 @Entity
@@ -21,24 +19,31 @@ public class Sheet {
     @Column(name = "sheet_id")
     private Long id;
 
-    @OneToMany(mappedBy = "sheet")
-    private List<MemberSheet> memberSheetList = new ArrayList<>();
+    @Column(nullable = false, length = 30)
+    private String userName;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member createdMember;
+    @Column(nullable = false, length = 30)
+    private String position;
+
+    @Column(nullable = false, length = 30)
+    private String teamName;
+
+    @Column(nullable = false, length = 30)
+    private String email;
 
     @Column(length = 100)
     private String title;
 
-    @Column(length = 2000)
+    @Lob
     private String content;
 
-    @Column(length = 2000)
+    @Lob
     private String question;
 
-    @Column(length = 2000)
+    @Lob
     private String example;
+
+    private String token;
 
     private int colNum;
 
@@ -46,7 +51,7 @@ public class Sheet {
 
     private LocalDateTime finishedDate;
 
-    private LocalDateTime repeatDate;
+    private LocalDateTime lastSendMailDate;
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 10)
@@ -54,38 +59,48 @@ public class Sheet {
 
     @Column(length = 10)
     @Enumerated(value = EnumType.STRING)
-    private SheetType sheetType;
+    private ShareType shareType;
 
     //== 생성 메소드==//
     public Sheet() {
     }
 
-    public Sheet(Member createdMember, String title, String content, String question, int colNum, String finishedDateString, String example, LocalDateTime repeatDate, List<Member> memberList) {
-        this.createdMember = createdMember;
-        this.title = title;
-        this.content = content;
-        this.question = question;
-        this.colNum = colNum;
-        this.example = example;
+    public Sheet(SheetForm sheetForm, User user) {
+        this.userName = user.getName();
+        this.position = user.getPosition();
+        this.teamName = user.getTeam().getTeamName();
+        this.email = user.getEmail();
 
-        LocalDateTime finishedDate = LocalDateTime.parse(finishedDateString);
-        this.finishedDate = finishedDate;
-        this.repeatDate = repeatDate;
+        this.title = sheetForm.getTitle();
+        this.content = sheetForm.getContent();
+        this.question = sheetForm.getQuestion();
+        this.example = sheetForm.getExample();
+        this.colNum = Integer.parseInt(sheetForm.getColNum());
+        this.finishedDate = LocalDateTime.parse(sheetForm.getFinishedDate());
 
-        for (Member m : memberList) {
-            memberSheetList.add(new MemberSheet(m, this,generateRandomToken()));
+        String shareType = sheetForm.getShareType();
+
+        if (shareType.equals("private")) {
+            this.shareType = ShareType.PRIVATE;
+        } else if (shareType.equals("public")) {
+            this.shareType = ShareType.PUBLIC;
+        } else if (shareType.equals("link")) {
+            this.shareType = ShareType.LINK;
+        } else {
+            this.shareType = ShareType.PRIVATE;
         }
 
-        createdDate = LocalDateTime.now();
-        sheetStatus = SheetStatus.WAIT;
-        sheetType = SheetType.TABLE;
+        this.token = generateRandomToken();
+        this.createdDate = LocalDateTime.now().plusHours(9);
+        this.lastSendMailDate = null;
+        this.sheetStatus = SheetStatus.WAIT;
     }
 
-    public static Sheet createSheet(Member createdMember, SheetForm sheetForm, List<Member> memberList) {
-        return new Sheet(createdMember, sheetForm.getTitle(), sheetForm.getContent(), sheetForm.getQuestion(), Integer.parseInt(sheetForm.getColNum()), sheetForm.getFinishedDate(), sheetForm.getExample(), null, memberList);
+    public static Sheet createSheet(SheetForm sheetForm, User user) {
+        return new Sheet(sheetForm, user);
     }
 
-    public String generateRandomToken() {
+    public static String generateRandomToken() {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = 20;
@@ -97,6 +112,35 @@ public class Sheet {
                 .toString();
 
         return generatedString;
+    }
+
+    //== 비지니스 로직 ==//
+    public void startSheet() {
+        this.sheetStatus = SheetStatus.PROCEEDING;
+    }
+
+    public void endSheet() {
+        this.sheetStatus = SheetStatus.FINISHED;
+    }
+
+    public boolean isSheetProceed() {
+        if (this.sheetStatus == SheetStatus.PROCEEDING) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isSheetWait() {
+        if (this.sheetStatus == SheetStatus.WAIT) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setLastSendMailDate(LocalDateTime time) {
+        this.lastSendMailDate = time;
     }
 
 }

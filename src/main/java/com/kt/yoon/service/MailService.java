@@ -1,131 +1,75 @@
 package com.kt.yoon.service;
 
-import com.kt.yoon.domain.Member;
+import com.kt.yoon.domain.Mail;
 import com.kt.yoon.domain.Sheet;
-import com.kt.yoon.repository.SheetRepository;
+import com.kt.yoon.domain.form.MailForm;
+import com.kt.yoon.domain.type.MailType;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 import java.util.List;
 import java.util.Properties;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MailService {
 
-    private final SheetRepository sheetRepository;
+    final String username = "gathering-bot@kt.com";
+    final String password = "pw_82216910_!";
+    ////    final String SERVER_URL = "http://localhost:8080"; //local
+    final String SERVER_URL = "http://10.225.164.166:8080"; // develop
+//    final String SERVER_URL = "http://10.225.168.104:8080"; // production
 
-    final String username = "gathering-bot@outlook.kr";
-    final String password = "PW_1234!";
+    public Session mailInit() {
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "14.63.245.51");
+        props.put("mail.smtp.port", "25");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.auth", "true");
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+        return session;
+    }
 
-    public void sendMail(List<Member> memberList, Sheet sheet, List<String> tokens) {
-        /*
-         * mail send setting & Auth
-         * */
+    public void sendMail(Sheet sheet, List<MailForm> mailFormList, MailType mailType, String modifiedMessage) {
         try {
-            Properties props = new Properties();
-            props.put("mail.smtp.host", "smtp-mail.outlook.com");
-            props.put("mail.smtp.port", "587");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.auth", "true");
-
-            Session session = Session.getInstance(props,
-                    new javax.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(username, password);
-                        }
-                    });
-            /*
-             * send mail
-             * */
-
-            String mailTitle = "[Gathering-bot]" + sheet.getTitle();
-            String htmlText = "<h2>Gathering-bot에서 발송한 메일입니다.</h2><br>" +
-                    sheet.getContent().replaceAll("\n","<br>")+"\n"+
-                    "<br> <h3>- 완료 기한: "+String.join(" / ",sheet.getFinishedDate().toString().split("T"))+"</h3>"+
-                    "<br><br> 아래 링크를 눌러서 응답해주세요.<br>"+
-                    "<a href=\"http://localhost:8081/response/"+sheet.getId()+"/";
-
+            Mail sendMail = Mail.createMail(sheet, mailType);
+            Session session = mailInit();
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(username));
-            message.setSubject(mailTitle);
-            for (int i = 0; i < memberList.size(); i++) {
-                Member member = memberList.get(i);
-                String token = tokens.get(i);
-                String personalHtmlText = htmlText;
-                personalHtmlText+=member.getId()+"/"+token+"\"> 답변하기</a><br>";
-                personalHtmlText+=member.getName()+"님에게 발송된 메일입니다.";
-                message.setContent(personalHtmlText, "text/html;charset=\"UTF-8\"");
-                message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse("dbstjdwo1000@naver.com"));
-                Transport.send(message);
+            message.setSubject(MimeUtility.encodeText(sendMail.getMailTitle(), "utf-8", "B"));
+
+            if(mailType==MailType.MODIFIED){
+                sendMail.setModifiedMessage(modifiedMessage);
             }
 
-//            for (Member member: memberList) {
-//                String personalHtmlText = htmlText;
-//                personalHtmlText+=member.getId()+"\"> 답변하기</a><br>";
-//                personalHtmlText+=member.getName()+"님에게 발송된 메일입니다.";
-//                message.setContent(personalHtmlText, "text/html;charset=\"UTF-8\"");
-//                message.setRecipients(Message.RecipientType.TO,
-//                        InternetAddress.parse("dbstjdwo1000@naver.com"));
-//                Transport.send(message);
-//            }
-            System.out.println("success");
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        } catch (Exception e) {
+            for (MailForm mailForm : mailFormList) {
+                sendMail.setToken(mailForm.getToken());
+                sendMail.setUserEmail(mailForm.getEmail());
+                sendMail.setUserName(mailForm.getUserName());
+                sendMail.setResponseId(mailForm.getResponseId());
+                message.setContent(sendMail.getMailContent(), "text/html;charset=\"UTF-8\"");
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailForm.getEmail()));
 
+                Transport.send(message);
+                log.info("send mail:" + mailForm.getEmail());
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
         }
     }
 
-//    public String sendMail(List<Member> memberList, Sheet sheet) {
-//        /*
-//         * mail send setting & Auth
-//         * */
-//        Properties props = new Properties();
-//        props.put("mail.smtp.host", "smtp-mail.outlook.com");
-//        props.put("mail.smtp.port", "587");
-//        props.put("mail.smtp.starttls.enable", "true");
-//        props.put("mail.smtp.auth", "true");
-//
-//        Session session = Session.getInstance(props,
-//                new javax.mail.Authenticator() {
-//                    protected PasswordAuthentication getPasswordAuthentication() {
-//                        return new PasswordAuthentication(username, password);
-//                    }
-//                });
-//        /*
-//         * send mail
-//         * */
-//        try {
-//
-//            String[] sendUserEmails = {"dbstjdwo1000@naver.com", "sungjae.yoon@kt.com"};
-//            String mailTitle = "[취합]-주간 보고 회신 부탁드립니다.";
-//            String htmlText = "<H1>Hello</H1> " +
-//                    "<form action=\"http://192.168.43.182:8080/response/1/1\" method=\"get\">\n" +
-//                    "    <button type=\"submit\">제출</button>\n" +
-//                    "</form>";
-//
-//            Message message = new MimeMessage(session);
-//            message.setFrom(new InternetAddress(username));
-//            message.setSubject(mailTitle);
-//            message.setContent(htmlText, "text/html;charset=\"UTF-8\"");
-//
-//            for (String sendUserEmail : sendUserEmails) {
-//                message.setRecipients(Message.RecipientType.TO,
-//                        InternetAddress.parse(sendUserEmail));
-//                Transport.send(message);
-//            }
-//
-//            System.out.println("success");
-//
-//        } catch (MessagingException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        return "main";
-//    }
 }

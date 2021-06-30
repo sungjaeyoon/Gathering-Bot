@@ -13,17 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.NoResultException;
-
 import java.nio.file.AccessDeniedException;
-
-import static com.kt.yoon.domain.type.ErrorCode.*;
 
 @Slf4j
 @ControllerAdvice
 @ResponseBody
 public class GlobalException {
 
-    //바인딩 에러 - INVALID_INPUT_VALUE(400, "C001", "Input 오류입니다."),
+    //바인딩 에러
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public JsonErrorResponse processValidationError(MethodArgumentNotValidException exception) {
         log.warn("EXCEPTION: Binding Result Exception");
@@ -31,90 +28,138 @@ public class GlobalException {
         for (FieldError fieldError : exception.getBindingResult().getFieldErrors()) {
             jsonArray.add(fieldError.getDefaultMessage());
         }
-        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(INVALID_INPUT_VALUE.getStatus(),INVALID_INPUT_VALUE.getMessage());
-        jsonErrorResponse.put("message",jsonArray);
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "입력값이 잘못되었습니다.");
+        jsonErrorResponse.put("message", jsonArray);
         return jsonErrorResponse;
     }
 
-//    //todo 로그인 필요(수정) HANDLE_ACCESS_DENIED(401, "C002", "로그인이 필요합니다."),
-//    @ExceptionHandler()
-//    public JsonErrorResponse handleAccessDeniedError() {
-//        log.warn("EXCEPTION: HANDLE_ACCESS_DENIED Exception");
-//        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(HANDLE_ACCESS_DENIED.getStatus(),HANDLE_ACCESS_DENIED.getMessage());
-//        return jsonErrorResponse;
-//    }
-//
-    ///security 에서 처리
-    //해당 자료 권한 없음 -  RESOURCE_ACCESS_DENIED(403, "C003", "권한이 없습니다."),
+    //존재하지 않는 팀
+    @ExceptionHandler(InvalidTeamNameException.class)
+    public JsonErrorResponse invalidTeamNameException() {
+        log.warn("EXCEPTION: not found team");
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "존재하지 않는 팀이름입니다.");
+        return jsonErrorResponse;
+    }
+
+    //해당 자료 권한 없음
     @ExceptionHandler(AccessDeniedException.class)
     public JsonErrorResponse resourceAccessDeniedError() {
         log.warn("EXCEPTION: HANDLE_ACCESS_DENIED Exception");
-        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(RESOURCE_ACCESS_DENIED.getStatus(),RESOURCE_ACCESS_DENIED.getMessage());
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "해당 자료에 권한이 없습니다.");
         return jsonErrorResponse;
     }
 
-    //해당 자원이 존재하지 않음 - RESOURCE_NOT_FOUND(400, "C004", "해당 자료가 없습니다."),
+    //해당 자원이 존재하지 않음
     @ExceptionHandler(EntityNotFoundException.class)
-    public JsonErrorResponse entitiyNotFoundException() {
+    public JsonErrorResponse entityNotFoundException() {
         log.warn("EXCEPTION: EntityNotFoundException");
-        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(RESOURCE_NOT_FOUND.getStatus(),RESOURCE_NOT_FOUND.getMessage());
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "해당 자료가 없습니다.");
         return jsonErrorResponse;
     }
 
-    //해당 자원이 존재하지 않음2 - RESOURCE_NOT_FOUND(400, "C004", "해당 자료가 없습니다."),
+    //해당 자원이 존재하지 않음2
     @ExceptionHandler(NoResultException.class)
     public JsonErrorResponse noResultException() {
         log.warn("EXCEPTION: no Result Exception");
-        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(RESOURCE_NOT_FOUND.getStatus(),RESOURCE_NOT_FOUND.getMessage());
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "해당 자료가 없습니다.");
         return jsonErrorResponse;
     }
 
-    //읽을수 없는 자원 - NOT_READABLE(405, "C005", "읽을 수 없습니다."),
+    //읽을수 없는 자원
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public JsonErrorResponse NotReadableError() {
         log.warn("EXCEPTION: NotReadable Error Exception");
-        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(NOT_READABLE.getStatus(),NOT_READABLE.getMessage());
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(405, "읽을 수 없습니다.");
         return jsonErrorResponse;
     }
 
-    //중복된 이메일 - EMAIL_DUPLICATION(400, "M001", "중복된 이메일입니다."),
+    //존재하지 않는 ID
+    @ExceptionHandler(InvalidIdException.class)
+    public JsonErrorResponse invalidIdError() {
+        log.warn("EXCEPTION: no id exception");
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "존재하지 않는 ID입니다.");
+        return jsonErrorResponse;
+    }
+
+    //중복된 이메일
     @ExceptionHandler(DuplicateKeyException.class)
     public JsonErrorResponse emailDuplicateError() {
         log.warn("EXCEPTION: Duplicate email Exception");
-        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(EMAIL_DUPLICATION.getStatus(),EMAIL_DUPLICATION.getMessage());
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "중복된 이메일입니다.");
         return jsonErrorResponse;
     }
 
-    //가입되지 않은 이메일 - EMAIL_INPUT_INVALID(400, "M002", "가입되지 않은 이메일 입니다."),
+    //가입되지 않은 이메일
     @ExceptionHandler(InvalidEmailException.class)
     public JsonErrorResponse emailInputInvalidError() {
         log.warn("EXCEPTION: InvalidEmailException Exception");
-        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(EMAIL_INPUT_INVALID.getStatus(),EMAIL_INPUT_INVALID.getMessage());
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "가입되지 않은 이메일 입니다.");
         return jsonErrorResponse;
     }
 
-    //패스워드 다름 - PASSWORD_INPUT_INVALID(400, "M003", "패스워드가 다릅니다.");
+    //패스워드 다름
     @ExceptionHandler(InvalidPasswordException.class)
     public JsonErrorResponse passwordInputInvalidError() {
         log.warn("EXCEPTION: InvalidPassword Exception");
-        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(PASSWORD_INPUT_INVALID.getStatus(),PASSWORD_INPUT_INVALID.getMessage());
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "패스워드가 다릅니다.");
         return jsonErrorResponse;
     }
 
-    //일단 알수 없는 에러는 여기서 관리함.
+    //잠긴 계정으로 로그인 시도
+    @ExceptionHandler(BlockedAccountException.class)
+    public JsonErrorResponse blockedAccountError() {
+        log.warn("EXCEPTION: Blocked Account Exception");
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(403, "비밀번호 오류로 잠긴 계정입니다.");
+        return jsonErrorResponse;
+    }
+
+    //비밀번호 오류로 계정이 잠김
+    @ExceptionHandler(BlockAccountException.class)
+    public JsonErrorResponse blockAccountError() {
+        log.warn("EXCEPTION: Block Account Exception");
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(403, "비밀번호 오류로 계정이 잠깁니다,");
+        return jsonErrorResponse;
+    }
+
+    //이미 종료된 시트
     @ExceptionHandler(AlreadyExitSheet.class)
     public JsonErrorResponse alreadyExitSheet(Exception e) {
-        log.warn("EXCEPTION: 종료된 시트");
-        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(ALREADY_EXIT_SHEET.getStatus(),ALREADY_EXIT_SHEET.getMessage());
+        log.warn("EXCEPTION: already exit sheet");
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(405, "이미 종료된 시트입니다.");
         return jsonErrorResponse;
     }
 
-    //일단 알수 없는 에러는 여기서 관리함.
+    @ExceptionHandler(DoNotSendEmailException.class)
+    public JsonErrorResponse doNoteSendEmail(Exception e) {
+        log.warn("EXCEPTION: 메일 재발송 불가");
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "10분내에 재발송이 불가능합니다.");
+        return jsonErrorResponse;
+    }
+
+    //todo Nullpointer Exception ( 아마 세션 문제인듯)
+    @ExceptionHandler(NullPointerException.class)
+    public JsonErrorResponse nullException(Exception e) {
+        log.warn("Nullpointer:" + e.getMessage());
+        e.printStackTrace();
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(500, "세션이 만료되었습니다. 다시 로그인 해주세요.");
+        return jsonErrorResponse;
+    }
+
+    //id 값이 Long이 아닐때
+    @ExceptionHandler(NumberFormatException.class)
+    public JsonErrorResponse numberFormatException(Exception e) {
+        log.warn("Numberformat exception:" + e.getMessage());
+        e.printStackTrace();
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(400, "타입이 잘못되었습니다.");
+        return jsonErrorResponse;
+    }
+
+    //알수 없는 에러는 여기서 관리함.
     @ExceptionHandler(Exception.class)
     public JsonErrorResponse allException(Exception e) {
-        log.warn("EXCEPTION: 알수없는 Exception");
+        log.warn("EXCEPTION: exception");
         e.printStackTrace();
-        JsonErrorResponse jsonErrorResponse= new JsonErrorResponse(500,e.getMessage());
+        JsonErrorResponse jsonErrorResponse = new JsonErrorResponse(500, "알수없는 에러입니다. 관리자에게 문의 바랍니다.");
         return jsonErrorResponse;
     }
 

@@ -13,10 +13,16 @@ public enum ErrorCode {
     NOT_READABLE(405, "C005", "읽을 수 없습니다."),
     ALREADY_EXIT_SHEET(405,"C006","이미 종료된 시트입니다."),
 
-    // Member
+    // User
     EMAIL_DUPLICATION(400, "M001", "중복된 이메일입니다."),
     EMAIL_INPUT_INVALID(400, "M002", "가입되지 않은 이메일 입니다."),
-    PASSWORD_INPUT_INVALID(400, "M003", "패스워드가 다릅니다.");
+    PASSWORD_INPUT_INVALID(400, "M003", "패스워드가 다릅니다."),
+    BLOCKED_ACCOUNT(400, "M004", "비밀번호 오류로 잠긴 계정입니다."),
+    BLOCK_ACCOUNT(400, "M005", "비밀번호 오류로 계정이 잠깁니다,"),
+    NONE_EXIST_ID(400, "M006", "존재하지 않는 ID입니다."),
+
+    // Team
+    INVALID_TEAM_NAME(400, "T001", "존재하지 않는 팀이름입니다.");
 
     private final String code;
     private final String message;
